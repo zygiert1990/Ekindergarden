@@ -21,10 +21,10 @@ public class RoleRepositoryTest {
     @Test
     public void shouldFindRoleByRoleName(){
         //given
-        Role role = new Role(Constans.ROLE_PARENT);
+        Role role = new Role(Constans.ROLE_USER);
         roleRepository.save(role);
         //when
-        Role result = roleRepository.findByRoleName(Constans.ROLE_PARENT);
+        Role result = roleRepository.findByRoleName(Constans.ROLE_USER);
         //then
         Assert.assertEquals(role, result);
     }

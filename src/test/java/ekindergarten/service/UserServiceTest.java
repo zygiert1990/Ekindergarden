@@ -62,7 +62,7 @@ public class UserServiceTest {
         //given
         createUser();
         userValidatorServiceMock(true, true, true);
-        Mockito.when(roleRepository.findByRoleName(Constans.ROLE_PARENT)).thenReturn(new Role(Constans.ROLE_PARENT));
+        Mockito.when(roleRepository.findByRoleName(Constans.ROLE_USER)).thenReturn(new Role(Constans.ROLE_USER));
         Mockito.when(passwordEncoder.encode(Constans.PASSWORD)).thenReturn("");
         //when
         User result = userService.registerNewParent(createUserDto());
@@ -96,7 +96,7 @@ public class UserServiceTest {
                 .withEmail(Constans.EMAIL)
                 .withPhoneNumber(Constans.PHONE_NUMBER)
                 .withPassword("")
-                .withRole(new Role(Constans.ROLE_PARENT))
+                .withRole(new Role(Constans.ROLE_USER))
                 .build();
         Mockito.when(userRepository.save(user)).thenReturn(user);
     }

@@ -36,7 +36,7 @@ public class UserService {
                 .withEmail(userDto.getEmail())
                 .withPhoneNumber(userDto.getPhoneNumber())
                 .withPassword(passwordEncoder.encode(userDto.getPassword()))
-                .withRole(roleRepository.findByRoleName("PARENT"))
+                .withRole(roleRepository.findByRoleName("ROLE_USER"))
                 .build());
     }
 }
