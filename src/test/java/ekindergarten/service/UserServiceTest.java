@@ -1,9 +1,7 @@
 package ekindergarten.service;
 
-import utils.Constans;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
-import ekindergarten.model.UserDto;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.utils.UserValidationService;
@@ -16,6 +14,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import utils.Constans;
+import utils.TestUtil;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -40,45 +40,34 @@ public class UserServiceTest {
     public void shouldNotRegisterNewUserWhenEmailIsNotUnique() {
         //given
         userValidatorServiceMock(false, true, true);
-        userService.registerNewParent(createUserDto());
+        userService.registerNewParent(TestUtil.createUserDto());
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldNotRegisterNewUserWhenCivilIdIsNotUnique() {
         //given
         userValidatorServiceMock(true, false, true);
-        userService.registerNewParent(createUserDto());
+        userService.registerNewParent(TestUtil.createUserDto());
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldNotRegisterNewUserWhenPhoneNumberIsNotUnique() {
         //given
         userValidatorServiceMock(true, true, false);
-        userService.registerNewParent(createUserDto());
+        userService.registerNewParent(TestUtil.createUserDto());
     }
 
     @Test
     public void shouldRegisterNewUser() {
         //given
-        createUser();
+        userRepositoryMock();
         userValidatorServiceMock(true, true, true);
         Mockito.when(roleRepository.findByRoleName(Constans.ROLE_USER)).thenReturn(new Role(Constans.ROLE_USER));
-        Mockito.when(passwordEncoder.encode(Constans.PASSWORD)).thenReturn("");
+        Mockito.when(passwordEncoder.encode(Constans.PASSWORD)).thenReturn(Constans.PASSWORD);
         //when
-        User result = userService.registerNewParent(createUserDto());
+        User result = userService.registerNewParent(TestUtil.createUserDto());
         //then
         Assert.assertEquals(result.getName(), Constans.NAME);
-    }
-
-    private UserDto createUserDto() {
-        return new UserDto.Builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .build();
     }
 
     private void userValidatorServiceMock(
@@ -88,16 +77,8 @@ public class UserServiceTest {
         Mockito.when(userValidationService.isPhoneNumberUnique(Constans.PHONE_NUMBER)).thenReturn(checkPhoneNumberResult);
     }
 
-    private void createUser(){
-        User user = new User.Builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword("")
-                .withRole(new Role(Constans.ROLE_USER))
-                .build();
+    private void userRepositoryMock() {
+        User user = TestUtil.createUser();
         Mockito.when(userRepository.save(user)).thenReturn(user);
     }
 }

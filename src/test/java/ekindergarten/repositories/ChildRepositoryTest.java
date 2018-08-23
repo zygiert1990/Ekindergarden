@@ -1,6 +1,5 @@
 package ekindergarten.repositories;
 
-import utils.Constans;
 import ekindergarten.domain.Child;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
+import utils.Constans;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package ekindergarten.controller;
 
 import ekindergarten.Main;
-import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
 import ekindergarten.service.UserService;
@@ -35,6 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = Main.class)
 public class RegistrationControllerTest {
 
+    private static final String URL_TEMPLATE = "/login/signup";
+
     private MockMvc mockMvc;
 
     @Autowired
@@ -56,13 +57,13 @@ public class RegistrationControllerTest {
     @Test
     public void shouldPassValidationAndRegisterNewUser() throws Exception {
 
-        UserDto userDto = createUserDto();
-        User user = createUser();
+        UserDto userDto = TestUtil.createUserDto();
+        User user = TestUtil.createUser();
 
         Mockito.when(userService.registerNewParent(userDto)).thenReturn(user);
 
         mockMvc.perform(
-                post("/register/parent").with(csrf())
+                post(URL_TEMPLATE).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isOk())
@@ -80,10 +81,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfNameStartWithLowerCase() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setName("jan");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -94,10 +95,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfSecondPartOfSurnameStartWithLowerCase() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setSurname("Kowalska-rychter");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -108,10 +109,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfSurnameHasWhiteSpace() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setSurname("Kowalska Nowak");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -122,10 +123,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfCivilIdIsToLong() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setCivilId("ABC1234567");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -136,10 +137,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfEmailIsIncorrect() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setEmail("jan@op");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -150,10 +151,10 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfPhoneNumberContainsLetter() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setPhoneNumber("1111g1111");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
@@ -164,38 +165,14 @@ public class RegistrationControllerTest {
     @Test
     public void shouldNotPassValidationIfMatchingPasswordIsNotTheSameAsPassword() throws Exception {
 
-        UserDto userDto = createUserDto();
+        UserDto userDto = TestUtil.createUserDto();
         userDto.setMatchingPassword("Lubelski1@1");
 
-        mockMvc.perform(post("/register/parent").with(csrf())
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDto)))
                 .andExpect(status().isBadRequest());
 
         Mockito.verifyZeroInteractions(userService);
-    }
-
-    private UserDto createUserDto() {
-        return new UserDto.Builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .withMatchingPassword(Constans.PASSWORD)
-                .build();
-    }
-
-    private User createUser() {
-        return new User.Builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .withRole(new Role(Constans.ROLE_USER))
-                .build();
     }
 }

@@ -1,6 +1,5 @@
 package ekindergarten.utils;
 
-import utils.Constans;
 import ekindergarten.domain.User;
 import ekindergarten.repositories.UserRepository;
 import org.junit.Assert;
@@ -12,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
+import utils.Constans;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
