@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserValidationService {
-    @Autowired
+
     private final UserRepository userRepository;
 
     public UserValidationService(UserRepository userRepository) {

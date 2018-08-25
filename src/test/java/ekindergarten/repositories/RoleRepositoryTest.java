@@ -20,13 +20,9 @@ public class RoleRepositoryTest {
 
     @Test
     public void shouldFindRoleByRoleName() {
-        //given
-        Role role = new Role(Constans.ROLE_USER);
-        roleRepository.save(role);
         //when
         Role result = roleRepository.findByRoleName(Constans.ROLE_USER);
         //then
-        Assert.assertEquals(role, result);
+        Assert.assertEquals(result.getRoleName(), Constans.ROLE_USER);
     }
-
 }

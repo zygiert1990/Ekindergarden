@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 public class Child {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(length = 45, nullable = false)
     private String name;

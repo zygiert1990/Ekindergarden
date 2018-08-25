@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = Main.class)
-public class RegistrationControllerTest {
+public class LoginControllerTest {
 
     private static final String URL_TEMPLATE = "/login/signup";
 
