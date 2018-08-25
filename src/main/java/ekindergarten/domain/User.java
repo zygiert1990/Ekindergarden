@@ -1,12 +1,20 @@
 package ekindergarten.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = {"address", "children", "role"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +40,27 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    private User() {
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hcb = new HashCodeBuilder();
+        hcb.append(civilId);
+        hcb.append(role);
+        return hcb.toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        User that = (User) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(civilId, that.civilId);
+        eb.append(role, that.role);
+        return eb.isEquals();
     }
 
     public static class Builder {

@@ -1,12 +1,20 @@
 package ekindergarten.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "users")
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +28,27 @@ public class Child {
     @ManyToMany(mappedBy = "children")
     private Set<User> users;
 
-    private Child() {
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hcb = new HashCodeBuilder();
+        hcb.append(pesel);
+        hcb.append(users);
+        return hcb.toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Child)) {
+            return false;
+        }
+        Child that = (Child) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(pesel, that.pesel);
+        eb.append(users, that.users);
+        return eb.isEquals();
     }
 
     public static class Builder {

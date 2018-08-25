@@ -1,12 +1,18 @@
 package ekindergarten.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(exclude = "users")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +30,17 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private Set<User> users;
 
-    private Address() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Long.valueOf(id).equals(address.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
     }
 
     public static class Builder {
