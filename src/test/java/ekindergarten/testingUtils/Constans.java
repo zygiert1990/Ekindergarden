@@ -1,4 +1,4 @@
-package utils;
+package ekindergarten.testingUtils;
 
 public class Constans {
     public static final String NAME = "Jan";

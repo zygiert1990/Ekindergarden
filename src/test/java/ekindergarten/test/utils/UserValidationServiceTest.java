@@ -1,7 +1,9 @@
-package ekindergarten.utils;
+package ekindergarten.test.utils;
 
+import ekindergarten.MainTest;
 import ekindergarten.domain.User;
 import ekindergarten.repositories.UserRepository;
+import ekindergarten.utils.UserValidationService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import utils.Constans;
+import ekindergarten.testingUtils.Constans;
 
-@SpringBootTest
+@SpringBootTest(classes = MainTest.class)
 @RunWith(MockitoJUnitRunner.class)
 public class UserValidationServiceTest {
 

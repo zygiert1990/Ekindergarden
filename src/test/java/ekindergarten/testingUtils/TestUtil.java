@@ -1,4 +1,4 @@
-package utils;
+package ekindergarten.testingUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

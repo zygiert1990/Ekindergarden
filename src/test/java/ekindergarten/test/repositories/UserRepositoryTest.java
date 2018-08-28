@@ -1,6 +1,9 @@
-package ekindergarten.repositories;
+package ekindergarten.test.repositories;
 
+import ekindergarten.MainTest;
 import ekindergarten.domain.User;
+import ekindergarten.repositories.RoleRepository;
+import ekindergarten.repositories.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import utils.Constans;
+import ekindergarten.testingUtils.Constans;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@SpringBootTest
+@SpringBootTest(classes = MainTest.class)
 public class UserRepositoryTest {
 
     @Autowired

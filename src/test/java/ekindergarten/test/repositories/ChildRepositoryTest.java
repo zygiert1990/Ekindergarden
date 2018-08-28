@@ -1,6 +1,9 @@
-package ekindergarten.repositories;
+package ekindergarten.test.repositories;
 
+import ekindergarten.MainTest;
 import ekindergarten.domain.Child;
+import ekindergarten.repositories.ChildRepository;
+import ekindergarten.testingUtils.Constans;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +12,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-import utils.Constans;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@SpringBootTest
+@SpringBootTest(classes = MainTest.class)
 public class ChildRepositoryTest {
 
     @Autowired
