@@ -1,6 +1,5 @@
 package ekindergarten.test.utils;
 
-import ekindergarten.controller.LoginController;
 import ekindergarten.domain.Role;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.service.UserService;
@@ -10,13 +9,11 @@ import ekindergarten.testingUtils.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @Transactional
 public class LoginTest extends BaseTestContext {
@@ -32,10 +29,7 @@ public class LoginTest extends BaseTestContext {
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(springSecurity())
-                .build();
+        super.setup();
 
         roleRepository.save(new Role(Constans.ROLE_USER));
 //        loginController.registerNewParent(TestUtil.createUserDto());

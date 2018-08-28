@@ -1,27 +1,21 @@
 package ekindergarten.test.service;
 
-import ekindergarten.MainTest;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.service.UserService;
+import ekindergarten.testingUtils.Constans;
+import ekindergarten.testingUtils.TestUtil;
 import ekindergarten.utils.UserValidationService;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ekindergarten.testingUtils.Constans;
-import ekindergarten.testingUtils.TestUtil;
 
-@SpringBootTest(classes = MainTest.class)
-@RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class UserServiceTest extends BaseServiceTest {
 
     @Mock
     private UserRepository userRepository;
