@@ -3,6 +3,7 @@ package ekindergarten.test.utils;
 import ekindergarten.controller.LoginController;
 import ekindergarten.domain.Role;
 import ekindergarten.repositories.RoleRepository;
+import ekindergarten.service.UserService;
 import ekindergarten.testingUtils.BaseTestContext;
 import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
@@ -19,9 +20,12 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 @Transactional
 public class LoginTest extends BaseTestContext {
+//
+//    @Autowired
+//    private LoginController loginController;
 
     @Autowired
-    private LoginController loginController;
+    private UserService userService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -34,7 +38,8 @@ public class LoginTest extends BaseTestContext {
                 .build();
 
         roleRepository.save(new Role(Constans.ROLE_USER));
-        loginController.registerNewParent(TestUtil.createUserDto());
+//        loginController.registerNewParent(TestUtil.createUserDto());
+        userService.registerNewParent(TestUtil.createUserDto());
     }
 
     //todo

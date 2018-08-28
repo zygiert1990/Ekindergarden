@@ -1,8 +1,6 @@
 package ekindergarten.model;
 
-import ekindergarten.validation.PasswordMatches;
-import ekindergarten.validation.ValidEmail;
-import ekindergarten.validation.ValidPassword;
+import ekindergarten.validation.*;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -14,11 +12,11 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @NotNull
     @Size(max = 45)
-    @Pattern(regexp = "[A-ZŁ][a-zążźćńłóśę]+")
+    @ValidName
     private String name;
     @NotNull
     @Size(max = 45)
-    @Pattern(regexp = "[A-ZŁŻŹŚ][a-zążźćńłóśę]+([-][A-ZŁŻŹŚ][a-zążźćńłóśę]+)*")
+    @ValidSurname
     private String surname;
     @NotNull
     @Pattern(regexp = "[A-Z]{3}\\d{6}")

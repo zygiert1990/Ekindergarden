@@ -64,6 +64,18 @@ public class LoginControllerTest extends BaseTestContext {
     }
 
     @Test
+    public void shouldPassValidationIfSurnameHasSpace() throws Exception {
+
+        UserDto userDto = TestUtil.createUserDto();
+        userDto.setSurname("Kowalska Nowak");
+
+        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(userDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void shouldNotPassValidationIfNameStartWithLowerCase() throws Exception {
 
         UserDto userDto = TestUtil.createUserDto();
@@ -82,20 +94,6 @@ public class LoginControllerTest extends BaseTestContext {
 
         UserDto userDto = TestUtil.createUserDto();
         userDto.setSurname("Kowalska-rychter");
-
-        mockMvc.perform(post(URL_TEMPLATE).with(csrf())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(userDto)))
-                .andExpect(status().isBadRequest());
-
-        Mockito.verifyZeroInteractions(userService);
-    }
-
-    @Test
-    public void shouldNotPassValidationIfSurnameHasWhiteSpace() throws Exception {
-
-        UserDto userDto = TestUtil.createUserDto();
-        userDto.setSurname("Kowalska Nowak");
 
         mockMvc.perform(post(URL_TEMPLATE).with(csrf())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
