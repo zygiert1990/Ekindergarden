@@ -2,6 +2,7 @@ package ekindergarten.testingUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
@@ -17,7 +18,7 @@ public class TestUtil {
     }
 
     public static User createUser() {
-        return new User.Builder()
+        return User.builder()
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withCivilId(Constans.CIVIL_ID)
@@ -29,7 +30,7 @@ public class TestUtil {
     }
 
     public static UserDto createUserDto() {
-        return new UserDto.Builder()
+        return UserDto.builder()
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withCivilId(Constans.CIVIL_ID)
@@ -37,6 +38,14 @@ public class TestUtil {
                 .withPhoneNumber(Constans.PHONE_NUMBER)
                 .withPassword(Constans.PASSWORD)
                 .withMatchingPassword(Constans.PASSWORD)
+                .build();
+    }
+
+    public static Child createChild() {
+        return Child.builder()
+                .withName(Constans.NAME)
+                .withSurname(Constans.SURNAME)
+                .withPesel(Constans.PESEL)
                 .build();
     }
 }

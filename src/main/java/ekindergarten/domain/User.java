@@ -63,6 +63,10 @@ public class User {
         return eb.isEquals();
     }
 
+    public static Builder builder() {
+        return new User.Builder();
+    }
+
     public static class Builder {
         private User instance;
 

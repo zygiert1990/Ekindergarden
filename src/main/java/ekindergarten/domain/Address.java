@@ -43,6 +43,10 @@ public class Address {
         return 31;
     }
 
+    public static Builder builder() {
+        return new Address.Builder();
+    }
+
     public static class Builder {
         private Address instance;
 

@@ -17,9 +17,6 @@ import static org.springframework.security.test.web.servlet.response.SecurityMoc
 
 @Transactional
 public class LoginTest extends BaseTestContext {
-//
-//    @Autowired
-//    private LoginController loginController;
 
     @Autowired
     private UserService userService;
@@ -32,7 +29,6 @@ public class LoginTest extends BaseTestContext {
         super.setup();
 
         roleRepository.save(new Role(Constans.ROLE_USER));
-//        loginController.registerNewParent(TestUtil.createUserDto());
         userService.registerNewParent(TestUtil.createUserDto());
     }
 

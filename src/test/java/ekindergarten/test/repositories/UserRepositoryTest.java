@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class UserRepositoryTest extends BaseRepositoryTest {
+public class UserRepositoryTest extends BaseJpaTestConfig {
 
     @Autowired
     UserRepository userRepository;

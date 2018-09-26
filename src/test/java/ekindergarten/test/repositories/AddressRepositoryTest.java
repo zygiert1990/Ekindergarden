@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class AddressRepositoryTest extends BaseRepositoryTest {
+public class AddressRepositoryTest extends BaseJpaTestConfig {
 
     @Autowired
     AddressRepository addressRepository;
@@ -25,7 +25,7 @@ public class AddressRepositoryTest extends BaseRepositoryTest {
     }
 
     private Address createAddress() {
-        return new Address.Builder()
+        return Address.builder()
                 .withCity(Constans.CITY)
                 .withZipCode(Constans.ZIP_CODE)
                 .withStreet(Constans.STREET)

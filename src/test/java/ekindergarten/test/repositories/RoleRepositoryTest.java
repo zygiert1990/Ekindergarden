@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class RoleRepositoryTest extends BaseRepositoryTest {
+public class RoleRepositoryTest extends BaseJpaTestConfig {
 
     @Autowired
     private RoleRepository roleRepository;

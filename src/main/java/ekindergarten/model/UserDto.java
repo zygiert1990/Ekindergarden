@@ -34,7 +34,8 @@ public class UserDto {
     @NotNull
     private String matchingPassword;
 
-    private UserDto() {
+    public static Builder builder() {
+        return new UserDto.Builder();
     }
 
     public static class Builder {

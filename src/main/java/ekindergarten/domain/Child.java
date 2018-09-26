@@ -32,7 +32,6 @@ public class Child {
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();
         hcb.append(pesel);
-        hcb.append(users);
         return hcb.toHashCode();
     }
 
@@ -47,8 +46,11 @@ public class Child {
         Child that = (Child) obj;
         EqualsBuilder eb = new EqualsBuilder();
         eb.append(pesel, that.pesel);
-        eb.append(users, that.users);
         return eb.isEquals();
+    }
+
+    public static Builder builder() {
+        return new Child.Builder();
     }
 
     public static class Builder {
