@@ -20,8 +20,8 @@ public class ChildService {
         this.userRepository = userRepository;
     }
 
-    public Child addChild(final Child child, final String userEmail) throws RuntimeException {
-        User user = userRepository.findByEmail(userEmail);
+    public Child addChild(final Child child, final long id) throws RuntimeException {
+        User user = userRepository.findById(id);
         if (user.getChildren() == null) {
             Set<Child> children = new HashSet<>();
             children.add(child);

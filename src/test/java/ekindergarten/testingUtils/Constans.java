@@ -13,5 +13,5 @@ public class Constans {
     public static final String STREET = "Witosa";
     public static final String HOME_NUMBER = "102";
     public static final String FLAT_NUMBER = "2";
-    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_USER = "USER";
 }

@@ -43,7 +43,7 @@ public class ChildServiceTest extends BaseJpaTestConfig {
     public void shouldAddChild() {
         // given
         ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
+        childService.addChild(TestUtil.createChild(), 3L);
         // when
         List<Child> result = childRepository.findAll();
         // then
@@ -54,22 +54,22 @@ public class ChildServiceTest extends BaseJpaTestConfig {
     public void shouldNotAddChildWithTheSamePesel() {
         // given
         ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
-        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
+        childService.addChild(TestUtil.createChild(), 2L);
+        childService.addChild(TestUtil.createChild(), 2L);
     }
 
     @Test
     public void shouldAddSecondChild() {
         // given
         ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
+        childService.addChild(TestUtil.createChild(), 1L);
         childService.addChild(
                 Child.builder()
                         .withName(Constans.NAME)
                         .withSurname(Constans.SURNAME)
                         .withPesel("77788899955")
                         .build()
-                , Constans.EMAIL);
+                , 1L);
         // when
         List<Child> result = childRepository.findAll();
         // then

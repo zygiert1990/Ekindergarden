@@ -1,5 +1,7 @@
 package ekindergarten.domain;
 
+import ekindergarten.validation.ValidName;
+import ekindergarten.validation.ValidSurname;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +10,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -19,10 +23,16 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ValidName
+    @NotNull
     @Column(length = 45, nullable = false)
     private String name;
+    @ValidSurname
+    @NotNull
     @Column(length = 45, nullable = false)
     private String surname;
+    @Pattern(regexp = "\\d{11}")
+    @NotNull
     @Column(length = 11, nullable = false, unique = true)
     private String pesel;
     @ManyToMany(mappedBy = "children")

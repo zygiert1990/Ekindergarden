@@ -25,6 +25,14 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
     }
 
     @Test
+    public void shouldFindUserById() {
+        //when
+        User result = userRepository.findById(6L);
+        //then
+        Assert.assertEquals(result.getName(), Constans.NAME);
+    }
+
+    @Test
     public void shouldFindAllUsers() {
         //when
         List<User> result = userRepository.findAll();
@@ -48,7 +56,6 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         Assert.assertNull(result);
     }
 
-
     @Test
     public void shouldFindUserByCivilId() {
         //when
@@ -56,7 +63,6 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         //then
         Assert.assertEquals(result.getName(), Constans.NAME);
     }
-
 
     @Test
     public void shouldFindUserByPhoneNumber() {
@@ -67,7 +73,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
     }
 
     private User createUser() {
-        return new User.Builder()
+        return User.builder()
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withCivilId(Constans.CIVIL_ID)

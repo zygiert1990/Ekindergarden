@@ -19,10 +19,10 @@ public class Main {
 
     @Bean
     CommandLineRunner init(RoleRepository roleRepository) {
-        if (roleRepository.findByRoleName("ROLE_USER") != null)
+        if (roleRepository.findByRoleName("USER") != null)
             return null;
         return args -> {
-            List<String> roleNames = Arrays.asList("ROLE_USER", "ROLE_ADMIN", "ROLE_TEACHER");
+            List<String> roleNames = Arrays.asList("USER", "ADMIN", "TEACHER");
             roleNames.forEach(name -> roleRepository.save(new Role(name)));
         };
     }
