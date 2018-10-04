@@ -2,10 +2,7 @@ package ekindergarten.domain;
 
 import ekindergarten.validation.ValidName;
 import ekindergarten.validation.ValidSurname;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

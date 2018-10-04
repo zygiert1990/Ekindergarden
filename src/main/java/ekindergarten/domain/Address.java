@@ -1,11 +1,10 @@
 package ekindergarten.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -17,12 +16,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
     @Column(nullable = false, length = 45)
     private String city;
+    @NotNull
+    @Pattern(regexp = "\\d{2}-\\d{3}")
     @Column(nullable = false, length = 6)
     private String zipCode;
+    @NotNull
     @Column(nullable = false, length = 45)
     private String street;
+    @NotNull
     @Column(nullable = false, length = 5)
     private String homeNumber;
     @Column(length = 5)
@@ -50,7 +54,7 @@ public class Address {
     public static class Builder {
         private Address instance;
 
-        public Builder() {
+        private Builder() {
             instance = new Address();
         }
 

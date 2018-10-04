@@ -3,6 +3,7 @@ package ekindergarten.test.repositories;
 import ekindergarten.domain.Address;
 import ekindergarten.repositories.AddressRepository;
 import ekindergarten.testingUtils.Constans;
+import ekindergarten.testingUtils.TestUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +18,16 @@ public class AddressRepositoryTest extends BaseJpaTestConfig {
     @Test
     public void shouldFindAllAddressesByCity() {
         //given
-        addressRepository.save(createAddress());
+        addressRepository.save(TestUtil.createAddress());
         //when
-        List<Address> result = addressRepository.findAllByCity(Constans.CITY);
+        Address result = addressRepository
+                .findAllByCityAndZipCodeAndHomeNumberAndFlatNumber(
+                        Constans.CITY,
+                        Constans.ZIP_CODE,
+                        Constans.HOME_NUMBER,
+                        Constans.FLAT_NUMBER
+                );
         //then
-        Assert.assertEquals(result.size(), 1);
+        Assert.assertNotNull(result);
     }
-
-    private Address createAddress() {
-        return Address.builder()
-                .withCity(Constans.CITY)
-                .withZipCode(Constans.ZIP_CODE)
-                .withStreet(Constans.STREET)
-                .withHomeNumber(Constans.HOME_NUMBER)
-                .withFlatNumber(Constans.FLAT_NUMBER)
-                .build();
-    }
-
 }
