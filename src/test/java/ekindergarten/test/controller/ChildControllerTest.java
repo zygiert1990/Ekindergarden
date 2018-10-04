@@ -7,12 +7,12 @@ import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,20 +26,22 @@ public class ChildControllerTest extends BaseTestContext {
     @MockBean
     private ChildService childService;
 
+    private Child child;
+
     @Before
     public void setup() {
         super.setup();
+
+        child = TestUtil.createChild();
     }
 
     @Test
     public void shouldPassValidationAndAddChild() throws Exception {
 
-        Child child = TestUtil.createChild();
-
-        Mockito.when(childService.addChild(child, 1L)).thenReturn(child);
+        when(childService.addChild(child, "user")).thenReturn(child);
 
         mockMvc.perform(
-                post(URL_TEMPLATE + "/{id}", 1L).with(csrf())
+                post(URL_TEMPLATE).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(child)))
                 .andExpect(status().isOk())
@@ -49,13 +51,12 @@ public class ChildControllerTest extends BaseTestContext {
     }
 
     @Test
-    public void shouldNotPassValidationWhenNameStartsWithSmallLette() throws Exception {
+    public void shouldNotPassValidationWhenNameStartsWithSmallLetter() throws Exception {
 
-        Child child = TestUtil.createChild();
         child.setName("jan");
 
         mockMvc.perform(
-                post(URL_TEMPLATE + "/{id}", 1L).with(csrf())
+                post(URL_TEMPLATE).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(child)))
                 .andExpect(status().isBadRequest());
@@ -64,11 +65,10 @@ public class ChildControllerTest extends BaseTestContext {
     @Test
     public void shouldNotPassValidationWhenPeselIsToShort() throws Exception {
 
-        Child child = TestUtil.createChild();
         child.setPesel("1111111111");
 
         mockMvc.perform(
-                post(URL_TEMPLATE + "/{id}", 1L).with(csrf())
+                post(URL_TEMPLATE).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(child)))
                 .andExpect(status().isBadRequest());
@@ -77,11 +77,10 @@ public class ChildControllerTest extends BaseTestContext {
     @Test
     public void shouldNotPassValidationWhenPeselHasOneLetter() throws Exception {
 
-        Child child = TestUtil.createChild();
         child.setPesel("111A1111111");
 
         mockMvc.perform(
-                post(URL_TEMPLATE + "/{id}", 1L).with(csrf())
+                post(URL_TEMPLATE).with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(child)))
                 .andExpect(status().isBadRequest());

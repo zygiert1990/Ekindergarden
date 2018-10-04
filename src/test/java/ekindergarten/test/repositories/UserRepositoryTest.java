@@ -4,12 +4,14 @@ import ekindergarten.domain.User;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.testingUtils.Constans;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class UserRepositoryTest extends BaseJpaTestConfig {
 
@@ -25,19 +27,11 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
     }
 
     @Test
-    public void shouldFindUserById() {
-        //when
-        User result = userRepository.findById(6L);
-        //then
-        Assert.assertEquals(result.getName(), Constans.NAME);
-    }
-
-    @Test
     public void shouldFindAllUsers() {
         //when
         List<User> result = userRepository.findAll();
         //then
-        Assert.assertEquals(result.size(), 1);
+        assertEquals(result.size(), 1);
     }
 
     @Test
@@ -45,7 +39,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         //when
         User result = userRepository.findByEmail(Constans.EMAIL);
         //then
-        Assert.assertEquals(result.getName(), Constans.NAME);
+        assertEquals(result.getName(), Constans.NAME);
     }
 
     @Test
@@ -53,7 +47,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         //when
         User result = userRepository.findByEmail("fakeEmail");
         //then
-        Assert.assertNull(result);
+        assertNull(result);
     }
 
     @Test
@@ -61,7 +55,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         //when
         User result = userRepository.findByCivilId(Constans.CIVIL_ID);
         //then
-        Assert.assertEquals(result.getName(), Constans.NAME);
+        assertEquals(result.getName(), Constans.NAME);
     }
 
     @Test
@@ -69,7 +63,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
         //when
         User result = userRepository.findByPhoneNumber(Constans.PHONE_NUMBER);
         //then
-        Assert.assertEquals(result.getName(), Constans.NAME);
+        assertEquals(result.getName(), Constans.NAME);
     }
 
     private User createUser() {

@@ -20,20 +20,20 @@ public class ChildService {
         this.userRepository = userRepository;
     }
 
-    public Child addChild(final Child child, final long id) throws RuntimeException {
-        User user = userRepository.findById(id);
+    public Child addChild(final Child child, final String email) throws RuntimeException {
+        User user = userRepository.findByEmail(email);
         if (user.getChildren() == null) {
             Set<Child> children = new HashSet<>();
-            children.add(child);
+            children.add(childRepository.save(child));
             user.setChildren(children);
             addUserToChild(child, user);
-            return childRepository.save(child);
+            return child;
         }
         if (user.getChildren().contains(child))
             throw new RuntimeException("this children has already added");
-        user.getChildren().add(child);
+        user.getChildren().add(childRepository.save(child));
         addUserToChild(child, user);
-        return childRepository.save(child);
+        return child;
     }
 
     private void addUserToChild(Child child, User user) {

@@ -11,13 +11,14 @@ import ekindergarten.test.repositories.BaseJpaTestConfig;
 import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
 import ekindergarten.utils.UserValidationService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class ChildServiceTest extends BaseJpaTestConfig {
 
@@ -30,6 +31,8 @@ public class ChildServiceTest extends BaseJpaTestConfig {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private ChildService childService;
+
     @Before
     public void setup() {
         UserValidationService userValidationService = new UserValidationService(userRepository);
@@ -37,42 +40,41 @@ public class ChildServiceTest extends BaseJpaTestConfig {
 
         roleRepository.save(new Role(Constans.ROLE_USER));
         userService.registerNewParent(TestUtil.createUserDto());
+
+        childService = new ChildService(childRepository, userRepository);
     }
 
     @Test
     public void shouldAddChild() {
         // given
-        ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), 3L);
+        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
         // when
         List<Child> result = childRepository.findAll();
         // then
-        Assert.assertEquals(result.size(), 1);
+        assertEquals(result.size(), 1);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldNotAddChildWithTheSamePesel() {
         // given
-        ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), 2L);
-        childService.addChild(TestUtil.createChild(), 2L);
+        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
+        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
     }
 
     @Test
     public void shouldAddSecondChild() {
         // given
-        ChildService childService = new ChildService(childRepository, userRepository);
-        childService.addChild(TestUtil.createChild(), 1L);
+        childService.addChild(TestUtil.createChild(), Constans.EMAIL);
         childService.addChild(
                 Child.builder()
                         .withName(Constans.NAME)
                         .withSurname(Constans.SURNAME)
                         .withPesel("77788899955")
                         .build()
-                , 1L);
+                , Constans.EMAIL);
         // when
         List<Child> result = childRepository.findAll();
         // then
-        Assert.assertEquals(result.size(), 2);
+        assertEquals(result.size(), 2);
     }
 }
