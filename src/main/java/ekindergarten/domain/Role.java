@@ -15,12 +15,15 @@ import java.util.Set;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NonNull
     @Column(unique = true)
     private String roleName;
+
     @JsonIgnore
     @OneToMany(mappedBy = "role")
     private Set<User> users;

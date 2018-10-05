@@ -16,26 +16,36 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(exclude = {"address", "children", "role"})
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(length = 45, nullable = false)
     private String name;
+
     @Column(length = 45, nullable = false)
     private String surname;
+
     @Column(length = 9, nullable = false, unique = true)
     private String civilId;
+
     @Column(length = 45, nullable = false, unique = true)
     private String email;
+
     @Column(length = 9, nullable = false, unique = true)
     private String phoneNumber;
+
     @Column(nullable = false)
     private String password;
+
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
     @ManyToMany
     private Set<Child> children;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

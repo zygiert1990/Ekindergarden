@@ -11,11 +11,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = SurnameValidator.class)
+@Constraint(validatedBy = SurnameAndCityValidator.class)
 @Documented
-public @interface ValidSurname {
+public @interface ValidSurnameAndCity {
 
-    String message() default "Invalid surname format";
+    String message() default "";
 
     Class<?>[] groups() default {};
 
