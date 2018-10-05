@@ -15,6 +15,4 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
 
     Child findByPesel(String pesel);
 
-    @Override
-    List<Child> findAll();
 }

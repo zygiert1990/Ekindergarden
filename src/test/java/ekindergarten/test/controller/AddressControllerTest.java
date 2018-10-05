@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 public class AddressControllerTest extends BaseTestContext {
 
-    private static final String URL_TEMPLATE = "/address/add";
+    private static final String URL_TEMPLATE = "/address/";
 
     @MockBean
     private AddressService addressService;
@@ -42,7 +43,24 @@ public class AddressControllerTest extends BaseTestContext {
         when(addressService.addAddress(address, "user")).thenReturn(address);
 
         mockMvc.perform(
-                post(URL_TEMPLATE).with(csrf())
+                post(URL_TEMPLATE + "add").with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(TestUtil.convertObjectToJsonBytes(address)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.city", is(Constans.CITY)))
+                .andExpect(jsonPath("$.zipCode", is(Constans.ZIP_CODE)))
+                .andExpect(jsonPath("$.street", is(Constans.STREET)))
+                .andExpect(jsonPath("$.homeNumber", is(Constans.HOME_NUMBER)))
+                .andExpect(jsonPath("$.flatNumber", is(Constans.FLAT_NUMBER)));
+    }
+
+    @Test
+    public void shouldPassValidationAndUpdateAddress() throws Exception {
+
+        when(addressService.updateAddress(address, "user")).thenReturn(address);
+
+        mockMvc.perform(
+                put(URL_TEMPLATE + "update").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(address)))
                 .andExpect(status().isOk())
@@ -59,7 +77,7 @@ public class AddressControllerTest extends BaseTestContext {
         address.setCity("Skarżysko-Kamienna");
 
         mockMvc.perform(
-                post(URL_TEMPLATE).with(csrf())
+                post(URL_TEMPLATE + "add").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(address)))
                 .andExpect(status().isOk());
@@ -71,7 +89,7 @@ public class AddressControllerTest extends BaseTestContext {
         address.setCity("lublin");
 
         mockMvc.perform(
-                post(URL_TEMPLATE).with(csrf())
+                post(URL_TEMPLATE + "add").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(address)))
                 .andExpect(status().isBadRequest());
@@ -83,7 +101,7 @@ public class AddressControllerTest extends BaseTestContext {
         address.setHomeNumber("112233");
 
         mockMvc.perform(
-                post(URL_TEMPLATE).with(csrf())
+                post(URL_TEMPLATE + "add").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(address)))
                 .andExpect(status().isBadRequest())

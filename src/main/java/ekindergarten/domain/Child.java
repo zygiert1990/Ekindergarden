@@ -40,6 +40,9 @@ public class Child {
     @Column(length = 11, nullable = false, unique = true)
     private String pesel;
 
+    @Column(nullable = false)
+    private boolean isActive;
+
     @ManyToMany(mappedBy = "children")
     private Set<User> users;
 

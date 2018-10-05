@@ -19,8 +19,11 @@ public class ResidenceValidator implements ConstraintValidator<ValidResidence, S
     }
 
     private boolean validateResidenceNumber(final String value) {
-        Pattern pattern = Pattern.compile(RESIDENCE_PATTERN);
-        Matcher matcher = pattern.matcher(value);
-        return matcher.matches();
+        if (value != null) {
+            Pattern pattern = Pattern.compile(RESIDENCE_PATTERN);
+            Matcher matcher = pattern.matcher(value);
+            return matcher.matches();
+        }
+        return true;
     }
 }

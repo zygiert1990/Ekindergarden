@@ -28,14 +28,35 @@ public class AddressService {
                 .findAllByCityAndZipCodeAndHomeNumberAndFlatNumber(
                         address.getCity(), address.getZipCode(), address.getHomeNumber(), address.getFlatNumber());
         if (resultAddress == null) {
-            Set<User> users = new HashSet<>();
-            users.add(user);
-            address.setUsers(users);
-            user.setAddress(addressRepository.save(address));
+            addUserToAddress(address, user);
             return address;
         }
         resultAddress.getUsers().add(user);
         user.setAddress(resultAddress);
         return resultAddress;
+    }
+
+    public Address updateAddress(final Address address, final String email) {
+        User user = userRepository.findByEmail(email);
+        Address userAddress = user.getAddress();
+        if (userAddress.getUsers().size() == 1) {
+            userAddress.setCity(address.getCity());
+            userAddress.setCity(address.getCity());
+            userAddress.setZipCode(address.getZipCode());
+            userAddress.setHomeNumber(address.getHomeNumber());
+            userAddress.setFlatNumber(address.getFlatNumber());
+            addressRepository.flush();
+            return userAddress;
+        }
+        userAddress.getUsers().remove(user);
+        addUserToAddress(address, user);
+        return address;
+    }
+
+    private void addUserToAddress(Address address, User user) {
+        Set<User> users = new HashSet<>();
+        users.add(user);
+        address.setUsers(users);
+        user.setAddress(addressRepository.save(address));
     }
 }

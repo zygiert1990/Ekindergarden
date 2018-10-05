@@ -17,8 +17,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class AddressServiceTest extends BaseJpaTestConfig {
 
@@ -50,12 +51,7 @@ public class AddressServiceTest extends BaseJpaTestConfig {
         // given
         addressService.addAddress(TestUtil.createAddress(), Constans.EMAIL);
         // when
-        Address result = addressRepository.findAllByCityAndZipCodeAndHomeNumberAndFlatNumber(
-                Constans.CITY,
-                Constans.ZIP_CODE,
-                Constans.HOME_NUMBER,
-                Constans.FLAT_NUMBER
-        );
+        Address result = findAddress(Constans.FLAT_NUMBER);
         //then
         assertNotNull(result);
         assertEquals(result.getUsers().size(), 1);
@@ -71,6 +67,69 @@ public class AddressServiceTest extends BaseJpaTestConfig {
     @Test
     public void shouldAssignSameAddressToAnotherUser() {
         // given
+        addSecondUserAndAddressesToUsers();
+        // when
+        Address result = findAddress(Constans.FLAT_NUMBER);
+        // then
+        assertEquals(result.getUsers().size(), 2);
+    }
+
+    @Test
+    public void shouldUpdateAddressIfOnlyOneUserHasIt() {
+        // given
+        addressService.addAddress(TestUtil.createAddress(), Constans.EMAIL);
+        updateAddress();
+        // when
+        Address result = findAddress(null);
+        //then
+        assertNull(result.getFlatNumber());
+    }
+
+    @Test
+    public void shouldAddAddressWithoutFlatNumber() {
+        // given
+        addressService.addAddress(createAddressWithoutFlatNumber(), Constans.EMAIL);
+        // when
+        Address result = findAddress(null);
+        //then
+        assertNotNull(result);
+    }
+
+    @Test
+    public void shouldAddNewAddressInsteadOfUpdateOldIfMoreThanOneUserHasThatAddress() {
+        // given
+        addSecondUserAndAddressesToUsers();
+        updateAddress();
+        // when
+        List<Address> allAddress = addressRepository.findAll();
+        // then
+        assertEquals(allAddress.size(), 2);
+    }
+
+    private void updateAddress() {
+        Address newAddress = TestUtil.createAddress();
+        newAddress.setFlatNumber(null);
+        addressService.updateAddress(newAddress, Constans.EMAIL);
+    }
+
+    private Address createAddressWithoutFlatNumber() {
+        return Address.builder()
+                .withCity(Constans.CITY)
+                .withZipCode(Constans.ZIP_CODE)
+                .withStreet(Constans.STREET)
+                .withHomeNumber(Constans.HOME_NUMBER)
+                .build();
+    }
+
+    private Address findAddress(String flatNumber) {
+        return addressRepository.findAllByCityAndZipCodeAndHomeNumberAndFlatNumber(
+                Constans.CITY,
+                Constans.ZIP_CODE,
+                Constans.HOME_NUMBER,
+                flatNumber);
+    }
+
+    private void addSecondUserAndAddressesToUsers() {
         userService.registerNewParent(UserDto.builder()
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
@@ -82,14 +141,5 @@ public class AddressServiceTest extends BaseJpaTestConfig {
                 .build());
         addressService.addAddress(TestUtil.createAddress(), Constans.EMAIL);
         addressService.addAddress(TestUtil.createAddress(), "ala@wp.pl");
-        // when
-        Address result = addressRepository.findAllByCityAndZipCodeAndHomeNumberAndFlatNumber(
-                Constans.CITY,
-                Constans.ZIP_CODE,
-                Constans.HOME_NUMBER,
-                Constans.FLAT_NUMBER
-        );
-        // then
-        assertEquals(result.getUsers().size(), 2);
     }
 }
