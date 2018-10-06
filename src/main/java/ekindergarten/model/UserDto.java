@@ -50,7 +50,7 @@ public class UserDto {
     public static class Builder {
         private UserDto instance;
 
-        public Builder() {
+        private Builder() {
             instance = new UserDto();
         }
 
