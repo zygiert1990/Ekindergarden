@@ -29,7 +29,7 @@ public class AddressService {
                         address.getCity(), address.getZipCode(), address.getHomeNumber(), address.getFlatNumber());
         if (resultAddress == null) {
             addUserToAddress(address, user);
-            return address;
+            return addressRepository.save(address);
         }
         resultAddress.getUsers().add(user);
         user.setAddress(resultAddress);
@@ -50,13 +50,13 @@ public class AddressService {
         }
         userAddress.getUsers().remove(user);
         addUserToAddress(address, user);
-        return address;
+        return addressRepository.save(address);
     }
 
     private void addUserToAddress(Address address, User user) {
         Set<User> users = new HashSet<>();
         users.add(user);
         address.setUsers(users);
-        user.setAddress(addressRepository.save(address));
+        user.setAddress(address);
     }
 }

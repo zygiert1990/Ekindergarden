@@ -23,6 +23,8 @@ import static org.junit.Assert.*;
 
 public class AddressServiceTest extends BaseJpaTestConfig {
 
+    private static final String NEW_EMAIL = "ala@wp.pl";
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -101,9 +103,9 @@ public class AddressServiceTest extends BaseJpaTestConfig {
         addSecondUserAndAddressesToUsers();
         updateAddress();
         // when
-        List<Address> allAddress = addressRepository.findAll();
+        List<Address> allAddresses = addressRepository.findAll();
         // then
-        assertEquals(allAddress.size(), 2);
+        assertEquals(allAddresses.size(), 2);
     }
 
     private void updateAddress() {
@@ -134,12 +136,11 @@ public class AddressServiceTest extends BaseJpaTestConfig {
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withCivilId("ASD789654")
-                .withEmail("ala@wp.pl")
+                .withEmail(NEW_EMAIL)
                 .withPhoneNumber("777888999")
                 .withPassword("Asdfg183!")
-                .withMatchingPassword("Asdfg183!")
                 .build());
         addressService.addAddress(TestUtil.createAddress(), Constans.EMAIL);
-        addressService.addAddress(TestUtil.createAddress(), "ala@wp.pl");
+        addressService.addAddress(TestUtil.createAddress(), NEW_EMAIL);
     }
 }

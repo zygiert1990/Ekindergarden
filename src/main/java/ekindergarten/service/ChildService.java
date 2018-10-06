@@ -24,16 +24,16 @@ public class ChildService {
         User user = userRepository.findByEmail(email);
         if (user.getChildren() == null) {
             Set<Child> children = new HashSet<>();
-            children.add(childRepository.save(child));
+            children.add(child);
             user.setChildren(children);
             addUserToChild(child, user);
-            return child;
+            return childRepository.save(child);
         }
         if (user.getChildren().contains(child))
-            throw new RuntimeException("this children has already added");
-        user.getChildren().add(childRepository.save(child));
+            throw new RuntimeException("this child has already added");
+        user.getChildren().add(child);
         addUserToChild(child, user);
-        return child;
+        return childRepository.save(child);
     }
 
     private void addUserToChild(Child child, User user) {
