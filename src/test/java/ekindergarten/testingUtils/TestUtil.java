@@ -7,6 +7,7 @@ import ekindergarten.domain.Role;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
+import ekindergarten.utils.UserRoles;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class TestUtil {
                 .withEmail(Constans.EMAIL)
                 .withPhoneNumber(Constans.PHONE_NUMBER)
                 .withPassword(Constans.PASSWORD)
-                .withRole(new Role(Constans.ROLE_USER))
+                .withRole(new Role(UserRoles.PARENT))
                 .build();
     }
 

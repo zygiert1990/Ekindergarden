@@ -5,12 +5,12 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SurnameAndCityValidator implements ConstraintValidator<ValidSurnameAndCity, String> {
+public class SurnameValidator implements ConstraintValidator<ValidSurname, String> {
 
     private static final String SURNAME_AND_CITY_PATTERN = "[A-ZŁŻŹŚ][a-zążźćńłóśę]+([- ][A-ZŁŻŹŚ][a-zążźćńłóśę]+)*";
 
     @Override
-    public void initialize(ValidSurnameAndCity constraintAnnotation) {
+    public void initialize(ValidSurname constraintAnnotation) {
     }
 
     @Override

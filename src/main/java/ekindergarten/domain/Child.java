@@ -1,7 +1,7 @@
 package ekindergarten.domain;
 
 import ekindergarten.validation.ValidName;
-import ekindergarten.validation.ValidSurnameAndCity;
+import ekindergarten.validation.ValidSurname;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +32,7 @@ public class Child {
     @Column(length = 45, nullable = false)
     private String name;
 
-    @ValidSurnameAndCity
+    @ValidSurname
     @NotNull
     @Size(max = 45)
     @Column(length = 45, nullable = false)

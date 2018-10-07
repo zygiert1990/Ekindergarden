@@ -6,6 +6,7 @@ import ekindergarten.service.UserService;
 import ekindergarten.testingUtils.BaseTestContext;
 import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
+import ekindergarten.utils.UserRoles;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class LoginTest extends BaseTestContext {
     public void setup() {
         super.setup();
 
-        roleRepository.save(new Role(Constans.ROLE_USER));
+        roleRepository.save(new Role(UserRoles.PARENT));
         userService.registerNewParent(TestUtil.createUserDto());
     }
 
@@ -39,7 +40,7 @@ public class LoginTest extends BaseTestContext {
     public void shouldBeAuthenticated() throws Exception {
         mockMvc
                 .perform(formLogin("/login/signin").user(Constans.EMAIL).password(Constans.PASSWORD))
-                .andExpect(authenticated());
+                .andExpect(authenticated().withRoles("PARENT"));
     }
 
     @Test

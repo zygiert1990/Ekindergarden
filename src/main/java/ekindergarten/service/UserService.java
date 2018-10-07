@@ -5,6 +5,7 @@ import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
+import ekindergarten.utils.UserRoles;
 import ekindergarten.utils.UserValidationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class UserService {
             throw new RuntimeException("account with this civil id already exists");
         if (!userValidationService.isPhoneNumberUnique(userDto.getPhoneNumber()))
             throw new RuntimeException("account with this phone number already exists");
-        Role role = roleRepository.findByRoleName("USER");
+        Role role = roleRepository.findByRoleName(UserRoles.PARENT);
         User user = User.builder()
                 .withName(userDto.getName())
                 .withSurname(userDto.getSurname())

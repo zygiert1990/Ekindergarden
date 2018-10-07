@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("login")
-public class LoginController {
+@RequestMapping("register")
+public class RegisterController {
 
     private final UserService userService;
 
-    public LoginController(UserService userService) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping(value = "/parent")
     public User registerNewParent(@RequestBody @Valid UserDto userDto) {
         return userService.registerNewParent(userDto);
     }

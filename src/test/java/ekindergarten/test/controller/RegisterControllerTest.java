@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class LoginControllerTest extends BaseTestContext {
+public class RegisterControllerTest extends BaseTestContext {
 
-    private static final String URL_TEMPLATE = "/login/signup";
+    private static final String URL_TEMPLATE = "/register/parent";
 
     @MockBean
     private UserService userService;

@@ -19,9 +19,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WithMockUser(authorities = "ROLE_ADMIN")
-public class ChildControllerTest extends BaseTestContext {
+public class AdminControllerTest extends BaseTestContext {
 
-    private static final String URL_TEMPLATE = "/child/add";
+    private static final String URL_TEMPLATE = "/admin/child/add";
 
     @MockBean
     private ChildService childService;

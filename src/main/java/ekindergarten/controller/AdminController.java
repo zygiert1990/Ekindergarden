@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("child")
-public class ChildController {
+@RequestMapping("admin")
+public class AdminController {
 
     private final ChildService childService;
 
-    public ChildController(ChildService childService) {
+    public AdminController(ChildService childService) {
         this.childService = childService;
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/child/add")
     public Child addChild(@RequestBody @Valid Child child) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return childService.addChild(child, authentication.getName());

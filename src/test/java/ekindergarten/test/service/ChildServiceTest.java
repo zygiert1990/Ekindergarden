@@ -10,6 +10,7 @@ import ekindergarten.service.UserService;
 import ekindergarten.test.repositories.BaseJpaTestConfig;
 import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
+import ekindergarten.utils.UserRoles;
 import ekindergarten.utils.UserValidationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class ChildServiceTest extends BaseJpaTestConfig {
         UserValidationService userValidationService = new UserValidationService(userRepository);
         UserService userService = new UserService(userRepository, userValidationService, roleRepository, passwordEncoder);
 
-        roleRepository.save(new Role(Constans.ROLE_USER));
+        roleRepository.save(new Role(UserRoles.PARENT));
         userService.registerNewParent(TestUtil.createUserDto());
 
         childService = new ChildService(childRepository, userRepository);

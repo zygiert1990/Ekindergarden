@@ -18,7 +18,7 @@ public class UserDto {
 
     @NotNull
     @Size(max = 45)
-    @ValidSurnameAndCity(message = "Invalid surname format")
+    @ValidSurname
     private String surname;
 
     @NotNull

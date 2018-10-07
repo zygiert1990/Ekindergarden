@@ -2,6 +2,7 @@ package ekindergarten;
 
 import ekindergarten.domain.Role;
 import ekindergarten.repositories.RoleRepository;
+import ekindergarten.utils.UserRoles;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,10 +20,10 @@ public class Main {
 
     @Bean
     CommandLineRunner init(RoleRepository roleRepository) {
-        if (roleRepository.findByRoleName("USER") != null)
+        if (roleRepository.findByRoleName(UserRoles.PARENT) != null)
             return null;
         return args -> {
-            List<String> roleNames = Arrays.asList("USER", "ADMIN", "TEACHER");
+            List<String> roleNames = Arrays.asList(UserRoles.PARENT, UserRoles.ADMIN, UserRoles.TEACHER);
             roleNames.forEach(name -> roleRepository.save(new Role(name)));
         };
     }
