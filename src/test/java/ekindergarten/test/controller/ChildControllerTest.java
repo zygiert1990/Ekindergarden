@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser
+@WithMockUser(authorities = "ROLE_ADMIN")
 public class ChildControllerTest extends BaseTestContext {
 
     private static final String URL_TEMPLATE = "/child/add";
