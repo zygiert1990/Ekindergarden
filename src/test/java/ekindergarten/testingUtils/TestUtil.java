@@ -2,7 +2,6 @@ package ekindergarten.testingUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ekindergarten.domain.Address;
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
@@ -46,16 +45,6 @@ public class TestUtil {
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withPesel(Constans.PESEL)
-                .build();
-    }
-
-    public static Address createAddress() {
-        return Address.builder()
-                .withCity(Constans.CITY)
-                .withZipCode(Constans.ZIP_CODE)
-                .withStreet(Constans.STREET)
-                .withHomeNumber(Constans.HOME_NUMBER)
-                .withFlatNumber(Constans.FLAT_NUMBER)
                 .build();
     }
 }

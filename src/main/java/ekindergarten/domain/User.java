@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = {"address", "children", "role"})
+@ToString(exclude = {"children", "role"})
 public class User {
 
     @Id
@@ -38,10 +38,6 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
 
     @ManyToMany
     private Set<Child> children;
