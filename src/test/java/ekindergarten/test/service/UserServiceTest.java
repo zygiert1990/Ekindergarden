@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class UserServiceTest extends BaseJpaTestConfig {
 
@@ -43,6 +44,14 @@ public class UserServiceTest extends BaseJpaTestConfig {
         roleRepository.save(new Role(UserRoles.PARENT));
 
         userService.registerNewParent(TestUtil.createUserDto());
+    }
+
+    @Test
+    public void shouldFindUserByCivilId() {
+        //when
+        User result = userService.findUserByCivilId(Constans.CIVIL_ID);
+        //then
+        assertNotNull(result);
     }
 
     @Test

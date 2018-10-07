@@ -39,6 +39,7 @@ public class TestUtil {
                 .withEmail(Constans.EMAIL)
                 .withPhoneNumber(Constans.PHONE_NUMBER)
                 .withPassword(Constans.PASSWORD)
+                .withMatchingPassword(Constans.PASSWORD)
                 .build();
     }
 
