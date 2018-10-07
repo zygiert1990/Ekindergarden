@@ -1,7 +1,5 @@
 package ekindergarten.domain;
 
-import ekindergarten.validation.ValidName;
-import ekindergarten.validation.ValidSurnameAndCity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,54 +8,38 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString(exclude = {"users", "trustedPeople"})
-public class Child {
+@ToString(exclude = "children")
+public class TrustedPerson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ValidName
-    @NotNull
-    @Size(max = 45)
     @Column(length = 45, nullable = false)
     private String name;
 
-    @ValidSurnameAndCity
-    @NotNull
-    @Size(max = 45)
     @Column(length = 45, nullable = false)
     private String surname;
 
-    @Pattern(regexp = "\\d{11}")
-    @NotNull
-    @Column(length = 11, nullable = false, unique = true)
-    private String pesel;
+    @Column(length = 9, nullable = false, unique = true)
+    private String civilId;
 
-    @Column(nullable = false)
-    private boolean isActive;
+    @Column(length = 9, nullable = false, unique = true)
+    private String phoneNumber;
 
-    private String additionalInfo;
-
-    @ManyToMany(mappedBy = "children")
-    private Set<User> users;
-
-    @ManyToMany(mappedBy = "children")
-    private Set<TrustedPerson> trustedPeople;
+    @ManyToMany
+    private Set<Child> children;
 
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();
-        hcb.append(pesel);
+        hcb.append(civilId);
         return hcb.toHashCode();
     }
 
@@ -66,24 +48,24 @@ public class Child {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Child)) {
+        if (!(obj instanceof User)) {
             return false;
         }
-        Child that = (Child) obj;
+        TrustedPerson that = (TrustedPerson) obj;
         EqualsBuilder eb = new EqualsBuilder();
-        eb.append(pesel, that.pesel);
+        eb.append(civilId, that.civilId);
         return eb.isEquals();
     }
 
     public static Builder builder() {
-        return new Child.Builder();
+        return new TrustedPerson.Builder();
     }
 
     public static class Builder {
-        private Child instance;
+        private TrustedPerson instance;
 
-        private Builder() {
-            instance = new Child();
+        public Builder() {
+            instance = new TrustedPerson();
         }
 
         public Builder withName(String name) {
@@ -96,12 +78,17 @@ public class Child {
             return this;
         }
 
-        public Builder withPesel(String pesel) {
-            instance.pesel = pesel;
+        public Builder withCivilId(String civilId) {
+            instance.civilId = civilId;
             return this;
         }
 
-        public Child build() {
+        public Builder withPhoneNumber(String phoneNumber) {
+            instance.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public TrustedPerson build() {
             return instance;
         }
     }

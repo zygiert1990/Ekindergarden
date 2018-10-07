@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
+import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
 
@@ -45,6 +46,15 @@ public class TestUtil {
                 .withName(Constans.NAME)
                 .withSurname(Constans.SURNAME)
                 .withPesel(Constans.PESEL)
+                .build();
+    }
+
+    public static TrustedPerson createTrustedPerson() {
+        return TrustedPerson.builder()
+                .withName(Constans.NAME)
+                .withSurname(Constans.SURNAME)
+                .withCivilId(Constans.CIVIL_ID)
+                .withPhoneNumber(Constans.PHONE_NUMBER)
                 .build();
     }
 }
