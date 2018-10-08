@@ -21,42 +21,42 @@ public class TestUtil {
 
     public static User createUser() {
         return User.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .withRole(new Role(UserRoles.PARENT))
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
+                .password(Constans.PASSWORD)
+                .role(new Role(UserRoles.PARENT))
                 .build();
     }
 
     public static UserDto createUserDto() {
         return UserDto.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .withMatchingPassword(Constans.PASSWORD)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
+                .password(Constans.PASSWORD)
+                .matchingPassword(Constans.PASSWORD)
                 .build();
     }
 
     public static Child createChild() {
         return Child.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withPesel(Constans.PESEL)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .pesel(Constans.PESEL)
                 .build();
     }
 
     public static TrustedPerson createTrustedPerson() {
         return TrustedPerson.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .phoneNumber(Constans.PHONE_NUMBER)
                 .build();
     }
 }

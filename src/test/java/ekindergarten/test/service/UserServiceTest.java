@@ -98,12 +98,12 @@ public class UserServiceTest extends BaseJpaTestConfig {
 
     private UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
         return UserDto.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withEmail(email)
-                .withCivilId(civilId)
-                .withPhoneNumber(phoneNumber)
-                .withPassword(Constans.PASSWORD)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .email(email)
+                .civilId(civilId)
+                .phoneNumber(phoneNumber)
+                .password(Constans.PASSWORD)
                 .build();
     }
 }

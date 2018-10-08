@@ -1,9 +1,6 @@
 package ekindergarten.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @ToString(exclude = {"children", "role"})
 public class User {
@@ -67,56 +65,5 @@ public class User {
         eb.append(civilId, that.civilId);
         eb.append(role, that.role);
         return eb.isEquals();
-    }
-
-    public static Builder builder() {
-        return new User.Builder();
-    }
-
-    public static class Builder {
-        private User instance;
-
-        public Builder() {
-            instance = new User();
-        }
-
-        public Builder withName(String name) {
-            instance.name = name;
-            return this;
-        }
-
-        public Builder withSurname(String surname) {
-            instance.surname = surname;
-            return this;
-        }
-
-        public Builder withCivilId(String civilId) {
-            instance.civilId = civilId;
-            return this;
-        }
-
-        public Builder withEmail(String email) {
-            instance.email = email;
-            return this;
-        }
-
-        public Builder withPhoneNumber(String phoneNumber) {
-            instance.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder withPassword(String password) {
-            instance.password = password;
-            return this;
-        }
-
-        public Builder withRole(Role role) {
-            instance.role = role;
-            return this;
-        }
-
-        public User build() {
-            return instance;
-        }
     }
 }

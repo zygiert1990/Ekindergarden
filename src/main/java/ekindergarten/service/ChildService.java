@@ -22,6 +22,7 @@ public class ChildService {
 
     public Child addChild(final Child child, final String email) throws RuntimeException {
         User user = userRepository.findByEmail(email);
+        child.setActive(true);
         if (user.getChildren() == null) {
             Set<Child> children = new HashSet<>();
             children.add(child);

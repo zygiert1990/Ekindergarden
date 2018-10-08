@@ -1,9 +1,6 @@
 package ekindergarten.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -14,6 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString(exclude = "children")
 public class TrustedPerson {
 
@@ -55,41 +53,5 @@ public class TrustedPerson {
         EqualsBuilder eb = new EqualsBuilder();
         eb.append(civilId, that.civilId);
         return eb.isEquals();
-    }
-
-    public static Builder builder() {
-        return new TrustedPerson.Builder();
-    }
-
-    public static class Builder {
-        private TrustedPerson instance;
-
-        public Builder() {
-            instance = new TrustedPerson();
-        }
-
-        public Builder withName(String name) {
-            instance.name = name;
-            return this;
-        }
-
-        public Builder withSurname(String surname) {
-            instance.surname = surname;
-            return this;
-        }
-
-        public Builder withCivilId(String civilId) {
-            instance.civilId = civilId;
-            return this;
-        }
-
-        public Builder withPhoneNumber(String phoneNumber) {
-            instance.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public TrustedPerson build() {
-            return instance;
-        }
     }
 }

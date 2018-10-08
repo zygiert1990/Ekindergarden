@@ -68,9 +68,9 @@ public class ChildServiceTest extends BaseJpaTestConfig {
         childService.addChild(TestUtil.createChild(), Constans.EMAIL);
         childService.addChild(
                 Child.builder()
-                        .withName(Constans.NAME)
-                        .withSurname(Constans.SURNAME)
-                        .withPesel("77788899955")
+                        .name(Constans.NAME)
+                        .surname(Constans.SURNAME)
+                        .pesel("77788899955")
                         .build()
                 , Constans.EMAIL);
         // when

@@ -24,10 +24,10 @@ public class UserValidationServiceTest extends BaseServiceTest {
 
     @Before
     public void setUp() {
-        User user = new User.Builder()
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
+        User user = User.builder()
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
                 .build();
         when(userRepository.findByEmail(Constans.EMAIL)).thenReturn(user);
         when(userRepository.findByCivilId(Constans.CIVIL_ID)).thenReturn(user);

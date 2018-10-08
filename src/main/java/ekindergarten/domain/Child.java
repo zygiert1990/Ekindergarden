@@ -2,10 +2,7 @@ package ekindergarten.domain;
 
 import ekindergarten.validation.ValidName;
 import ekindergarten.validation.ValidSurname;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -19,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 @ToString(exclude = {"users", "trustedPeople"})
 public class Child {
 
@@ -73,36 +71,5 @@ public class Child {
         EqualsBuilder eb = new EqualsBuilder();
         eb.append(pesel, that.pesel);
         return eb.isEquals();
-    }
-
-    public static Builder builder() {
-        return new Child.Builder();
-    }
-
-    public static class Builder {
-        private Child instance;
-
-        private Builder() {
-            instance = new Child();
-        }
-
-        public Builder withName(String name) {
-            instance.name = name;
-            return this;
-        }
-
-        public Builder withSurname(String surname) {
-            instance.surname = surname;
-            return this;
-        }
-
-        public Builder withPesel(String pesel) {
-            instance.pesel = pesel;
-            return this;
-        }
-
-        public Child build() {
-            return instance;
-        }
     }
 }

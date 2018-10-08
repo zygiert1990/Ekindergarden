@@ -69,13 +69,13 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
 
     private User createUser() {
         return User.builder()
-                .withName(Constans.NAME)
-                .withSurname(Constans.SURNAME)
-                .withCivilId(Constans.CIVIL_ID)
-                .withEmail(Constans.EMAIL)
-                .withPhoneNumber(Constans.PHONE_NUMBER)
-                .withPassword(Constans.PASSWORD)
-                .withRole(roleRepository.findByRoleName(UserRoles.PARENT))
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
+                .password(Constans.PASSWORD)
+                .role(roleRepository.findByRoleName(UserRoles.PARENT))
                 .build();
     }
 }
