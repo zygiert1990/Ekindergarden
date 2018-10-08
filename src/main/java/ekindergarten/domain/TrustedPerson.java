@@ -11,6 +11,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "children")
 public class TrustedPerson {
 
