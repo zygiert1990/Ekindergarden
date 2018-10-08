@@ -41,7 +41,7 @@ public class RegisterControllerTest extends BaseTestContext {
         UserDto userDto = TestUtil.createUserDto();
         User user = TestUtil.createUser();
 
-        Mockito.when(userService.registerNewParent(userDto)).thenReturn(user);
+        Mockito.when(userService.registerParent(userDto)).thenReturn(user);
 
         mockMvc.perform(
                 post(URL_TEMPLATE).with(csrf())
@@ -55,7 +55,7 @@ public class RegisterControllerTest extends BaseTestContext {
                 .andExpect(jsonPath("$.phoneNumber", is(Constans.PHONE_NUMBER)));
 
         ArgumentCaptor<UserDto> userDtoCaptor = ArgumentCaptor.forClass(UserDto.class);
-        Mockito.verify(userService, times(1)).registerNewParent(userDtoCaptor.capture());
+        Mockito.verify(userService, times(1)).registerParent(userDtoCaptor.capture());
         Mockito.verifyNoMoreInteractions(userService);
     }
 

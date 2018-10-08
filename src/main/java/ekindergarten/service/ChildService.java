@@ -7,6 +7,7 @@ import ekindergarten.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -35,6 +36,10 @@ public class ChildService {
         user.getChildren().add(child);
         addUserToChild(child, user);
         return childRepository.save(child);
+    }
+
+    public Set<Child> findAllParentChildren(String email) {
+        return userRepository.findByEmail(email).getChildren();
     }
 
     private void addUserToChild(Child child, User user) {

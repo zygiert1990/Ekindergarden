@@ -38,7 +38,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User registerNewParent(UserDto userDto) throws RuntimeException {
+    public User registerParent(UserDto userDto) throws RuntimeException {
         if (!userValidationService.isEmailUnique(userDto.getEmail()))
             throw new RuntimeException("account with this e-mail already exists");
         if (!userValidationService.isCivilIdUnique(userDto.getCivilId()))

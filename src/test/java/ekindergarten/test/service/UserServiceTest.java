@@ -7,9 +7,6 @@ import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.service.UserService;
 import ekindergarten.test.repositories.BaseJpaTestConfig;
-import ekindergarten.testingUtils.Constans;
-import ekindergarten.testingUtils.TestUtil;
-import ekindergarten.utils.UserRoles;
 import ekindergarten.utils.UserValidationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
+import static ekindergarten.testingUtils.Constans.*;
+import static ekindergarten.testingUtils.TestUtil.createUserDto;
+import static ekindergarten.testingUtils.TestUtil.createUserDtoWithParameters;
+import static ekindergarten.utils.UserRoles.PARENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UserServiceTest extends BaseJpaTestConfig {
-
-    private static final String NEW_CIVIL_ID = "QWE123456";
-    private static final String NEW_PHONE_NUMBER = "999666333";
-    private static final String NEW_EMAIL = "just@wp.pl";
 
     @Autowired
     private UserRepository userRepository;
@@ -41,15 +38,15 @@ public class UserServiceTest extends BaseJpaTestConfig {
         UserValidationService userValidationService = new UserValidationService(userRepository);
         userService = new UserService(userRepository, userValidationService, roleRepository, passwordEncoder);
 
-        roleRepository.save(new Role(UserRoles.PARENT));
+        roleRepository.save(new Role(PARENT));
 
-        userService.registerNewParent(TestUtil.createUserDto());
+        userService.registerParent(createUserDto());
     }
 
     @Test
     public void shouldFindUserByCivilId() {
         //when
-        User result = userService.findUserByCivilId(Constans.CIVIL_ID);
+        User result = userService.findUserByCivilId(CIVIL_ID);
         //then
         assertNotNull(result);
     }
@@ -65,7 +62,7 @@ public class UserServiceTest extends BaseJpaTestConfig {
     @Test
     public void shouldRegisterSecondUser() {
         //given
-        userService.registerNewParent(createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER));
+        userService.registerParent(createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER));
         //when
         List<User> result = userRepository.findAll();
         //then
@@ -76,34 +73,23 @@ public class UserServiceTest extends BaseJpaTestConfig {
     public void shouldNotRegisterNewUserWhenEmailIsNotUnique() {
         //given
         UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(Constans.EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER);
-        userService.registerNewParent(userDtoWithSameEMail);
+                createUserDtoWithParameters(EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER);
+        userService.registerParent(userDtoWithSameEMail);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldNotRegisterNewUserWhenCivilIdIsNotUnique() {
         //given
         UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(NEW_EMAIL, Constans.CIVIL_ID, NEW_PHONE_NUMBER);
-        userService.registerNewParent(userDtoWithSameEMail);
+                createUserDtoWithParameters(NEW_EMAIL, CIVIL_ID, NEW_PHONE_NUMBER);
+        userService.registerParent(userDtoWithSameEMail);
     }
 
     @Test(expected = RuntimeException.class)
     public void shouldNotRegisterNewUserWhenPhoneNumberIsNotUnique() {
         //given
         UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, Constans.PHONE_NUMBER);
-        userService.registerNewParent(userDtoWithSameEMail);
-    }
-
-    private UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
-        return UserDto.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
-                .email(email)
-                .civilId(civilId)
-                .phoneNumber(phoneNumber)
-                .password(Constans.PASSWORD)
-                .build();
+                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, PHONE_NUMBER);
+        userService.registerParent(userDtoWithSameEMail);
     }
 }

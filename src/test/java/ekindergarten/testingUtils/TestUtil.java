@@ -51,12 +51,31 @@ public class TestUtil {
                 .build();
     }
 
+    public static Child createChildWithPesel(String pesel) {
+        return Child.builder()
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .pesel(pesel)
+                .build();
+    }
+
     public static TrustedPerson createTrustedPerson() {
         return TrustedPerson.builder()
                 .name(Constans.NAME)
                 .surname(Constans.SURNAME)
                 .civilId(Constans.CIVIL_ID)
                 .phoneNumber(Constans.PHONE_NUMBER)
+                .build();
+    }
+
+    public static UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
+        return UserDto.builder()
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .email(email)
+                .civilId(civilId)
+                .phoneNumber(phoneNumber)
+                .password(Constans.PASSWORD)
                 .build();
     }
 }

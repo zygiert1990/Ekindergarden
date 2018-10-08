@@ -30,7 +30,7 @@ public class LoginTest extends BaseTestContext {
         super.setup();
 
         roleRepository.save(new Role(UserRoles.PARENT));
-        userService.registerNewParent(TestUtil.createUserDto());
+        userService.registerParent(TestUtil.createUserDto());
     }
 
     //todo

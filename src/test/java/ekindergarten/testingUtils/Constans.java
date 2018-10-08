@@ -8,4 +8,8 @@ public class Constans {
     public static final String EMAIL = "michal@wp.pl";
     public static final String PHONE_NUMBER = "111555999";
     public static final String PASSWORD = "Lubelski1!1";
+    public static final String NEW_CIVIL_ID = "QWE123456";
+    public static final String NEW_PHONE_NUMBER = "999666333";
+    public static final String NEW_EMAIL = "just@wp.pl";
+    public static final String NEW_PESEL = "77788899955";
 }

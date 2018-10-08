@@ -22,7 +22,7 @@ public class RegisterController {
 
     @PostMapping(value = "/parent")
     public User registerNewParent(@RequestBody @Valid UserDto userDto) {
-        return userService.registerNewParent(userDto);
+        return userService.registerParent(userDto);
     }
 
 }
