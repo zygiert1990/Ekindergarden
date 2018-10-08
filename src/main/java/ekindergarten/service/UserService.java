@@ -47,13 +47,13 @@ public class UserService {
             throw new RuntimeException("account with this phone number already exists");
         Role role = roleRepository.findByRoleName(UserRoles.PARENT);
         User user = User.builder()
-                .withName(userDto.getName())
-                .withSurname(userDto.getSurname())
-                .withCivilId(userDto.getCivilId())
-                .withEmail(userDto.getEmail())
-                .withPhoneNumber(userDto.getPhoneNumber())
-                .withPassword(passwordEncoder.encode(userDto.getPassword()))
-                .withRole(role)
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .civilId(userDto.getCivilId())
+                .email(userDto.getEmail())
+                .phoneNumber(userDto.getPhoneNumber())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .role(role)
                 .build();
         if (role.getUsers() == null){
             Set<User> users = new HashSet<>();

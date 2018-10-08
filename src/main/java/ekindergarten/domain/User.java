@@ -1,6 +1,9 @@
 package ekindergarten.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -11,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @ToString(exclude = {"children", "role"})
 public class User {
 

@@ -2,7 +2,10 @@ package ekindergarten.domain;
 
 import ekindergarten.validation.ValidName;
 import ekindergarten.validation.ValidSurname;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -15,7 +18,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @Builder
 @ToString(exclude = {"users", "trustedPeople"})
 public class Child {
