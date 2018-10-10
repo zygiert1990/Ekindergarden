@@ -1,37 +1,38 @@
-package ekindergarten.service;
+package ekindergarten.security.jwt;
 
-import ekindergarten.domain.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDetailsProvider implements UserDetails {
+public class JwtUserDetails implements UserDetails {
+    private String subject;
+    private String token;
+    private Long id;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    private User user;
 
-    public UserDetailsProvider(User user) {
-        this.user = user;
+    public JwtUserDetails(String subject, Long id, String token, List<GrantedAuthority> grantedAuthorities) {
+        this.subject = subject;
+        this.token = token;
+        this.id = id;
+        this.authorities = grantedAuthorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
-        return authorities;
+        return this.authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return this.subject;
     }
 
     @Override
@@ -53,4 +54,13 @@ public class UserDetailsProvider implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
 }

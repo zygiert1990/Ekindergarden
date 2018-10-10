@@ -28,8 +28,8 @@ public class AdminController {
         return childService.addChild(child, user.getEmail());
     }
 
-    @GetMapping(value = "/parent/get")
-    public User findUserByCivilId(String civilId) {
+    @GetMapping(value = "/parent/get/{civilId}")
+    public User findUserByCivilId(@PathVariable String civilId) {
         return userService.findUserByCivilId(civilId);
     }
 }

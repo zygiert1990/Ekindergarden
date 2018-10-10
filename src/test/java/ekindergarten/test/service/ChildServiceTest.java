@@ -19,7 +19,7 @@ import java.util.Set;
 
 import static ekindergarten.testingUtils.Constans.*;
 import static ekindergarten.testingUtils.TestUtil.*;
-import static ekindergarten.utils.UserRoles.PARENT;
+import static ekindergarten.utils.UserAuthorities.PARENT;
 import static org.junit.Assert.assertEquals;
 
 public class ChildServiceTest extends BaseJpaTestConfig {
