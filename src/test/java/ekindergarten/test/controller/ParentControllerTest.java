@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static ekindergarten.testingUtils.Constans.*;
 import static ekindergarten.testingUtils.TestUtil.createChild;
-import static ekindergarten.utils.UserRoles.PARENT;
+import static ekindergarten.utils.UserAuthorities.PARENT;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;

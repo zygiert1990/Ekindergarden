@@ -18,7 +18,7 @@ import java.util.List;
 import static ekindergarten.testingUtils.Constans.*;
 import static ekindergarten.testingUtils.TestUtil.createUserDto;
 import static ekindergarten.testingUtils.TestUtil.createUserDtoWithParameters;
-import static ekindergarten.utils.UserRoles.PARENT;
+import static ekindergarten.utils.UserAuthorities.PARENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

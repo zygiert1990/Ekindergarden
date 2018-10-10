@@ -2,7 +2,7 @@ package ekindergarten.test.repositories;
 
 import ekindergarten.domain.Role;
 import ekindergarten.repositories.RoleRepository;
-import ekindergarten.utils.UserRoles;
+import ekindergarten.utils.UserAuthorities;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ public class RoleRepositoryTest extends BaseJpaTestConfig {
     @Test
     public void shouldFindRoleByRoleName() {
         //given
-        roleRepository.save(new Role(UserRoles.PARENT));
+        roleRepository.save(new Role(UserAuthorities.PARENT));
         //when
-        Role result = roleRepository.findByRoleName(UserRoles.PARENT);
+        Role result = roleRepository.findByRoleName(UserAuthorities.PARENT);
         //then
-        Assert.assertEquals(result.getRoleName(), UserRoles.PARENT);
+        Assert.assertEquals(result.getRoleName(), UserAuthorities.PARENT);
     }
 }

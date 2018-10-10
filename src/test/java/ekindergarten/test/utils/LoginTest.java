@@ -6,7 +6,7 @@ import ekindergarten.service.UserService;
 import ekindergarten.testingUtils.BaseTestContext;
 import ekindergarten.testingUtils.Constans;
 import ekindergarten.testingUtils.TestUtil;
-import ekindergarten.utils.UserRoles;
+import ekindergarten.utils.UserAuthorities;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class LoginTest extends BaseTestContext {
     public void setup() {
         super.setup();
 
-        roleRepository.save(new Role(UserRoles.PARENT));
+        roleRepository.save(new Role(UserAuthorities.PARENT));
         userService.registerParent(TestUtil.createUserDto());
     }
 

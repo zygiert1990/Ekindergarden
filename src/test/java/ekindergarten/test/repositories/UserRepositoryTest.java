@@ -4,7 +4,7 @@ import ekindergarten.domain.User;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.testingUtils.Constans;
-import ekindergarten.utils.UserRoles;
+import ekindergarten.utils.UserAuthorities;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
                 .email(Constans.EMAIL)
                 .phoneNumber(Constans.PHONE_NUMBER)
                 .password(Constans.PASSWORD)
-                .role(roleRepository.findByRoleName(UserRoles.PARENT))
+                .role(roleRepository.findByRoleName(UserAuthorities.PARENT))
                 .build();
     }
 }

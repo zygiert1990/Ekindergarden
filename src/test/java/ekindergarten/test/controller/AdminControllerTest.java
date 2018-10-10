@@ -12,7 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import static ekindergarten.testingUtils.Constans.*;
 import static ekindergarten.testingUtils.TestUtil.*;
-import static ekindergarten.utils.UserRoles.ADMIN;
+import static ekindergarten.utils.UserAuthorities.ADMIN;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
