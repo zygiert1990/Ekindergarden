@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/register/parent", "/login/signin").permitAll()
+                .antMatchers("/register.html", "/login.html", "/index.html").permitAll()
                 .antMatchers("/admin/**").hasAuthority(UserAuthorities.ADMIN)
                 .antMatchers("/parent/**").hasAuthority(UserAuthorities.PARENT)
                 .antMatchers("/teacher/**").hasAuthority(UserAuthorities.TEACHER)
