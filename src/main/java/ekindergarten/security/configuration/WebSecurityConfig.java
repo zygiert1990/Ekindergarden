@@ -42,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtAuthenticationTokenFilter filter = new JwtAuthenticationTokenFilter();
         filter.setAuthenticationManager(authenticationManager());
         filter.setAuthenticationSuccessHandler(new JwtSuccessHandler());
-
         return filter;
     }
 
@@ -52,10 +51,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/register.html", "/login.html", "/index.html").permitAll()
-                .antMatchers("/admin/**").hasAuthority(UserAuthorities.ADMIN)
-                .antMatchers("/parent/**").hasAuthority(UserAuthorities.PARENT)
-                .antMatchers("/teacher/**").hasAuthority(UserAuthorities.TEACHER)
+                .antMatchers("/register.html", "/login.html",
+                        "/index.html", "/layout/**", "/images/**").permitAll()
+                .antMatchers("/rest/admin/**").hasAuthority(UserAuthorities.ADMIN)
+                .antMatchers("/rest/parent/**").hasAuthority(UserAuthorities.PARENT)
+                .antMatchers("/rest/teacher/**").hasAuthority(UserAuthorities.TEACHER)
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -64,7 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
     }
@@ -73,5 +72,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passEncoder() {
         return new BCryptPasswordEncoder(5);
     }
-
 }

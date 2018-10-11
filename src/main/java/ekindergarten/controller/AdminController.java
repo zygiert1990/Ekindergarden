@@ -4,14 +4,12 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.User;
 import ekindergarten.service.ChildService;
 import ekindergarten.service.UserService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/rest/admin")
 public class AdminController {
 
     private final ChildService childService;
