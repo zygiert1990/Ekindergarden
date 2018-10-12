@@ -4,6 +4,7 @@ import ekindergarten.validation.*;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -28,7 +29,7 @@ public class UserDto {
     private String civilId;
 
     @NotNull
-    @ValidEmail
+    @Email
     @Size(max = 45)
     private String email;
 
