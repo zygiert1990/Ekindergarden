@@ -37,7 +37,6 @@ public class UserDto {
     private String phoneNumber;
 
     @NotNull
-    @ValidPassword
     @Size(min = 8, max = 30)
     private String password;
 
