@@ -1,6 +1,7 @@
 package ekindergarten.controller;
 
 import ekindergarten.domain.User;
+import ekindergarten.model.Response;
 import ekindergarten.model.UserDto;
 import ekindergarten.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,10 @@ public class RegisterController {
     }
 
     @PostMapping(value = "/parent")
-    public User registerNewParent(@RequestBody @Valid UserDto userDto) {
-        return userService.registerParent(userDto);
+    public Response registerNewParent(@RequestBody @Valid UserDto userDto) {
+        User user = userService.registerParent(userDto);
+
+        return new Response("Done", user);
     }
 
 }
