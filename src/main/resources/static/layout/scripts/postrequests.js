@@ -30,7 +30,16 @@ $(document).ready(function () {
                     alert("Rejestracja przebiegła pomyślnie");
                 },
                 error: function (e) {
-                    alert(e.responseJSON.message);
+                    if (e.responseJSON.errors.length === 1){
+                        alert(e.responseJSON.errors[0].defaultMessage);
+                    } else {
+                        var errorList = e.responseJSON.errors;
+                        var errorMessage = '';
+                        errorList.forEach(function (error) {
+                            errorMessage = errorMessage.concat(error.defaultMessage + '\n');
+                        })
+                    alert(errorMessage);
+                    }
                 }
             });
             // Reset FormData after Posting

@@ -25,7 +25,7 @@ public class UserDto {
     private String surname;
 
     @NotNull
-    @Pattern(regexp = "[A-Z]{3}\\d{6}")
+    @Pattern(regexp = "[A-Z]{3}\\d{6}", message = "Proper format of civil id e.g.: AAA111111")
     private String civilId;
 
     @NotNull
@@ -34,15 +34,14 @@ public class UserDto {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\d{9}")
+    @Pattern(regexp = "\\d{9}", message = "Phone number must contains nine figures")
     private String phoneNumber;
 
     @NotNull
-    @Size(min = 8, max = 30)
+    @Size(min = 8, max = 30, message = "Minimum password size is 8 signs, maximum 30")
     private String password;
 
     @NotNull
-    @Size(min = 8, max = 30)
     private String matchingPassword;
 
 }
