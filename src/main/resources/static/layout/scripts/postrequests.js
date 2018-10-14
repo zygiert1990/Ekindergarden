@@ -23,11 +23,11 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: window.origin + "/register/parent",
+                url: window.origin + "/tecza/register/parent",
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (result) {
-                    console.log(result);
+                    alert("Rejestracja przebiegła pomyślnie");
                 },
                 error: function (e) {
                     alert(e.responseJSON.message);
@@ -73,7 +73,7 @@ $(document).ready(function () {
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (result) {
-                    console.log(result);
+                    alert("Logowanie przebiegło pomyślnie");
                 },
                 error: function (e) {
                     alert("Podano nieprawidłowy e-mail lub hasło");
