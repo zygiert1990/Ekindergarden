@@ -54,6 +54,15 @@ public class TestUtil {
                 .build();
     }
 
+    public static Child createChildWithPesel(String pesel) {
+        return Child.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .pesel(pesel)
+                .firstParentCivilId(CIVIL_ID)
+                .build();
+    }
+
     public static TrustedPerson createTrustedPerson() {
         return TrustedPerson.builder()
                 .name(NAME)
