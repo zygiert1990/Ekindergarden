@@ -44,6 +44,14 @@ public class UserServiceTest extends BaseJpaTestConfig {
     }
 
     @Test
+    public void shouldFindUserByCivilId() {
+        //when
+        User result = userService.findUserByCivilId(CIVIL_ID);
+        //then
+        assertNotNull(result);
+    }
+
+    @Test
     public void shouldRegisterNewUser() {
         //when
         List<User> result = userRepository.findAll();

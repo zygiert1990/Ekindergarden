@@ -3,16 +3,14 @@ package ekindergarten.test.repositories;
 import ekindergarten.domain.Child;
 import ekindergarten.repositories.ChildRepository;
 import ekindergarten.testingUtils.Constans;
+import ekindergarten.testingUtils.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import javax.validation.ValidationException;
 import java.util.List;
 
-import static ekindergarten.testingUtils.Constans.*;
-import static ekindergarten.testingUtils.TestUtil.createChild;
 import static org.junit.Assert.assertEquals;
 
 public class ChildRepositoryTest extends BaseJpaTestConfig {
@@ -22,7 +20,7 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
 
     @Before
     public void setup() {
-        childRepository.save(createChild());
+        childRepository.save(TestUtil.createChild());
     }
 
     @Test
@@ -31,23 +29,6 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
         List<Child> result = childRepository.findAll();
         //then
         assertEquals(result.size(), 1);
-    }
-
-    @Test
-    public void shouldSaveChildWithTwoCivilIds() {
-        //given
-        childRepository.save(createChildWithCivilId(NEW_CIVIL_ID));
-        //when
-        List<Child> result = childRepository.findAll();
-        //then
-        assertEquals(result.size(), 2);
-    }
-
-
-    @Test(expected = ValidationException.class)
-    public void shouldNotSaveChildWithWrongFormatOfSecondCivilId() {
-        // given
-        childRepository.save(createChildWithCivilId("A"));
     }
 
     @Test
@@ -69,7 +50,7 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
     @Test
     public void shouldFindChildByPesel() {
         //when
-        Child result = childRepository.findByPesel(PESEL);
+        Child result = childRepository.findByPesel(Constans.PESEL);
         //then
         assertEquals(Constans.NAME, result.getName());
     }
@@ -77,17 +58,7 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
     @Test(expected = DataIntegrityViolationException.class)
     public void shouldNotSaveChildWithSamePesel() {
         //when
-        childRepository.save(createChild());
+        childRepository.save(TestUtil.createChild());
         List<Child> result = childRepository.findAll();
-    }
-
-    private Child createChildWithCivilId(String civilId) {
-        return Child.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .pesel(NEW_PESEL)
-                .firstParentCivilId(CIVIL_ID)
-                .secondParentCivilId(civilId)
-                .build();
     }
 }

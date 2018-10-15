@@ -27,6 +27,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User findUserByCivilId(String civilId) throws RuntimeException {
+        User user = userRepository.findByCivilId(civilId);
+        if (user == null)
+            throw new RuntimeException("user with this civilId doesn't exist");
+        return user;
+    }
+
+    public User findUserById(long id) throws RuntimeException {
+        return userRepository.findById(id);
+    }
+
     public User registerParent(UserDto userDto) throws RuntimeException {
         if (!userValidationService.isEmailUnique(userDto.getEmail()))
             throw new RuntimeException("account with this e-mail already exists");

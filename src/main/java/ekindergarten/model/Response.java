@@ -11,10 +11,4 @@ public class Response {
 
     String status;
     Object data;
-
-    public static String SUCCESS = "Success";
-
-    public static Response of(String status, Object data) {
-        return new Response(status, data);
-    }
 }

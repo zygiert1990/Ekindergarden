@@ -11,8 +11,6 @@ import ekindergarten.utils.UserAuthorities;
 
 import java.io.IOException;
 
-import static ekindergarten.testingUtils.Constans.*;
-
 public class TestUtil {
 
     public static byte[] convertObjectToJsonBytes(Object object) throws IOException {
@@ -23,63 +21,61 @@ public class TestUtil {
 
     public static User createUser() {
         return User.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .civilId(CIVIL_ID)
-                .email(EMAIL)
-                .phoneNumber(PHONE_NUMBER)
-                .password(PASSWORD)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
+                .password(Constans.PASSWORD)
                 .role(new Role(UserAuthorities.PARENT))
                 .build();
     }
 
     public static UserDto createUserDto() {
         return UserDto.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .civilId(CIVIL_ID)
-                .email(EMAIL)
-                .phoneNumber(PHONE_NUMBER)
-                .password(PASSWORD)
-                .matchingPassword(PASSWORD)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
+                .email(Constans.EMAIL)
+                .phoneNumber(Constans.PHONE_NUMBER)
+                .password(Constans.PASSWORD)
+                .matchingPassword(Constans.PASSWORD)
                 .build();
     }
 
     public static Child createChild() {
         return Child.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .pesel(PESEL)
-                .firstParentCivilId(CIVIL_ID)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .pesel(Constans.PESEL)
                 .build();
     }
 
     public static Child createChildWithPesel(String pesel) {
         return Child.builder()
-                .name(NAME)
-                .surname(SURNAME)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
                 .pesel(pesel)
-                .firstParentCivilId(CIVIL_ID)
                 .build();
     }
 
     public static TrustedPerson createTrustedPerson() {
         return TrustedPerson.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .civilId(CIVIL_ID)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
+                .civilId(Constans.CIVIL_ID)
                 .phoneNumber(Constans.PHONE_NUMBER)
                 .build();
     }
 
     public static UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
         return UserDto.builder()
-                .name(NAME)
-                .surname(SURNAME)
+                .name(Constans.NAME)
+                .surname(Constans.SURNAME)
                 .email(email)
                 .civilId(civilId)
                 .phoneNumber(phoneNumber)
-                .password(PASSWORD)
+                .password(Constans.PASSWORD)
                 .build();
     }
 }

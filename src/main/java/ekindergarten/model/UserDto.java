@@ -25,7 +25,7 @@ public class UserDto {
     private String surname;
 
     @NotNull
-    @ValidCivilId
+    @Pattern(regexp = "[A-Z]{3}\\d{6}", message = "Proper format of civil id e.g.: AAA111111")
     private String civilId;
 
     @NotNull
