@@ -9,8 +9,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import javax.validation.ValidationException;
 import java.util.List;
 
+import static ekindergarten.testingUtils.Constans.*;
 import static org.junit.Assert.assertEquals;
 
 public class ChildRepositoryTest extends BaseJpaTestConfig {
@@ -32,6 +34,23 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
     }
 
     @Test
+    public void shouldSaveChildWithTwoCivilIds() {
+        //given
+        childRepository.save(createChildWithCivilId(NEW_CIVIL_ID));
+        //when
+        List<Child> result = childRepository.findAll();
+        //then
+        assertEquals(result.size(), 2);
+    }
+
+
+    @Test(expected = ValidationException.class)
+    public void shouldNotSaveChildWithWrongFormatOfSecondCivilId() {
+        // given
+        childRepository.save(createChildWithCivilId("A"));
+    }
+
+    @Test
     public void shouldFindChildrenByName() {
         //when
         List<Child> result = childRepository.findAllByName(Constans.NAME);
@@ -50,7 +69,7 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
     @Test
     public void shouldFindChildByPesel() {
         //when
-        Child result = childRepository.findByPesel(Constans.PESEL);
+        Child result = childRepository.findByPesel(PESEL);
         //then
         assertEquals(Constans.NAME, result.getName());
     }
@@ -60,5 +79,15 @@ public class ChildRepositoryTest extends BaseJpaTestConfig {
         //when
         childRepository.save(TestUtil.createChild());
         List<Child> result = childRepository.findAll();
+    }
+
+    private Child createChildWithCivilId(String civilId) {
+        return Child.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .pesel(NEW_PESEL)
+                .firstParentCivilId(CIVIL_ID)
+                .secondParentCivilId(civilId)
+                .build();
     }
 }

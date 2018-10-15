@@ -64,16 +64,16 @@ public class ChildServiceTest extends BaseJpaTestConfig {
         childService.addChild(createChild(), EMAIL);
     }
 
-    @Test
-    public void shouldAddSecondChild() {
-        // given
-        childService.addChild(createChild(), EMAIL);
-        childService.addChild(createChildWithPesel(NEW_PESEL), EMAIL);
-        // when
-        List<Child> result = childRepository.findAll();
-        // then
-        assertEquals(result.size(), 2);
-    }
+//    @Test
+//    public void shouldAddSecondChild() {
+//        // given
+//        childService.addChild(createChild(), EMAIL);
+//        childService.addChild(createChildWithParameters(NEW_PESEL), EMAIL);
+//        // when
+//        List<Child> result = childRepository.findAll();
+//        // then
+//        assertEquals(result.size(), 2);
+//    }
 
     @Test
     public void shouldFindAllParentChildren() {
@@ -85,19 +85,19 @@ public class ChildServiceTest extends BaseJpaTestConfig {
         assertEquals(result.size(), 1);
     }
 
-    @Test
-    public void shouldFindAllParentChildrenWhenTwoDifferentParentExists() {
-        // given
-        childService.addChild(createChild(), EMAIL);
-        userService.registerParent(
-                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER)
-        );
-        childService.addChild(createChildWithPesel(NEW_PESEL), NEW_EMAIL);
-        // when
-        Set<Child> firstParentChildren = childService.findAllParentChildren(EMAIL);
-        Set<Child> secondParentChildren = childService.findAllParentChildren(NEW_EMAIL);
-        // then
-        assertEquals(firstParentChildren.size(), 1);
-        assertEquals(secondParentChildren.size(), 1);
-    }
+//    @Test
+//    public void shouldFindAllParentChildrenWhenTwoDifferentParentExists() {
+//        // given
+//        childService.addChild(createChild(), EMAIL);
+//        userService.registerParent(
+//                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER)
+//        );
+//        childService.addChild(createChildWithParameters(NEW_PESEL), NEW_EMAIL);
+//        // when
+//        Set<Child> firstParentChildren = childService.findAllParentChildren(EMAIL);
+//        Set<Child> secondParentChildren = childService.findAllParentChildren(NEW_EMAIL);
+//        // then
+//        assertEquals(firstParentChildren.size(), 1);
+//        assertEquals(secondParentChildren.size(), 1);
+//    }
 }

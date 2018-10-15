@@ -1,5 +1,6 @@
 package ekindergarten.domain;
 
+import ekindergarten.validation.ValidCivilId;
 import ekindergarten.validation.ValidName;
 import ekindergarten.validation.ValidSurname;
 import lombok.*;
@@ -41,6 +42,15 @@ public class Child {
     @NotNull
     @Column(length = 11, nullable = false, unique = true)
     private String pesel;
+
+    @NotNull
+    @ValidCivilId
+    @Column(length = 9, nullable = false)
+    private String firstParentCivilId;
+
+    @Column(length = 9)
+    @ValidCivilId
+    private String secondParentCivilId;
 
     @Column(nullable = false)
     private boolean isActive;
