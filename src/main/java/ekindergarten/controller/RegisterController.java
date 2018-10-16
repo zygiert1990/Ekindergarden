@@ -25,7 +25,7 @@ public class RegisterController {
     public Response registerNewParent(@RequestBody @Valid UserDto userDto) {
         User user = userService.registerParent(userDto);
 
-        return new Response("Done", user);
+        return Response.of(Response.SUCCESS, user);
     }
 
 }

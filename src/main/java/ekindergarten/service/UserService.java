@@ -28,29 +28,33 @@ public class UserService {
     }
 
     public User registerParent(UserDto userDto) throws RuntimeException {
-        if (!userValidationService.isEmailUnique(userDto.getEmail()))
-            throw new RuntimeException("account with this e-mail already exists");
-        if (!userValidationService.isCivilIdUnique(userDto.getCivilId()))
-            throw new RuntimeException("account with this civil id already exists");
+        User user = userRepository.findByCivilId(userDto.getCivilId());
+        if (user == null)
+            throw new RuntimeException("There is no child related to this civil id, please contact with admin");
+        if (user.getName() != null)
+            throw new RuntimeException("Account with this civil id already exists");
         if (!userValidationService.isPhoneNumberUnique(userDto.getPhoneNumber()))
-            throw new RuntimeException("account with this phone number already exists");
+            throw new RuntimeException("Account with this phone number already exists");
+        if (!userValidationService.isEmailUnique(userDto.getEmail()))
+            throw new RuntimeException("Account with this e-mail already exists");
+
         Role role = roleRepository.findByRoleName(UserAuthorities.PARENT);
-        User user = User.builder()
-                .name(userDto.getName())
-                .surname(userDto.getSurname())
-                .civilId(userDto.getCivilId())
-                .email(userDto.getEmail())
-                .phoneNumber(userDto.getPhoneNumber())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .role(role)
-                .build();
-        if (role.getUsers() == null){
+        user.setName(userDto.getName());
+        user.setSurname(userDto.getSurname());
+        user.setEmail(userDto.getEmail());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(role);
+
+        if (role.getUsers() == null) {
             Set<User> users = new HashSet<>();
             users.add(user);
             role.setUsers(users);
         } else {
             role.getUsers().add(user);
         }
-        return userRepository.save(user);
+
+        userRepository.flush();
+        return user;
     }
 }

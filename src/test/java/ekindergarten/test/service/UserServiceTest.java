@@ -3,8 +3,10 @@ package ekindergarten.test.service;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
+import ekindergarten.repositories.ChildRepository;
 import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
+import ekindergarten.service.ChildService;
 import ekindergarten.service.UserService;
 import ekindergarten.test.repositories.BaseJpaTestConfig;
 import ekindergarten.utils.UserValidationService;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 
 import static ekindergarten.testingUtils.Constans.*;
+import static ekindergarten.testingUtils.TestUtil.createChildDto;
 import static ekindergarten.testingUtils.TestUtil.createUserDto;
 import static ekindergarten.testingUtils.TestUtil.createUserDtoWithParameters;
 import static ekindergarten.utils.UserAuthorities.PARENT;
@@ -30,58 +33,45 @@ public class UserServiceTest extends BaseJpaTestConfig {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ChildRepository childRepository;
 
     private UserService userService;
+    private ChildService childService;
 
     @Before
     public void setup() {
         UserValidationService userValidationService = new UserValidationService(userRepository);
         userService = new UserService(userRepository, userValidationService, roleRepository, passwordEncoder);
+        childService = new ChildService(childRepository, userRepository);
 
         roleRepository.save(new Role(PARENT));
+    }
 
+    @Test(expected = RuntimeException.class)
+    public void shouldNotRegisterNewParentWhenThereIsNoChildRelatedToUser() {
         userService.registerParent(createUserDto());
     }
 
     @Test
-    public void shouldRegisterNewUser() {
+    public void shouldRegisterNewParent() {
+        //give
+        childService.addChild(createChildDto());
+        userService.registerParent(createUserDto());
         //when
-        List<User> result = userRepository.findAll();
+        User result = userRepository.findByEmail(EMAIL);
         //then
-        assertEquals(result.size(), 1);
-    }
-
-    @Test
-    public void shouldRegisterSecondUser() {
-        //given
-        userService.registerParent(createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER));
-        //when
-        List<User> result = userRepository.findAll();
-        //then
-        assertEquals(result.size(), 2);
+        assertEquals(result.getName(), NAME);
     }
 
     @Test(expected = RuntimeException.class)
-    public void shouldNotRegisterNewUserWhenEmailIsNotUnique() {
-        //given
-        UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER);
-        userService.registerParent(userDtoWithSameEMail);
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void shouldNotRegisterNewUserWhenCivilIdIsNotUnique() {
-        //given
-        UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(NEW_EMAIL, CIVIL_ID, NEW_PHONE_NUMBER);
-        userService.registerParent(userDtoWithSameEMail);
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void shouldNotRegisterNewUserWhenPhoneNumberIsNotUnique() {
-        //given
-        UserDto userDtoWithSameEMail =
-                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, PHONE_NUMBER);
-        userService.registerParent(userDtoWithSameEMail);
+    public void shouldNotRegisterSameParentTwice() {
+        //give
+        childService.addChild(createChildDto());
+        userService.registerParent(createUserDto());
+        userService.registerParent(UserDto.builder()
+                .name(NAME)
+                .civilId(CIVIL_ID)
+                .build());
     }
 }

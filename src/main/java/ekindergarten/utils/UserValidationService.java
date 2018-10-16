@@ -2,7 +2,6 @@ package ekindergarten.utils;
 
 import ekindergarten.domain.User;
 import ekindergarten.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +20,6 @@ public class UserValidationService {
 
     public boolean isPhoneNumberUnique(String phoneNumber) {
         User user = userRepository.findByPhoneNumber(phoneNumber);
-        return user == null;
-    }
-
-    public boolean isCivilIdUnique(String civilId) {
-        User user = userRepository.findByCivilId(civilId);
         return user == null;
     }
 

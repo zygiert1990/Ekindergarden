@@ -25,12 +25,10 @@ public class UserValidationServiceTest extends BaseServiceTest {
     @Before
     public void setUp() {
         User user = User.builder()
-                .civilId(CIVIL_ID)
                 .email(EMAIL)
                 .phoneNumber(PHONE_NUMBER)
                 .build();
         when(userRepository.findByEmail(EMAIL)).thenReturn(user);
-        when(userRepository.findByCivilId(CIVIL_ID)).thenReturn(user);
         when(userRepository.findByPhoneNumber(PHONE_NUMBER)).thenReturn(user);
     }
 
@@ -39,16 +37,6 @@ public class UserValidationServiceTest extends BaseServiceTest {
         //when
         boolean expectedFalse = userValidationService.isEmailUnique(EMAIL);
         boolean expectedTrue = userValidationService.isEmailUnique(NEW_EMAIL);
-        //then
-        assertFalse(expectedFalse);
-        assertTrue(expectedTrue);
-    }
-
-    @Test
-    public void shouldValidateIsCivilIdUnique() {
-        //when
-        boolean expectedFalse = userValidationService.isCivilIdUnique((CIVIL_ID));
-        boolean expectedTrue = userValidationService.isCivilIdUnique(NEW_CIVIL_ID);
         //then
         assertFalse(expectedFalse);
         assertTrue(expectedTrue);
