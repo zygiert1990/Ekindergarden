@@ -78,7 +78,7 @@ $(document).ready(function () {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "http://ec2-35-180-42-91.eu-west-3.compute.amazonaws.com:8080/token/login",
+                url: window.origin + "/token/login",
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (result) {

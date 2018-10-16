@@ -1,14 +1,10 @@
 package ekindergarten.domain;
 
-import ekindergarten.validation.ValidName;
-import ekindergarten.validation.ValidSurname;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -25,20 +21,14 @@ public class Child {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ValidName
-    @NotNull
     @Size(max = 45)
     @Column(length = 45, nullable = false)
     private String name;
 
-    @ValidSurname
-    @NotNull
     @Size(max = 45)
     @Column(length = 45, nullable = false)
     private String surname;
 
-    @Pattern(regexp = "\\d{11}")
-    @NotNull
     @Column(length = 11, nullable = false, unique = true)
     private String pesel;
 

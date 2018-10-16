@@ -6,10 +6,13 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
+import ekindergarten.model.ChildDto;
 import ekindergarten.model.UserDto;
 import ekindergarten.utils.UserAuthorities;
 
 import java.io.IOException;
+
+import static ekindergarten.testingUtils.Constans.*;
 
 public class TestUtil {
 
@@ -21,8 +24,8 @@ public class TestUtil {
 
     public static User createUser() {
         return User.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
+                .name(NAME)
+                .surname(SURNAME)
                 .civilId(Constans.CIVIL_ID)
                 .email(Constans.EMAIL)
                 .phoneNumber(Constans.PHONE_NUMBER)
@@ -33,8 +36,8 @@ public class TestUtil {
 
     public static UserDto createUserDto() {
         return UserDto.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
+                .name(NAME)
+                .surname(SURNAME)
                 .civilId(Constans.CIVIL_ID)
                 .email(Constans.EMAIL)
                 .phoneNumber(Constans.PHONE_NUMBER)
@@ -45,24 +48,35 @@ public class TestUtil {
 
     public static Child createChild() {
         return Child.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
-                .pesel(Constans.PESEL)
+                .name(NAME)
+                .surname(SURNAME)
+                .pesel(PESEL)
                 .build();
     }
 
-    public static Child createChildWithPesel(String pesel) {
-        return Child.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
-                .pesel(pesel)
+    public static ChildDto createChildDto() {
+        return ChildDto.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .pesel(PESEL)
+                .firstParentCivilId(CIVIL_ID)
+                .build();
+    }
+
+    public static ChildDto createChildDtoWithTwoCivilIds() {
+        return ChildDto.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .pesel(PESEL)
+                .firstParentCivilId(CIVIL_ID)
+                .secondParentCivilId(NEW_CIVIL_ID)
                 .build();
     }
 
     public static TrustedPerson createTrustedPerson() {
         return TrustedPerson.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
+                .name(NAME)
+                .surname(SURNAME)
                 .civilId(Constans.CIVIL_ID)
                 .phoneNumber(Constans.PHONE_NUMBER)
                 .build();
@@ -70,8 +84,8 @@ public class TestUtil {
 
     public static UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
         return UserDto.builder()
-                .name(Constans.NAME)
-                .surname(Constans.SURNAME)
+                .name(NAME)
+                .surname(SURNAME)
                 .email(email)
                 .civilId(civilId)
                 .phoneNumber(phoneNumber)

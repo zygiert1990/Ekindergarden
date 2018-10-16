@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static ekindergarten.testingUtils.Constans.NEW_CIVIL_ID;
+import static org.junit.Assert.*;
 
 public class UserRepositoryTest extends BaseJpaTestConfig {
 
@@ -25,6 +25,16 @@ public class UserRepositoryTest extends BaseJpaTestConfig {
     @Before
     public void setup() {
         userRepository.save(createUser());
+    }
+
+    @Test
+    public void shouldAddUserWithOnlyCivilId() {
+        // given
+        userRepository.save(User.builder().civilId(NEW_CIVIL_ID).build());
+        //when
+        User result = userRepository.findByCivilId(NEW_CIVIL_ID);
+        // then
+        assertNotNull(result);
     }
 
     @Test

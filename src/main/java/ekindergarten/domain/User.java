@@ -20,22 +20,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45)
     private String name;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 45)
     private String surname;
 
     @Column(length = 9, nullable = false, unique = true)
     private String civilId;
 
-    @Column(length = 45, nullable = false, unique = true)
+    @Column(length = 45, unique = true)
     private String email;
 
-    @Column(length = 9, nullable = false, unique = true)
+    @Column(length = 9, unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
     private String password;
 
     @ManyToMany

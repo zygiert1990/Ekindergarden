@@ -1,26 +1,21 @@
 package ekindergarten.test.service;
 
 import ekindergarten.domain.Child;
-import ekindergarten.domain.Role;
+import ekindergarten.domain.User;
+import ekindergarten.model.ChildDto;
 import ekindergarten.repositories.ChildRepository;
-import ekindergarten.repositories.RoleRepository;
 import ekindergarten.repositories.UserRepository;
 import ekindergarten.service.ChildService;
-import ekindergarten.service.UserService;
 import ekindergarten.test.repositories.BaseJpaTestConfig;
-import ekindergarten.utils.UserValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.List;
-import java.util.Set;
 
 import static ekindergarten.testingUtils.Constans.*;
-import static ekindergarten.testingUtils.TestUtil.*;
-import static ekindergarten.utils.UserAuthorities.PARENT;
+import static ekindergarten.testingUtils.TestUtil.createChildDto;
+import static ekindergarten.testingUtils.TestUtil.createChildDtoWithTwoCivilIds;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class ChildServiceTest extends BaseJpaTestConfig {
 
@@ -28,76 +23,56 @@ public class ChildServiceTest extends BaseJpaTestConfig {
     private UserRepository userRepository;
     @Autowired
     private ChildRepository childRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     private ChildService childService;
-    private UserService userService;
 
     @Before
     public void setup() {
-        UserValidationService userValidationService = new UserValidationService(userRepository);
-        userService = new UserService(userRepository, userValidationService, roleRepository, passwordEncoder);
-
-        roleRepository.save(new Role(PARENT));
-        userService.registerParent(createUserDto());
-
         childService = new ChildService(childRepository, userRepository);
     }
 
     @Test
     public void shouldAddChild() {
         // given
-        childService.addChild(createChild(), EMAIL);
+        childService.addChild(createChildDto());
         // when
-        List<Child> result = childRepository.findAll();
+        Child child = childRepository.findByPesel(PESEL);
+        User user = userRepository.findByCivilId(CIVIL_ID);
         // then
-        assertEquals(result.size(), 1);
+        assertNotNull(child);
+        assertNotNull(user);
+    }
+
+    @Test
+    public void shouldAddChildToBothParents() {
+        // given
+        childService.addChild(createChildDtoWithTwoCivilIds());
+        // when
+        Child child = childRepository.findByPesel(PESEL);
+        User firstUser = userRepository.findByCivilId(CIVIL_ID);
+        User secondUser = userRepository.findByCivilId(NEW_CIVIL_ID);
+        // then
+        assertNotNull(child);
+        assertNotNull(firstUser);
+        assertNotNull(secondUser);
+    }
+
+    @Test
+    public void shouldAddChildToExistingParent() {
+        // given
+        childService.addChild(createChildDto());
+        childService.addChild(ChildDto.builder()
+                .name(NAME).surname(SURNAME).pesel(NEW_PESEL).firstParentCivilId(CIVIL_ID).build());
+        // when
+        User user = userRepository.findByCivilId(CIVIL_ID);
+        // then
+        assertEquals(user.getChildren().size(), 2);
     }
 
     @Test(expected = RuntimeException.class)
-    public void shouldNotAddChildWithTheSamePesel() {
+    public void shouldNotAddChildWhenPeselIsTheSame() {
         // given
-        childService.addChild(createChild(), EMAIL);
-        childService.addChild(createChild(), EMAIL);
-    }
-
-    @Test
-    public void shouldAddSecondChild() {
-        // given
-        childService.addChild(createChild(), EMAIL);
-        childService.addChild(createChildWithPesel(NEW_PESEL), EMAIL);
-        // when
-        List<Child> result = childRepository.findAll();
-        // then
-        assertEquals(result.size(), 2);
-    }
-
-    @Test
-    public void shouldFindAllParentChildren() {
-        // given
-        childService.addChild(createChild(), EMAIL);
-        // when
-        Set<Child> result = childService.findAllParentChildren(EMAIL);
-        // then
-        assertEquals(result.size(), 1);
-    }
-
-    @Test
-    public void shouldFindAllParentChildrenWhenTwoDifferentParentExists() {
-        // given
-        childService.addChild(createChild(), EMAIL);
-        userService.registerParent(
-                createUserDtoWithParameters(NEW_EMAIL, NEW_CIVIL_ID, NEW_PHONE_NUMBER)
-        );
-        childService.addChild(createChildWithPesel(NEW_PESEL), NEW_EMAIL);
-        // when
-        Set<Child> firstParentChildren = childService.findAllParentChildren(EMAIL);
-        Set<Child> secondParentChildren = childService.findAllParentChildren(NEW_EMAIL);
-        // then
-        assertEquals(firstParentChildren.size(), 1);
-        assertEquals(secondParentChildren.size(), 1);
+        childService.addChild(createChildDto());
+        childService.addChild(createChildDto());
     }
 }
