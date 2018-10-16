@@ -15,15 +15,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-
 import static ekindergarten.testingUtils.Constans.*;
-import static ekindergarten.testingUtils.TestUtil.createChildDto;
-import static ekindergarten.testingUtils.TestUtil.createUserDto;
-import static ekindergarten.testingUtils.TestUtil.createUserDtoWithParameters;
+import static ekindergarten.testingUtils.TestUtil.*;
 import static ekindergarten.utils.UserAuthorities.PARENT;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class UserServiceTest extends BaseJpaTestConfig {
 
@@ -62,6 +57,30 @@ public class UserServiceTest extends BaseJpaTestConfig {
         User result = userRepository.findByEmail(EMAIL);
         //then
         assertEquals(result.getName(), NAME);
+    }
+
+    @Test
+    public void shouldRegisterTwoParentsToOneChild() {
+        //give
+        childService.addChild(createChildDtoWithTwoCivilIds());
+        userService.registerParent(createUserDto());
+        userService.registerParent(UserDto.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .email(NEW_EMAIL)
+                .phoneNumber(NEW_PHONE_NUMBER)
+                .civilId(NEW_CIVIL_ID)
+                .password(PASSWORD)
+                .matchingPassword(PASSWORD)
+                .build());
+        //when
+        User firstParent = userRepository.findByEmail(EMAIL);
+        User secondParent = userRepository.findByEmail(NEW_EMAIL);
+        //then
+        assertEquals(firstParent.getCivilId(), CIVIL_ID);
+        assertEquals(firstParent.getChildren().size(), 1);
+        assertEquals(secondParent.getCivilId(), NEW_CIVIL_ID);
+        assertEquals(secondParent.getChildren().size(), 1);
     }
 
     @Test(expected = RuntimeException.class)
