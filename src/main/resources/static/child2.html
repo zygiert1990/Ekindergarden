@@ -12,6 +12,29 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+            var name = $("#name").val();
+			var surname = $("#surname").val();
+			var civilid = $("#civilid").val();
+			var phone = $("#phone").val();
+            var relation = $("#relation").val();
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + surname + "</td><td>" + civilid + "</td><td>" + phone + "</td><td>" + relation + "</td></tr>";
+            $("table tbody").append(markup);
+        });
+
+        // Find and remove selected table rows
+        $(".delete-row").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+            	if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    });
+</script>
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -78,82 +101,96 @@ Licence URI: http://www.os-templates.com/template-terms
         <div class="content three_quarter">
             <!-- ################################################################################################ -->
             <div class="btmspace-30 center">
-                <h1 class="nospace">Dane Dziecka</h1>
+                <h1 class="nospace">Osoby upoważnione do odbioru dziecka</h1>
             </div>
 
             </br>
 
 
             <div class="scrollable">
-                <h2>Dane osobowe</h2>
+                <h2>Lista Osób</h2>
                 <table>
-                    <tbody>
+                    <thead>
                     <tr>
+                        <th>Zaznacz</th>
                         <th>Imię</th>
-                        <td>Kacper</td>
-                    </tr>
-                    <tr>
                         <th>Nazwisko</th>
-                        <td>Nowak</td>
-                    </tr>
-                    <tr>
-                        <th>PESEL</th>
-                        <td>22090809876</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <h2>Dane Matki</h2>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Imię</th>
-                        <td>Joanna</td>
-                    </tr>
-                    <tr>
-                        <th>Nazwisko</th>
-                        <td>Nowak</td>
-                    </tr>
-                    <tr>
                         <th>Nr Dowodu</th>
-                        <td>AXU12345</td>
+                        <th>Telefon</th>
+                        <th>Stopień Pokrewieństwa</th>
                     </tr>
-                    <tr>
-                        <th>Nr Telefonu</th>
-                        <td>789456123</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>joanna.nowak@o2.pl</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <h2>Dane Ojca</h2>
-                <table>
+                    </thead>
                     <tbody>
                     <tr>
-                        <th>Imię</th>
+                        <td><input type="checkbox" name="record"></td>
                         <td>Jan</td>
+                        <td>Kowalski</td>
+                        <td>AXU12345</td>
+                        <td>789456123</td>
+                        <td>dziadek</td>
                     </tr>
                     <tr>
-                        <th>Nazwisko</th>
+                        <td><input type="checkbox" name="record"></td>
+                        <td>Anna</td>
                         <td>Nowak</td>
-                    </tr>
-                    <tr>
-                        <th>Nr Dowodu</th>
-                        <td>AXR12345</td>
-                    </tr>
-                    <tr>
-                        <th>Nr Telefonu</th>
+                        <td>ACC23456</td>
                         <td>987654321</td>
+                        <td>babcia</td>
                     </tr>
                     <tr>
-                        <th>Email</th>
-                        <td>jan@nowak.pl</td>
+                        <td><input type="checkbox" name="record"></td>
+                        <td>Magda</td>
+                        <td>Wiśniewska</td>
+                        <td>ABC34567</td>
+                        <td>123456789</td>
+                        <td>ciocia</td>
                     </tr>
+                    <tr>
+                        <td><input type="checkbox" name="record"></td>
+                        <td>Jan</td>
+                        <td>Kowalski</td>
+                        <td>AXU12345</td>
+                        <td>789456123</td>
+                        <td>wujek</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="record"></td>
+                        <td>Anna</td>
+                        <td>Nowak</td>
+                        <td>ACC23456</td>
+                        <td>987654321</td>
+                        <td>sąsiadka</td>
+                    </tr>
+
                     </tbody>
                 </table>
+                <button type="button" class="delete-row">Usuń zaznaczone osoby</button>
+                </br>
+                <h2>Dodaj Osobę</h2>
+                <form>
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Nr Dowodu</th>
+                            <th>Telefon</th>
+                            <th>Pokrewieństwo</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="name" placeholder="Wpisz imię" size="15" ></td>
+                            <td><input type="text" id="email" placeholder="Wpisz nazwisko" size="15" ></td>
+                            <td><input type="text" id="civilid" placeholder="Wpisz nr dowodu" size="15" ></td>
+                            <td><input type="text" id="phone" placeholder="Wpisz telefon" size="15" ></td>
+                            <td><input type="text" id="relation" placeholder="Pokrewieństwo" size="15" >	</td>
+
+                        </tr>
+                    </table>
+                    <input type="button" class="add-row" value="Dodaj osobę">
+                </form>
+
             </div>
 
             <!-- ################################################################################################ -->
@@ -222,6 +259,7 @@ function myFunction() {
   }
 }
 </script>
+
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
