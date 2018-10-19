@@ -162,6 +162,8 @@ File: Layout CSS
 #comments .avatar {
     float: right;
     margin: 0 0 10px 10px;
+    max-width: 200px;
+    max-higth: 200px;
     padding: 3px;
     border: 1px solid;
 }
