@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("register")
+@RequestMapping("/register")
 public class RegisterController {
 
     private final UserService userService;
