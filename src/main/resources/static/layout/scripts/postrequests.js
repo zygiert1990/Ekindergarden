@@ -30,15 +30,18 @@ $(document).ready(function () {
                     alert("Rejestracja przebiegła pomyślnie");
                 },
                 error: function (e) {
-                    if (e.responseJSON.errors.length === 1){
+                    if (e.responseJSON.errors === undefined) {
+                        alert(e.responseJSON.message);
+                    }
+                    else if (e.responseJSON.errors.length === 1) {
                         alert(e.responseJSON.errors[0].defaultMessage);
                     } else {
                         var errorList = e.responseJSON.errors;
                         var errorMessage = '';
                         errorList.forEach(function (error) {
                             errorMessage = errorMessage.concat(error.defaultMessage + '\n');
-                        })
-                    alert(errorMessage);
+                        });
+                        alert(errorMessage);
                     }
                 }
             });
@@ -83,6 +86,13 @@ $(document).ready(function () {
                 dataType: 'json',
                 success: function (result) {
                     alert("Logowanie przebiegło pomyślnie");
+                    $.cookie('token', result.token);
+                    $.ajaxSetup({
+                        headers: {
+                            'Authorization': $.cookie('token')
+                        }
+                    });
+                    window.location.href = window.origin + "/tecza/" + result.role.toLowerCase();
                 },
                 error: function (e) {
                     alert("Podano nieprawidłowy e-mail lub hasło");

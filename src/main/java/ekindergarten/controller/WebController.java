@@ -7,7 +7,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 
     @GetMapping(value = "/")
-    public String homePage(){
-        return "index.html";
+    public String homePage() {
+        return "redirect:/index.html";
+    }
+
+    @GetMapping(value = "/index")
+    public String index() {
+        return "redirect:index.html";
+    }
+
+    @GetMapping(value = "/register")
+    public String register() {
+        return "redirect:register.html";
+    }
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "redirect:login.html";
+    }
+
+    @GetMapping(value = "/admin")
+    public String adminHomePage() {
+        return "redirect:admin.html";
     }
 }
