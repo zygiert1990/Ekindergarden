@@ -30,4 +30,19 @@ public class WebController {
     public String adminHomePage() {
         return "redirect:admin.html";
     }
+
+    @GetMapping(value = "/parent")
+    public String parentHomePage() {
+        return "redirect:parent.html";
+    }
+
+    @GetMapping(value = "/teacher")
+    public String teacherHomePage() {
+        return "redirect:teacher.html";
+    }
+
+    @GetMapping(value = "/add-child")
+    public String addChild() {
+        return "redirect:add-child.html";
+    }
 }
