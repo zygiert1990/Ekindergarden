@@ -6,6 +6,7 @@ import ekindergarten.model.ChildDto;
 import ekindergarten.repositories.ChildRepository;
 import ekindergarten.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class ChildService {
                     .name(childDto.getName())
                     .surname(childDto.getSurname())
                     .pesel(childDto.getPesel())
+                    .isActive(true)
                     .build();
             childRepository.save(childToPersist);
             checkIfParentAlreadyExist(childDto.getFirstParentCivilId(), childToPersist);

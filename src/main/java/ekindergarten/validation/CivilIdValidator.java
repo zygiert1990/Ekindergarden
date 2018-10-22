@@ -17,7 +17,7 @@ public class CivilIdValidator implements ConstraintValidator<ValidCivilId, Strin
     }
 
     private boolean validateCivilId(final String civilId) {
-        if (civilId == null) return true;
+        if (civilId.isEmpty()) return true;
         return Pattern.compile(CIVIL_ID_PATTERN).matcher(civilId).matches();
     }
 }

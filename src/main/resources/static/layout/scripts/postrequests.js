@@ -30,19 +30,7 @@ $(document).ready(function () {
                     alert("Rejestracja przebiegła pomyślnie");
                 },
                 error: function (e) {
-                    if (e.responseJSON.errors === undefined) {
-                        alert(e.responseJSON.message);
-                    }
-                    else if (e.responseJSON.errors.length === 1) {
-                        alert(e.responseJSON.errors[0].defaultMessage);
-                    } else {
-                        var errorList = e.responseJSON.errors;
-                        var errorMessage = '';
-                        errorList.forEach(function (error) {
-                            errorMessage = errorMessage.concat(error.defaultMessage + '\n');
-                        });
-                        alert(errorMessage);
-                    }
+                    showErrors(e);
                 }
             });
             // Reset FormData after Posting
@@ -63,21 +51,17 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(document).ready(function () {
-        // SUBMIT FORM
         $("#loginForm").submit(function (event) {
-            // Prevent the form from submitting via the browser.
             event.preventDefault();
             ajaxPost();
         });
 
         function ajaxPost() {
-            // PREPARE FORM DATA
             var formData = {
                 email: $("#email").val(),
                 password: $("#password").val()
             };
 
-            // DO POST
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -87,18 +71,12 @@ $(document).ready(function () {
                 success: function (result) {
                     alert("Logowanie przebiegło pomyślnie");
                     $.cookie('token', result.token);
-                    $.ajaxSetup({
-                        headers: {
-                            'Authorization': $.cookie('token')
-                        }
-                    });
                     window.location.href = window.origin + "/tecza/" + result.role.toLowerCase();
                 },
                 error: function (e) {
                     alert("Podano nieprawidłowy e-mail lub hasło");
                 }
             });
-            // Reset FormData after Posting
             resetData();
         }
 
@@ -112,3 +90,62 @@ $(document).ready(function () {
 function logout() {
     $.removeCookie('token');
 }
+
+function showErrors(e) {
+    if (e.responseJSON.errors === undefined) {
+        alert(e.responseJSON.message);
+    }
+    else if (e.responseJSON.errors.length === 1) {
+        alert(e.responseJSON.errors[0].defaultMessage);
+    } else {
+        var errorList = e.responseJSON.errors;
+        var errorMessage = '';
+        errorList.forEach(function (error) {
+            errorMessage = errorMessage.concat(error.defaultMessage + '\n');
+        });
+        alert(errorMessage);
+    }
+}
+
+$(document).ready(function () {
+    $(document).ready(function () {
+        $("#addChildForm").submit(function (event) {
+            event.preventDefault();
+            ajaxPost();
+        });
+
+        function ajaxPost() {
+            var formData = {
+                name: $("#name").val(),
+                surname: $("#surname").val(),
+                pesel: $("#pesel").val(),
+                firstParentCivilId: $("#idparent1").val(),
+                secondParentCivilId: $("#idparent2").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                headers: {'Authorization': $.cookie('token')},
+                url: window.origin + "/tecza/rest/admin/addChild",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (result) {
+                    alert("Dodano dziecko");
+                },
+                error: function (e) {
+                    showErrors(e);
+                }
+            });
+            resetData();
+        }
+
+        function resetData() {
+            $("#name").val("");
+            $("#surname").val("");
+            $("#pesel").val("");
+            $("#idparent1").val("");
+            $("#idparent2").val("");
+        }
+    })
+});
