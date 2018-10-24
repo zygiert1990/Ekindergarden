@@ -15,26 +15,31 @@ import java.util.*;
 @RestController
 @RequestMapping("/rest/parent")
 public class ParentController {
-    List<MessageDto> privMassages = Arrays.asList(new MessageDto(
-                    1L,
-                    "Ponowne wezwanie do zapłaty",
-                    "Dyrektor",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                    new Date().getTime()),
-            new MessageDto(
-                    2L,
-                    "Wezwanie do zapłaty",
-                    "Dyrektor",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                    new Date().getTime()),
-            new MessageDto(
-                    3L,
-                    "Witamy",
-                    "Dyrektor",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                    new Date().getTime())
-    );
-    List<MessageDto> announcement = Arrays.asList(new MessageDto(
+    private static List<MessageDto> privMassages = new ArrayList<>();
+
+
+    static {
+        privMassages.add(new MessageDto(
+                1L,
+                "Ponowne wezwanie do zapłaty",
+                "Dyrektor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
+                new Date().getTime()));
+        privMassages.add(new MessageDto(
+                        2L,
+                        "Wezwanie do zapłaty",
+                        "Dyrektor",
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
+                        new Date().getTime()));
+        privMassages.add(new MessageDto(
+                3L,
+                "Witamy",
+                "Dyrektor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
+                new Date().getTime()));
+
+    }
+    private static List<MessageDto> announcement = Arrays.asList(new MessageDto(
                     1L,
                     "Zbiórka na kredki",
                     "Pani Małgosia",
@@ -71,7 +76,7 @@ public class ParentController {
     @GetMapping("/getBalance/{childId}")
     public BalanceDto getUserBalanceStatusForSpecificChild(@PathVariable long childId) {
         //TODO
-        return new BalanceDto("-222.11");
+        return new BalanceDto("-220.11");
     }
 
     @GetMapping("/getMessages")
@@ -90,13 +95,19 @@ public class ParentController {
     public List<MessageDto> getAnnouncement() {
         //TODO
 
-        return privMassages;
+        return announcement;
     }
 
     @GetMapping("/getAnnouncement/{id}")
     public MessageDto getAnnouncementById(@PathVariable int id) {
         //TODO
         return privMassages.get(id);
+    }
+
+    @GetMapping("/deleteMessage/{id}")
+    public MessageDto deleteMessage(@PathVariable int id) {
+        //TODO
+        return privMassages.remove(id);
     }
 
 }
