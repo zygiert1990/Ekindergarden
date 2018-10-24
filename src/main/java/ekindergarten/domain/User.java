@@ -37,7 +37,7 @@ public class User {
 
     private String password;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Child> children;
 
     @ManyToOne

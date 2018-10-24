@@ -22,6 +22,7 @@ public class ChildService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Child addChild(final ChildDto childDto) throws RuntimeException {
         if (childRepository.findByPesel(childDto.getPesel()) != null)
             throw new RuntimeException("Child with this pesel has already added");
@@ -32,7 +33,6 @@ public class ChildService {
                     .pesel(childDto.getPesel())
                     .isActive(true)
                     .build();
-            childRepository.save(childToPersist);
             checkIfParentAlreadyExist(childDto.getFirstParentCivilId(), childToPersist);
             if (childDto.getSecondParentCivilId() == null) {
                 return childToPersist;
@@ -57,11 +57,13 @@ public class ChildService {
         User user = userRepository.findByCivilId(civilId);
         if (user == null) {
             User userToPersist = User.builder().civilId(civilId).build();
-            addChildToUser(child, userToPersist);
             addUserToChild(child, userToPersist);
-            userRepository.save(userToPersist);
+            addChildToUser(child, userToPersist);
+            childRepository.save(child);
         } else {
+            addUserToChild(child, user);
             user.getChildren().add(child);
+            childRepository.save(child);
         }
     }
 

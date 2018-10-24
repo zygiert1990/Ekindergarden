@@ -32,7 +32,7 @@ public class TrustedPerson {
     @Column(length = 9, nullable = false, unique = true)
     private String phoneNumber;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "trustedPeople", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Child> children;
 
     @Override

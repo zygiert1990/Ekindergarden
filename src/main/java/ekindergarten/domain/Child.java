@@ -37,10 +37,10 @@ public class Child {
 
     private String additionalInfo;
 
-    @ManyToMany(mappedBy = "children")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> users;
 
-    @ManyToMany(mappedBy = "children")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<TrustedPerson> trustedPeople;
 
     @Override
