@@ -4,12 +4,14 @@ import ekindergarten.domain.Child;
 import ekindergarten.model.BalanceDto;
 import ekindergarten.model.MessageDto;
 import ekindergarten.service.ChildService;
+import org.apache.commons.io.IOUtils;
 import org.assertj.core.util.Sets;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -17,51 +19,36 @@ import java.util.*;
 public class ParentController {
     private static List<MessageDto> privMassages = new ArrayList<>();
 
-
     static {
         privMassages.add(new MessageDto(
                 1L,
                 "Ponowne wezwanie do zapłaty",
                 "Dyrektor",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                new Date().getTime()));
+                new Date().getTime(),
+                null));
         privMassages.add(new MessageDto(
-                        2L,
-                        "Wezwanie do zapłaty",
-                        "Dyrektor",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                        new Date().getTime()));
+                2L,
+                "Wezwanie do zapłaty",
+                "Dyrektor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
+                new Date().getTime(),
+                null));
         privMassages.add(new MessageDto(
                 3L,
                 "Witamy",
                 "Dyrektor",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                new Date().getTime()));
+                new Date().getTime()
+                ,null));
 
     }
-    private static List<MessageDto> announcement = Arrays.asList(new MessageDto(
-                    1L,
-                    "Zbiórka na kredki",
-                    "Pani Małgosia",
-                    "Zbieramy pieniażki na kredki",
-                    new Date().getTime()),
-            new MessageDto(
-                    2L,
-                    "Wyjście do kina",
-                    "Pani Zosia",
-                    "Wyjście do kina Cinemacity",
-                    new Date().getTime()),
-            new MessageDto(
-                    3L,
-                    "Witamy",
-                    "Dyrektor",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
-                    new Date().getTime())
-    );
+
+    private static List<MessageDto> announcement = new ArrayList<>();
 
     private final ChildService childService;
 
-    public ParentController(ChildService childService) {
+    public ParentController(ChildService childService) throws IOException {
         this.childService = childService;
     }
 
@@ -92,8 +79,32 @@ public class ParentController {
     }
 
     @GetMapping("/getAnnouncement")
-    public List<MessageDto> getAnnouncement() {
-        //TODO
+    public List<MessageDto> getAnnouncement() throws IOException {
+        announcement.add(
+                new MessageDto(
+                1L,
+                "Zbiórka na kredki",
+                "Pani Małgosia",
+                "Zbieramy pieniażki na kredki",
+                new Date().getTime(),
+                IOUtils.toByteArray(this.getClass().getResourceAsStream("/news_picture/news.png"))));
+        announcement.add(
+                new MessageDto(
+                        2L,
+                        "Wyjście do kina",
+                        "Pani Zosia",
+                        "Wyjście do kina Cinemacity",
+                        new Date().getTime(),
+                        IOUtils.toByteArray(this.getClass().getResourceAsStream("/news_picture/news.png")))
+        );
+
+        announcement.add(new MessageDto(
+                3L,
+                "Witamy",
+                "Dyrektor",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero dui id orci. Nam congue, pede vitae dapibus aliquet, elit magna vulputate arcu, vel tempus metus leo non est. Etiam sit amet lectus quis est congue mollis. Phasellus congue lacus eget neque. Phasellus ornare, ante vitae consectetuer consequat, purus sapien ultricies dolor, et mollis pede metus eget nisi. Praesent sodales velit quis augue. Cras suscipit, urna at aliquam rhoncus, urna quam viverra nisi, in interdum massa nibh nec erat.",
+                new Date().getTime(),
+                IOUtils.toByteArray(this.getClass().getResourceAsStream("/news_picture/news.png"))));
 
         return announcement;
     }

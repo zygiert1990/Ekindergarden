@@ -13,6 +13,7 @@ public class MessageDto implements Comparable<MessageDto> {
     private final String author;
     private final String content;
     private final Long date;
+    private final byte[] image;
 
     @Override
     public int compareTo(MessageDto o) { return date.compareTo(o.getDate()); }
