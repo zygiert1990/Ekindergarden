@@ -10,9 +10,6 @@ import ekindergarten.utils.UserValidationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -45,14 +42,6 @@ public class UserService {
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(role);
-
-        if (role.getUsers() == null) {
-            Set<User> users = new HashSet<>();
-            users.add(user);
-            role.setUsers(users);
-        } else {
-            role.getUsers().add(user);
-        }
 
         userRepository.flush();
         return user;

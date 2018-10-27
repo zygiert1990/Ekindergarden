@@ -1,5 +1,6 @@
 package ekindergarten.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -32,6 +33,7 @@ public class TrustedPerson {
     @Column(length = 9, nullable = false, unique = true)
     private String phoneNumber;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "trustedPeople", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Child> children;
 

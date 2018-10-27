@@ -45,4 +45,9 @@ public class WebController {
     public String addChild() {
         return "redirect:add-child.html";
     }
+
+    @GetMapping(value = "/child")
+    public String child() {
+        return "redirect:child.html";
+    }
 }

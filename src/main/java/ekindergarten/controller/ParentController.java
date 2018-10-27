@@ -2,17 +2,17 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.model.BalanceDto;
-import ekindergarten.model.MessageDto;
+import ekindergarten.model.Response;
 import ekindergarten.service.ChildService;
-import org.apache.commons.io.IOUtils;
-import org.assertj.core.util.Sets;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/rest/parent")
@@ -24,11 +24,10 @@ public class ParentController {
     }
 
     @GetMapping(value = "/getAll")
-    public Set<Child> findAllParentChildren() {
-        //TODO
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        return childService.findAllParentChildren(authentication.getName());
-        return Sets.newLinkedHashSet(new Child(1L, "Michal", "Sawluk", "11111111111", true, null, null, null));
+    public Response findAllParentChildren() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Set<Child> children = childService.findAllParentChildren(authentication.getName());
+        return Response.of(Response.SUCCESS, children);
     }
 
     @GetMapping("/getBalance/{childId}")
@@ -36,7 +35,6 @@ public class ParentController {
         //TODO
         return new BalanceDto("-220.11");
     }
-
 
 
 }

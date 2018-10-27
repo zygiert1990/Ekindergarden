@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Set;
+
 import static ekindergarten.testingUtils.Constans.*;
 import static ekindergarten.testingUtils.TestUtil.createChildDto;
 import static ekindergarten.testingUtils.TestUtil.createChildDtoWithTwoCivilIds;
@@ -48,25 +51,13 @@ public class ChildServiceTest extends BaseJpaTestConfig {
         // given
         childService.addChild(createChildDtoWithTwoCivilIds());
         // when
-        Child child = childRepository.findByPesel(PESEL);
+        Child child = childRepository.findByPesel(NEW_PESEL);
         User firstUser = userRepository.findByCivilId(CIVIL_ID);
         User secondUser = userRepository.findByCivilId(NEW_CIVIL_ID);
         // then
-        assertNotNull(child);
+        assertEquals(child.getUsers().size(), 2);
         assertNotNull(firstUser);
         assertNotNull(secondUser);
-    }
-
-    @Test
-    public void shouldAddChildToExistingParent() {
-        // given
-        childService.addChild(createChildDto());
-        childService.addChild(ChildDto.builder()
-                .name(NAME).surname(SURNAME).pesel(NEW_PESEL).firstParentCivilId(CIVIL_ID).build());
-        // when
-        User user = userRepository.findByCivilId(CIVIL_ID);
-        // then
-        assertEquals(user.getChildren().size(), 2);
     }
 
     @Test(expected = RuntimeException.class)

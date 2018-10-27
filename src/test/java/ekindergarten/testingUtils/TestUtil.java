@@ -67,7 +67,7 @@ public class TestUtil {
         return ChildDto.builder()
                 .name(NAME)
                 .surname(SURNAME)
-                .pesel(PESEL)
+                .pesel(NEW_PESEL)
                 .firstParentCivilId(CIVIL_ID)
                 .secondParentCivilId(NEW_CIVIL_ID)
                 .build();

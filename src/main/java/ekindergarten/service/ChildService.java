@@ -48,9 +48,13 @@ public class ChildService {
     }
 
     private void addUserToChild(Child child, User user) {
-        Set<User> users = new HashSet<>();
-        users.add(user);
-        child.setUsers(users);
+        if (child.getUsers() != null) {
+            child.getUsers().add(user);
+        } else {
+            Set<User> users = new HashSet<>();
+            users.add(user);
+            child.setUsers(users);
+        }
     }
 
     private void checkIfParentAlreadyExist(String civilId, Child child) {
@@ -58,18 +62,10 @@ public class ChildService {
         if (user == null) {
             User userToPersist = User.builder().civilId(civilId).build();
             addUserToChild(child, userToPersist);
-            addChildToUser(child, userToPersist);
             childRepository.save(child);
         } else {
             addUserToChild(child, user);
-            user.getChildren().add(child);
             childRepository.save(child);
         }
-    }
-
-    private void addChildToUser(Child child, User user) {
-        Set<Child> children = new HashSet<>();
-        children.add(child);
-        user.setChildren(children);
     }
 }
