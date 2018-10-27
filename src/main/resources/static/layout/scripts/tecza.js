@@ -144,8 +144,20 @@ $(document).ready(function () {
     }
 });
 
+function getBirthDateFromPesel(pesel) {
+    var year = parseInt(pesel.substring(0, 2), 10);
+    var month = parseInt(pesel.substring(2, 4), 10) - 20;
+    var day = parseInt(pesel.substring(4, 6), 10);
+    return new Date("20" + year + "-" + month + "-" + day).toLocaleDateString("pl-PL");
+}
+
+function getSexFromPesel(pesel) {
+    var sex = parseInt(pesel.substring(9, 10), 10);
+    return sex % 2 === 1 ? "chłopiec" : "dziewczynka";
+}
+
 $(document).ready(function () {
-    $(".getChildren").click(function (event) {
+    $("#getChildren").click(function (event) {
         event.preventDefault();
         getChildren();
     });
@@ -157,20 +169,45 @@ $(document).ready(function () {
             url: window.origin + "/tecza/rest/parent/getAll",
             headers: {'Authorization': $.cookie('token')},
             success: function (result) {
-                window.location.href = window.origin + "/tecza/child";
-                // if (result.status == "Done") {
-                //     $('#getResultDiv ul').empty();
-                //     var custList = "";
-                //     $.each(result.data, function (i, customer) {
-                //         var customer = "- Customer with Id = " + i + ", firstname = " + customer.firstname + ", lastName = " + customer.lastname + "<br>";
-                //         $('#getResultDiv .list-group').append(customer)
-                //     });
-                //     console.log("Success: ", result);
-                // } else {
-                //     $("#getResultDiv").html("<strong>Error</strong>");
-                //     console.log("Fail: ", result);
-                // }
-                alert("success")
+                $("#childResult").empty();
+                var name = result.data[0].name;
+                var surname = result.data[0].surname;
+                var pesel = result.data[0].pesel;
+                var birthday = getBirthDateFromPesel(pesel);
+                var sex = getSexFromPesel(pesel);
+                var html =
+                    "<div class='btmspace-30 center'>\n" +
+                    "<h1 class='nospace'>Dane Dziecka</h1>\n" +
+                    "</div>\n" +
+                    "</br>\n" +
+                    "<div class='scrollable'>\n" +
+                    "<h2>Dane osobowe</h2>\n" +
+                    "                <table>\n" +
+                    "                    <tbody>\n" +
+                    "                    <tr>\n" +
+                    "                        <th>Imię</th>\n" +
+                    "                        <td>" + name + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    <tr>\n" +
+                    "                        <th>Nazwisko</th>\n" +
+                    "                        <td>" + surname + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    <tr>\n" +
+                    "                        <th>PESEL</th>\n" +
+                    "                        <td>" + pesel + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    <tr>\n" +
+                    "                        <th>Data urodzenia</th>\n" +
+                    "                        <td>" + birthday + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    <tr>\n" +
+                    "                        <th>Płeć</th>\n" +
+                    "                        <td>" + sex + "</td>\n" +
+                    "                    </tr>\n" +
+                    "                    </tbody>\n" +
+                    "                </table>\n" +
+                    "</div>";
+                $("#childResult").append(html);
             },
             error: function (e) {
                 // $("#getResultDiv").html("<strong>Error</strong>");
