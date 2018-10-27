@@ -8,10 +8,17 @@ Licence URI: http://www.os-templates.com/template-terms
 -->
 <html>
 <head>
-    <title>Tecza - dla Przedszkoli</title>
+    <title>Tęcza - dla Przedszkoli</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="layout/styles/jquery-datepicker.css" rel="stylesheet" type="text/css" media="all">
+
+
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -30,9 +37,8 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
                 <ul class="clear">
-                    <li><a href="#">Kontakt</a></li>
-                    <li><a href="login.html">Zaloguj się</a></li>
-                    <li><a href="register.html">Załóż konto</a></li>
+                    <li><a href="index.html">Strona główna</a></li>
+                    <li><a href="index.html">Wyloguj się</a></li>
 
                 </ul>
             </nav>
@@ -45,36 +51,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
     <div id="pageintro" class="hoc clear">
         <!-- ################################################################################################ -->
-        <div class="flexslider basicslider">
-            <ul class="slides">
-                <li>
-                    <article>
-                        <div class="logo">
-                            <img src="images/rainbow.png" alt="logo" style="float: inherit;"/>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <h3 class="heading">Tęcza- dla Przedszkoli i Rodziców </h3>
 
-                        <p>Aplikacja dla Pracowników Przedszkoli i Rodziców Przedszkolaków</p>
-                        <footer><a class="btn inverse" href="login.html">ZALOGUJ SIĘ</a></footer>
-
-                    </article>
-                </li>
-                <li>
-                    <article>
-                        <div class="logo">
-                            <img src="images/rainbow.png" alt="logo" style="float: inherit;"/>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <h3 class="heading">Tęcza- dla Przedszkoli i Rodziców </h3>
-
-                        <p>Aplikacja dla Pracowników Przedszkoli i Rodziców Przedszkolaków</p>
-                        <footer><a class="btn inverse" href="register.html">ZAŁÓŻ KONTO</a></footer>
-
-                    </article>
-                </li>
-            </ul>
-        </div>
         <!-- ################################################################################################ -->
     </div>
     <!-- ################################################################################################ -->
@@ -83,74 +60,117 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
+
 <div class="wrapper row3">
+
     <main class="hoc container clear">
+
         <!-- main body -->
         <!-- ################################################################################################ -->
-        <div class="btmspace-30 center">
-            <h1 class="nospace">STREFA RODZICA</h1>
+        <div class="sidebar one_quarter first">
+            <!-- ################################################################################################ -->
+            <h6>Menu</h6>
+            <nav class="sdb_holder">
+                <ul>
+                    <li><a href="absence.html">Nieobecności</a></li>
+                    <li><a href="fees.html">Opłaty</a></li>
+                </ul>
+            </nav>
+
+            <!-- ################################################################################################ -->
         </div>
-        <ul class="nospace group services">
-            <li class="one_third first active">
-                <article class="bgded" style="background-color:red">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-child"></i>
-                        <h6 class="heading">MOJE DZIECKO</h6>
-                        <p>Dane Dziecka, Lista osób upowaznionych do odbioru&hellip;</p>
-                    </div>
-                    <footer><a href="child.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:orange">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-envelope-o"></i>
-                        <h6 class="heading">WIADOMOŚCI</h6>
-                        <p>Zobacz wiadomości, napisz nową wiadomość&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:yellow">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-university"></i>
-                        <h6 class="heading">Z ŻYCIA PRZEDSZKOLA</h6>
-                        <p>Aktualności, galeria wydarzeń, ogłoszenia&hellip;</p>
-                    </div>
-                    <footer><a href="news.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third first active">
-                <article class="bgded" style="background-color:#814099">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-futbol-o"></i>
-                        <h6 class="heading">ZAJĘCIA</h6>
-                        <p>Lista zajęć, zajęcia dodatkowe, zapisy&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:blue">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-calendar"></i>
-                        <h6 class="heading">KALENDARZ WYDARZEŃ</h6>
-                        <p>Sprawdź nadchodzące wydarzenia w przedszkolu&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:green">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-money"></i>
-                        <h6 class="heading">OPŁATY I NIEOBECNOŚCI</h6>
-                        <p>Sprawdź opłaty, zobacz frekwencję dziecka&hellip;</p>
-                    </div>
-                    <footer><a href="absence.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-        </ul>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="content three_quarter">
+            <!-- ################################################################################################ -->
+            <div class="btmspace-30 center">
+                <h1 class="nospace">Nieobecności</h1>
+            </div>
+
+            </br>
+
+
+            <div class="scrollable">
+
+                <h3>Zgłoś nieobecność dziecka</h3>
+                <form>
+                    <table>
+                        <thead>
+                        <tr>
+
+                            <th>Od:</th>
+                            <td>
+                                <div class="jquery-datepicker">
+                                    <input type="text" class="jquery-datepicker__input">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Do:</th>
+                            <td>
+                                <div class="jquery-datepicker">
+                                    <input type="text" class="jquery-datepicker__input">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="button" value="Wyślij">
+                </form>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- ################################################################################################ -->
+        </div>
         <!-- ################################################################################################ -->
         <!-- / main body -->
+
         <div class="clear"></div>
+
+
+
+        <script type="text/javascript" src="layout/scripts/jquery-datepicker.js"></script>
+        <script type="text/javascript">
+    $('.jquery-datepicker').datepicker();
+  </script>
+        <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+
+
+
+
     </main>
 </div>
+
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -178,7 +198,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row5" style="background-color:grey" ;>
+<div class="wrapper row5" style="background-color:grey";>
     <div id="copyright" class="hoc clear">
         <!-- ################################################################################################ -->
         <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Tęcza</a></p>
@@ -189,12 +209,56 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- JAVASCRIPTS -->
+
+
+
+
+
+
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
-<script src="layout/scripts/tecza.js"></script>
-<script src="layout/scripts/jquery.cookie.js"></script>
 </body>
 </html>
