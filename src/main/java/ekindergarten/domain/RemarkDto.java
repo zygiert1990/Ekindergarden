@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Wither;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 public class RemarkDto {
@@ -13,5 +15,5 @@ public class RemarkDto {
     private final String comment;
     @Wither
     private final boolean isRead;
-    private final long date;
+    private final LocalDate date;
 }
