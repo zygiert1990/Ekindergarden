@@ -24,10 +24,9 @@ public class ParentController {
     }
 
     @GetMapping(value = "/getAll")
-    public Response findAllParentChildren() {
+    public Set<Child> findAllParentChildren() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Set<Child> children = childService.findAllParentChildren(authentication.getName());
-        return Response.of(Response.SUCCESS, children);
+        return childService.findAllParentChildren(authentication.getName());
     }
 
     @GetMapping("/getBalance/{childId}")

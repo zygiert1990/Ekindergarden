@@ -1,0 +1,17 @@
+package ekindergarten.domain;
+
+public enum ProgressCategory {
+    PHYSICAL("Fizyczny"),
+    SOCIAL_AND_MORAL("Moralno-społczeny"),
+    MENTAL("Mentalny");
+
+    private final String description;
+
+    ProgressCategory(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() { return description; }
+}
+
