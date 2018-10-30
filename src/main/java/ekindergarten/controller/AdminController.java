@@ -2,7 +2,6 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.model.ChildDto;
-import ekindergarten.model.Response;
 import ekindergarten.service.ChildService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,10 +21,8 @@ public class AdminController {
     }
 
     @PostMapping(value = "/addChild")
-    public Response addChild(@RequestBody @Valid ChildDto childDto) {
-        Child child = childService.addChild(childDto);
-
-        return Response.of(Response.SUCCESS, child);
+    public Child addChild(@RequestBody @Valid ChildDto childDto) {
+        return childService.addChild(childDto);
     }
 
 }
