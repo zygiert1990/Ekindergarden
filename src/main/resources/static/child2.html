@@ -12,31 +12,8 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $(".add-row").click(function(){
-            var name = $("#name").val();
-			var surname = $("#surname").val();
-			var civilid = $("#civilid").val();
-			var phone = $("#phone").val();
-            var relation = $("#relation").val();
-            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + surname + "</td><td>" + civilid + "</td><td>" + phone + "</td><td>" + relation + "</td></tr>";
-            $("table tbody").append(markup);
-        });
-
-        // Find and remove selected table rows
-        $(".delete-row").click(function(){
-            $("table tbody").find('input[name="record"]').each(function(){
-            	if($(this).is(":checked")){
-                    $(this).parents("tr").remove();
-                }
-            });
-        });
-    });
-</script>
 </head>
-<body id="top">
+<body id="top" onload="getTrustedPeople()">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -89,7 +66,7 @@ Licence URI: http://www.os-templates.com/template-terms
             <nav class="sdb_holder">
                 <ul>
                     <li><a href="child.html">Dane Dziecka</a></li>
-                    <li><a href="child2.html">Osoby upoważnione do odbioru</a></li>
+                    <li><a href="#">Osoby upoważnione do odbioru</a></li>
                     <li><a href="#">Pozostałe informacje o dziecku</a></li>
                 </ul>
             </nav>
@@ -103,10 +80,7 @@ Licence URI: http://www.os-templates.com/template-terms
             <div class="btmspace-30 center">
                 <h1 class="nospace">Osoby upoważnione do odbioru dziecka</h1>
             </div>
-
             </br>
-
-
             <div class="scrollable">
                 <h2>Lista Osób</h2>
                 <table>
@@ -117,78 +91,31 @@ Licence URI: http://www.os-templates.com/template-terms
                         <th>Nazwisko</th>
                         <th>Nr Dowodu</th>
                         <th>Telefon</th>
-                        <th>Stopień Pokrewieństwa</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>Jan</td>
-                        <td>Kowalski</td>
-                        <td>AXU12345</td>
-                        <td>789456123</td>
-                        <td>dziadek</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>Anna</td>
-                        <td>Nowak</td>
-                        <td>ACC23456</td>
-                        <td>987654321</td>
-                        <td>babcia</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>Magda</td>
-                        <td>Wiśniewska</td>
-                        <td>ABC34567</td>
-                        <td>123456789</td>
-                        <td>ciocia</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>Jan</td>
-                        <td>Kowalski</td>
-                        <td>AXU12345</td>
-                        <td>789456123</td>
-                        <td>wujek</td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="record"></td>
-                        <td>Anna</td>
-                        <td>Nowak</td>
-                        <td>ACC23456</td>
-                        <td>987654321</td>
-                        <td>sąsiadka</td>
-                    </tr>
-
+                    <tbody id="trustedPeopleResult">
                     </tbody>
                 </table>
-                <button type="button" class="delete-row">Usuń zaznaczone osoby</button>
+                <button type="button" class="delete-row" style="visibility: hidden">Usuń zaznaczone osoby</button>
                 </br>
                 <h2>Dodaj Osobę</h2>
                 <form>
                     <table>
                         <thead>
                         <tr>
-
                             <th>Imię</th>
                             <th>Nazwisko</th>
                             <th>Nr Dowodu</th>
                             <th>Telefon</th>
-                            <th>Pokrewieństwo</th>
                         </tr>
                         <tr>
-                            <td>
-                                <input type="text" id="name" placeholder="Wpisz imię" size="15" ></td>
-                            <td><input type="text" id="surname" placeholder="Wpisz nazwisko" size="15" ></td>
-                            <td><input type="text" id="civilid" placeholder="Wpisz nr dowodu" size="15" ></td>
-                            <td><input type="text" id="phone" placeholder="Wpisz telefon" size="15" ></td>
-                            <td><input type="text" id="relation" placeholder="Pokrewieństwo" size="15" >	</td>
-
+                            <td><input type="text" id="name" placeholder="Wpisz imię" size="15"></td>
+                            <td><input type="text" id="surname" placeholder="Wpisz nazwisko" size="15"></td>
+                            <td><input type="text" id="civilid" placeholder="Wpisz nr dowodu" size="15"></td>
+                            <td><input type="text" id="phone" placeholder="Wpisz telefon" size="15"></td>
                         </tr>
                     </table>
-                    <input type="button" class="add-row" value="Dodaj osobę">
+                    <input type="button" id="addTrustedPerson" value="Dodaj osobę">
                 </form>
 
             </div>
@@ -228,7 +155,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row5" style="background-color:grey";>
+<div class="wrapper row5" style="background-color:grey" ;>
     <div id="copyright" class="hoc clear">
         <!-- ################################################################################################ -->
         <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Tęcza</a></p>
@@ -241,23 +168,23 @@ Licence URI: http://www.os-templates.com/template-terms
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script>
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+    function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
-  }
-}
 </script>
 
 <script src="layout/scripts/jquery.min.js"></script>

@@ -34,7 +34,7 @@ public class UserDto {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\d{9}", message = "Phone number must contains nine figures")
+    @Pattern(regexp = "\\d{9}", message = "Numer telefonu musi zawierać dziewięć cyfr")
     private String phoneNumber;
 
     @NotNull

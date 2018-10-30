@@ -77,8 +77,8 @@ public class TestUtil {
         return TrustedPerson.builder()
                 .name(NAME)
                 .surname(SURNAME)
-                .civilId(Constans.CIVIL_ID)
-                .phoneNumber(Constans.PHONE_NUMBER)
+                .civilId(CIVIL_ID)
+                .phoneNumber(PHONE_NUMBER)
                 .build();
     }
 

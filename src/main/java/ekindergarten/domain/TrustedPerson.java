@@ -1,11 +1,16 @@
 package ekindergarten.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ekindergarten.validation.ValidCivilId;
+import ekindergarten.validation.ValidName;
+import ekindergarten.validation.ValidSurname;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -21,15 +26,23 @@ public class TrustedPerson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @ValidName
     @Column(length = 45, nullable = false)
     private String name;
 
+    @NotNull
+    @ValidSurname
     @Column(length = 45, nullable = false)
     private String surname;
 
+    @NotNull
+    @ValidCivilId
     @Column(length = 9, nullable = false, unique = true)
     private String civilId;
 
+    @NotNull
+    @Pattern(regexp = "\\d{9}", message = "Numer telefonu musi zawierać dziewięć cyfr")
     @Column(length = 9, nullable = false, unique = true)
     private String phoneNumber;
 

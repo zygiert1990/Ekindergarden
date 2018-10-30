@@ -1,32 +1,36 @@
 package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
+import ekindergarten.domain.TrustedPerson;
 import ekindergarten.model.BalanceDto;
-import ekindergarten.model.Response;
 import ekindergarten.service.ChildService;
-import org.springframework.security.core.Authentication;
+import ekindergarten.service.TrustedPersonService;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import javax.validation.Valid;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/rest/parent")
 public class ParentController {
     private final ChildService childService;
+    private final TrustedPersonService trustedPersonService;
 
-    public ParentController(ChildService childService) throws IOException {
+    public ParentController(ChildService childService, TrustedPersonService trustedPersonService) {
         this.childService = childService;
+        this.trustedPersonService = trustedPersonService;
     }
 
     @GetMapping(value = "/getAll")
     public Set<Child> findAllParentChildren() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return childService.findAllParentChildren(authentication.getName());
+        return childService.findAllParentChildren(getUserEmail());
+    }
+
+    @PostMapping(value = "/addTrustedPerson/{childId}")
+    public TrustedPerson addTrustedPerson(
+            @RequestBody @Valid TrustedPerson trustedPerson, @PathVariable long childId) {
+        return trustedPersonService.addTrustedPerson(trustedPerson, childId);
     }
 
     @GetMapping("/getBalance/{childId}")
@@ -35,5 +39,8 @@ public class ParentController {
         return new BalanceDto("-220.11");
     }
 
+    private String getUserEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 }

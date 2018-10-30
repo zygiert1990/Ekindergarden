@@ -85,6 +85,7 @@ $(document).ready(function () {
 
 function logout() {
     $.removeCookie('token');
+    localStorage.clear();
 }
 
 function showErrors(e) {
@@ -156,63 +157,116 @@ function getSexFromPesel(pesel) {
     return sex % 2 === 1 ? "chłopiec" : "dziewczynka";
 }
 
+function getChildren() {
+    $.ajax({
+        type: "GET",
+        url: window.origin + "/tecza/rest/parent/getAll",
+        headers: {'Authorization': $.cookie('token')},
+        success: function (result) {
+            $("#childResult").empty();
+            var name = result[0].name;
+            var surname = result[0].surname;
+            var pesel = result[0].pesel;
+            var birthday = getBirthDateFromPesel(pesel);
+            var sex = getSexFromPesel(pesel);
+            var html =
+                "<div class='btmspace-30 center'>\n" +
+                "<h1 class='nospace'>Dane Dziecka</h1>\n" +
+                "</div>\n" +
+                "</br>\n" +
+                "<div class='scrollable'>\n" +
+                "<h2>Dane osobowe</h2>\n" +
+                "                <table>\n" +
+                "                    <tbody>\n" +
+                "                    <tr>\n" +
+                "                        <th>Imię</th>\n" +
+                "                        <td>" + name + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th>Nazwisko</th>\n" +
+                "                        <td>" + surname + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th>PESEL</th>\n" +
+                "                        <td>" + pesel + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th>Data urodzenia</th>\n" +
+                "                        <td>" + birthday + "</td>\n" +
+                "                    </tr>\n" +
+                "                    <tr>\n" +
+                "                        <th>Płeć</th>\n" +
+                "                        <td>" + sex + "</td>\n" +
+                "                    </tr>\n" +
+                "                    </tbody>\n" +
+                "                </table>\n" +
+                "</div>";
+            $("#childResult").append(html);
+        }
+    });
+}
+
+function getTrustedPeople() {
+    $.ajax({
+        type: "GET",
+        url: window.origin + "/tecza/rest/parent/getAll",
+        headers: {'Authorization': $.cookie('token')},
+        success: function (result) {
+            localStorage.setItem('id', result[0].id);
+            $("#trustedPeopleResult").empty();
+            var html = '';
+            if (result[0].trustedPeople.length != 0) {
+                result[0].trustedPeople.forEach(function (trustedPerson) {
+                    html += "<tr>" +
+                        "<td><input type='checkbox' name='record'></td>" +
+                        "<td>" + trustedPerson.name + "</td>" +
+                        "<td>" + trustedPerson.surname + "</td>" +
+                        "<td>" + trustedPerson.civilId + "</td>" +
+                        "<td>" + trustedPerson.phoneNumber + "</td>" +
+                        "</tr>";
+                });
+                $(".delete-row").css('visibility', 'visible');
+                $("#trustedPeopleResult").append(html);
+            }
+        }
+    });
+}
+
 $(document).ready(function () {
-    $("#getChildren").click(function (event) {
+    $("#addTrustedPerson").click(function (event) {
         event.preventDefault();
-        getChildren();
+        addTrustedPerson();
     });
 
-// DO GET
-    function getChildren() {
+    function addTrustedPerson() {
+        var formData = {
+            name: $("#name").val(),
+            surname: $("#surname").val(),
+            civilId: $("#civilid").val(),
+            phoneNumber: $("#phone").val()
+        };
+
         $.ajax({
-            type: "GET",
-            url: window.origin + "/tecza/rest/parent/getAll",
+            type: "POST",
+            contentType: "application/json",
             headers: {'Authorization': $.cookie('token')},
+            url: window.origin + "/tecza/rest/parent/addTrustedPerson/" + localStorage.getItem('id'),
+            data: JSON.stringify(formData),
+            dataType: 'json',
             success: function (result) {
-                $("#childResult").empty();
-                var name = result.data[0].name;
-                var surname = result.data[0].surname;
-                var pesel = result.data[0].pesel;
-                var birthday = getBirthDateFromPesel(pesel);
-                var sex = getSexFromPesel(pesel);
-                var html =
-                    "<div class='btmspace-30 center'>\n" +
-                    "<h1 class='nospace'>Dane Dziecka</h1>\n" +
-                    "</div>\n" +
-                    "</br>\n" +
-                    "<div class='scrollable'>\n" +
-                    "<h2>Dane osobowe</h2>\n" +
-                    "                <table>\n" +
-                    "                    <tbody>\n" +
-                    "                    <tr>\n" +
-                    "                        <th>Imię</th>\n" +
-                    "                        <td>" + name + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th>Nazwisko</th>\n" +
-                    "                        <td>" + surname + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th>PESEL</th>\n" +
-                    "                        <td>" + pesel + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th>Data urodzenia</th>\n" +
-                    "                        <td>" + birthday + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    <tr>\n" +
-                    "                        <th>Płeć</th>\n" +
-                    "                        <td>" + sex + "</td>\n" +
-                    "                    </tr>\n" +
-                    "                    </tbody>\n" +
-                    "                </table>\n" +
-                    "</div>";
-                $("#childResult").append(html);
+                alert("Dodano osobę upoważnioną do odbioru dziecka");
             },
             error: function (e) {
-                // $("#getResultDiv").html("<strong>Error</strong>");
-                // console.log("ERROR: ", e);
+                showErrors(e);
             }
         });
+        resetData();
+    }
+
+    function resetData() {
+        $("#name").val("");
+        $("#surname").val("");
+        $("#civilid").val("");
+        $("#phone").val("");
     }
 });
