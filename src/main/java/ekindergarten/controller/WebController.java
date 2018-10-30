@@ -50,4 +50,14 @@ public class WebController {
     public String child() {
         return "redirect:child.html";
     }
+
+    @GetMapping(value = "/absence")
+    public String absence() {
+        return "redirect:absence.html";
+    }
+
+    @GetMapping(value = "/fees")
+    public String fees() {
+        return "redirect:fees.html";
+    }
 }

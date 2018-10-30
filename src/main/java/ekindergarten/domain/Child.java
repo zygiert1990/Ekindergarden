@@ -45,6 +45,10 @@ public class Child {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private Set<TrustedPerson> trustedPeople;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();

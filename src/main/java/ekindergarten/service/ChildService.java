@@ -1,6 +1,7 @@
 package ekindergarten.service;
 
 import ekindergarten.domain.Child;
+import ekindergarten.domain.Payment;
 import ekindergarten.domain.User;
 import ekindergarten.model.ChildDto;
 import ekindergarten.repositories.ChildRepository;
@@ -32,6 +33,7 @@ public class ChildService {
                     .surname(childDto.getSurname())
                     .pesel(childDto.getPesel())
                     .isActive(true)
+                    .payment(Payment.builder().balance(300.00).build())
                     .build();
             checkIfParentAlreadyExist(childDto.getFirstParentCivilId(), childToPersist);
             if (childDto.getSecondParentCivilId() == null) {
@@ -41,6 +43,10 @@ public class ChildService {
                 return childToPersist;
             }
         }
+    }
+
+    public double getSpecificChildBalance(long id) {
+        return childRepository.findById(id).getPayment().getBalance();
     }
 
     public Set<Child> findAllParentChildren(String email) {

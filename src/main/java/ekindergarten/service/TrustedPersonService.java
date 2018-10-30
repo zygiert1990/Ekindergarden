@@ -53,7 +53,4 @@ public class TrustedPersonService {
         child.setTrustedPeople(trustedPeople);
     }
 
-    public Set<TrustedPerson> getAllTrustedPeopleForSpecificChild(String email, long id) {
-        return childRepository.findSpecificChild(email, id).getTrustedPeople();
-    }
 }

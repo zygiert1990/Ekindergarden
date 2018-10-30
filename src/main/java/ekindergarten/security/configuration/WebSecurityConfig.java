@@ -53,7 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/register*", "/login*",
                         "/index*", "/layout/**", "/images/**", "/register/parent", "/admin*",
-                        "/parent*", "/teacher*", "/add-child*", "/child*").permitAll()
+                        "/parent*", "/teacher*", "/add-child*", "/child*", "/absence*",
+                        "/fees*").permitAll()
                 .antMatchers("/rest/admin/**").hasAuthority(UserAuthorities.ADMIN)
                 .antMatchers("/rest/parent/**").hasAuthority(UserAuthorities.PARENT)
                 .antMatchers("/rest/news/**").hasAuthority(UserAuthorities.PARENT)

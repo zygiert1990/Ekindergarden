@@ -2,7 +2,7 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.TrustedPerson;
-import ekindergarten.model.BalanceDto;
+import ekindergarten.domain.Payment;
 import ekindergarten.service.ChildService;
 import ekindergarten.service.TrustedPersonService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,9 +34,8 @@ public class ParentController {
     }
 
     @GetMapping("/getBalance/{childId}")
-    public BalanceDto getUserBalanceStatusForSpecificChild(@PathVariable long childId) {
-        //TODO
-        return new BalanceDto("-220.11");
+    public double getUserBalanceStatusForSpecificChild(@PathVariable long childId) {
+        return childService.getSpecificChildBalance(childId);
     }
 
     private String getUserEmail() {

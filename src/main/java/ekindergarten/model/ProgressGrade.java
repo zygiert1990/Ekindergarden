@@ -1,4 +1,4 @@
-package ekindergarten.domain;
+package ekindergarten.model;
 
 public enum ProgressGrade {
     YES ("Tak"),

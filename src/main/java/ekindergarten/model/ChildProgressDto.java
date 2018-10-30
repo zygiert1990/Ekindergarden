@@ -1,4 +1,4 @@
-package ekindergarten.domain;
+package ekindergarten.model;
 
 import lombok.Data;
 

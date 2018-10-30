@@ -1,4 +1,4 @@
-package ekindergarten.domain;
+package ekindergarten.model;
 
 public enum ProgressTask {
     PHYSICAL_1("Dziecko przejawia następujące działania i umiejętności"),

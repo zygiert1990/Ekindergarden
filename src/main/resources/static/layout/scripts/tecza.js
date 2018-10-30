@@ -202,6 +202,9 @@ function getChildren() {
                 "                </table>\n" +
                 "</div>";
             $("#childResult").append(html);
+        },
+        error: function (e) {
+            console.log(e);
         }
     });
 }
@@ -270,3 +273,19 @@ $(document).ready(function () {
         $("#phone").val("");
     }
 });
+
+function getBalance() {
+    $.ajax({
+        type: "GET",
+        url: window.origin + "/tecza/rest/parent/getAll",
+        headers: {'Authorization': $.cookie('token')},
+        success: function (result) {
+            $("#month").empty();
+            $("#balance").empty();
+            var month = new Date().getMonth() + 1;
+            var balance = result[0].payment.balance;
+            $("#month").append(month);
+            $("#balance").append(balance);
+        }
+    });
+}

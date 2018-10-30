@@ -1,6 +1,6 @@
 package ekindergarten.controller;
 
-import ekindergarten.domain.*;
+import ekindergarten.model.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

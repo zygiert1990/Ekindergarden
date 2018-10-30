@@ -20,7 +20,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
 </head>
-<body id="top">
+<body id="top" onload="getBalance()">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -91,18 +91,14 @@ Licence URI: http://www.os-templates.com/template-terms
             <div class="scrollable">
                 <h1>Opłata za bieżący miesiąc</h1>
 
-                <p id="demo2"></p>
-
-                <p id="day"></p>
-
                 <table>
                     <tr>
                         <th>Obecnie mamy:</th>
-                        <td>Październik</td>
+                        <td id="month"></td>
                     </tr>
                     <tr>
                         <th>Opłata za ten miesiąc wynosi:</th>
-                        <td>250</td>
+                        <td id="balance"></td>
                     </tr>
                 </table>
 
@@ -123,21 +119,7 @@ Licence URI: http://www.os-templates.com/template-terms
         <!-- / main body -->
 
         <div class="clear"></div>
-
-
-        <script>
-var d = new Date();
-var months = ["January","February","March","April","May","June","July","August","September","Październik","Listopad","December"];
-document.getElementById("demo2").innerHTML = months[d.getMonth()];
-
-function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-}
-
-document.getElementById("day").innerHTML = d.daysInMonth(1, 2018)();
-
-</script>
-        <script type="text/javascript" src="jquery-datepicker.js"></script>
+        <script type="text/javascript" src="layout/scripts/jquery-datepicker.js"></script>
         <script type="text/javascript">
     $('.jquery-datepicker').datepicker();
   </script>
@@ -236,5 +218,7 @@ function myFunction() {
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
+<script src="layout/scripts/tecza.js"></script>
+<script src="layout/scripts/jquery.cookie.js"></script>
 </body>
 </html>
