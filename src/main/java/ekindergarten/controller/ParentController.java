@@ -38,6 +38,11 @@ public class ParentController {
         return childService.getSpecificChildBalance(childId);
     }
 
+    @GetMapping("/getTrustedPerson/{childId}")
+    public Set<TrustedPerson> getTrustedPersonForSpecificChild(@PathVariable long childId) {
+        return childService.getTrustedPeopleForSpecificChild(childId);
+    }
+
     private String getUserEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }

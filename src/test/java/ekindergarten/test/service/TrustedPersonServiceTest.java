@@ -11,11 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 import static ekindergarten.testingUtils.Constans.CIVIL_ID;
 import static ekindergarten.testingUtils.Constans.PHONE_NUMBER;
-import static ekindergarten.testingUtils.TestUtil.createChildDto;
-import static ekindergarten.testingUtils.TestUtil.createChildDtoWithTwoCivilIds;
-import static ekindergarten.testingUtils.TestUtil.createTrustedPerson;
+import static ekindergarten.testingUtils.TestUtil.*;
 import static org.junit.Assert.assertEquals;
 
 public class TrustedPersonServiceTest extends BaseJpaTestConfig {
@@ -52,7 +52,7 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
         // given
         childService.addChild(createChildDto());
         childService.addChild(createChildDtoWithTwoCivilIds());
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 3L);
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
         trustedPersonService.addTrustedPerson(createTrustedPerson(), 2L);
         // when
         TrustedPerson result = trustedPersonRepository.findByCivilId(CIVIL_ID);
@@ -66,6 +66,17 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
         childService.addChild(createChildDto());
         trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
         trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
+    }
+
+    @Test
+    public void shouldFindTrustedPeopleForSpecificChild() {
+        // given
+        childService.addChild(createChildDto());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
+        // when
+        Set<TrustedPerson> result = childService.getTrustedPeopleForSpecificChild(1L);
+        // then
+        assertEquals(result.size(), 1);
     }
 
 }

@@ -42,7 +42,7 @@ public class Child {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> users;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<TrustedPerson> trustedPeople;
 
     @OneToOne(cascade = CascadeType.ALL)

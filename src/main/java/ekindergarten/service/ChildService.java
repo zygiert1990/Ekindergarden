@@ -2,6 +2,7 @@ package ekindergarten.service;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Payment;
+import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
 import ekindergarten.model.ChildDto;
 import ekindergarten.repositories.ChildRepository;
@@ -43,6 +44,10 @@ public class ChildService {
                 return childToPersist;
             }
         }
+    }
+
+    public Set<TrustedPerson> getTrustedPeopleForSpecificChild(long id) {
+        return childRepository.findById(id).getTrustedPeople();
     }
 
     public double getSpecificChildBalance(long id) {
