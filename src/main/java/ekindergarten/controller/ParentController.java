@@ -2,7 +2,6 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.TrustedPerson;
-import ekindergarten.domain.Payment;
 import ekindergarten.service.ChildService;
 import ekindergarten.service.TrustedPersonService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +25,11 @@ public class ParentController {
     @GetMapping(value = "/getAll")
     public Set<Child> findAllParentChildren() {
         return childService.findAllParentChildren(getUserEmail());
+    }
+
+    @GetMapping(value = "/getChild/{childId}")
+    public Child getSpecificChildById(@PathVariable long childId) {
+        return childService.getSpecificChildById(childId);
     }
 
     @PostMapping(value = "/addTrustedPerson/{childId}")

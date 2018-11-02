@@ -51,6 +51,10 @@ public class ChildService {
         return childRepository.findById(id).getTrustedPeople();
     }
 
+    public Child getSpecificChildById(long id) {
+        return childRepository.findById(id);
+    }
+
     public BigDecimal getSpecificChildBalance(long id) {
         return childRepository.findById(id).getPayment().getBalance();
     }
