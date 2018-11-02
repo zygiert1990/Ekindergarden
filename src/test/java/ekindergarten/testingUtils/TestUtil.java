@@ -7,10 +7,12 @@ import ekindergarten.domain.Role;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
 import ekindergarten.model.ChildDto;
+import ekindergarten.model.RemarkDto;
 import ekindergarten.model.UserDto;
 import ekindergarten.utils.UserAuthorities;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import static ekindergarten.testingUtils.Constans.*;
 
@@ -38,11 +40,23 @@ public class TestUtil {
         return UserDto.builder()
                 .name(NAME)
                 .surname(SURNAME)
-                .civilId(Constans.CIVIL_ID)
-                .email(Constans.EMAIL)
-                .phoneNumber(Constans.PHONE_NUMBER)
-                .password(Constans.PASSWORD)
-                .matchingPassword(Constans.PASSWORD)
+                .civilId(CIVIL_ID)
+                .email(EMAIL)
+                .phoneNumber(PHONE_NUMBER)
+                .password(PASSWORD)
+                .matchingPassword(PASSWORD)
+                .build();
+    }
+
+    public static UserDto createTeacherDto() {
+        return UserDto.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .civilId(NEW_CIVIL_ID)
+                .email(EMAIL)
+                .phoneNumber(PHONE_NUMBER)
+                .password(PASSWORD)
+                .matchingPassword(PASSWORD)
                 .build();
     }
 
@@ -51,6 +65,13 @@ public class TestUtil {
                 .name(NAME)
                 .surname(SURNAME)
                 .pesel(PESEL)
+                .build();
+    }
+
+    public static RemarkDto createRemarkDto() {
+        return RemarkDto.builder()
+                .isPositive(true)
+                .comment("some comment")
                 .build();
     }
 

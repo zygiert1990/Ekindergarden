@@ -1,5 +1,6 @@
 package ekindergarten.test.service;
 
+import ekindergarten.domain.Child;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.repositories.ChildRepository;
 import ekindergarten.repositories.TrustedPersonRepository;
@@ -39,8 +40,8 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
     @Test
     public void shouldAddTrustedPerson() {
         // given
-        childService.addChild(createChildDto());
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
+        Child child = childService.addChild(createChildDto());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), child.getId());
         // when
         TrustedPerson result = trustedPersonRepository.findByCivilId(CIVIL_ID);
         // then
@@ -50,10 +51,10 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
     @Test
     public void shouldAddSameTrustedPersonForTwoChildren() {
         // given
-        childService.addChild(createChildDto());
-        childService.addChild(createChildDtoWithTwoCivilIds());
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 2L);
+        Child firstChild = childService.addChild(createChildDto());
+        Child secondChild = childService.addChild(createChildDtoWithTwoCivilIds());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), firstChild.getId());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), secondChild.getId());
         // when
         TrustedPerson result = trustedPersonRepository.findByCivilId(CIVIL_ID);
         // then
@@ -63,18 +64,18 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
     @Test(expected = RuntimeException.class)
     public void shouldNotAddSameTrustedPersonToOneChild() {
         // given
-        childService.addChild(createChildDto());
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
+        Child child = childService.addChild(createChildDto());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), child.getId());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), child.getId());
     }
 
     @Test
     public void shouldFindTrustedPeopleForSpecificChild() {
         // given
-        childService.addChild(createChildDto());
-        trustedPersonService.addTrustedPerson(createTrustedPerson(), 1L);
+        Child child = childService.addChild(createChildDto());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), child.getId());
         // when
-        Set<TrustedPerson> result = childService.getTrustedPeopleForSpecificChild(1L);
+        Set<TrustedPerson> result = childService.getTrustedPeopleForSpecificChild(child.getId());
         // then
         assertEquals(result.size(), 1);
     }
