@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RemarkRepository extends JpaRepository<Remark, Long> {
+
+    Remark findById(long id);
+
 }

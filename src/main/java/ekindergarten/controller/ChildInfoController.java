@@ -24,7 +24,7 @@ public class ChildInfoController {
 
     @GetMapping("/getAbsenceRecords/{childId}")
     public List<AbsenceRecordDto> getAbsenceREcords(@PathVariable String childId) {
-        if(absenceRecords.size() == 0) {
+        if (absenceRecords.size() == 0) {
             absenceRecords.add(new AbsenceRecordDto(1L, LocalDate.now().plusDays(1), "Ból dupy"));
             absenceRecords.add(new AbsenceRecordDto(2L, LocalDate.now(), "Ból"));
             absenceRecords.add(new AbsenceRecordDto(3L, LocalDate.now().plusDays(2), "Choroba"));
@@ -49,6 +49,7 @@ public class ChildInfoController {
     @GetMapping("/getChildRemarks/{childId}")
     public List<RemarkDto> getChildRemarks(@PathVariable long childId) {
         List<RemarkDto> childRemarks = remarkService.getChildRemarks(childId);
+        // after database will be filled with data this should be removed
         if (childRemarks == null) {
             if (childRemakrs.size() == 0) {
                 childRemakrs.add(new RemarkDto(1L, true, "Pani Zosia", "Był spoko", false, LocalDate.now()));
@@ -62,8 +63,10 @@ public class ChildInfoController {
 
     @GetMapping("/setAsRead/{remarkId}")
     public void setAsRead(@PathVariable long remarkId) {
+        remarkService.setAsRead(remarkId);
+        // after database will be filled with data this should be removed
         for (RemarkDto remarkDto : childRemakrs) {
-            if(remarkDto.getId() == remarkId) {
+            if (remarkDto.getId() == remarkId) {
                 childRemakrs.remove(remarkDto);
                 childRemakrs.add(remarkDto.withRead(true));
             }
@@ -75,7 +78,7 @@ public class ChildInfoController {
         return Arrays.asList(
                 new ChildProgressDto(ProgressCategory.PHYSICAL, Arrays.asList(
                         new TaskGradeDto(ProgressTask.PHYSICAL_1, ProgressGrade.SOMETIMES),
-                        new TaskGradeDto( ProgressTask.PHYSICAL_2, ProgressGrade.NO),
+                        new TaskGradeDto(ProgressTask.PHYSICAL_2, ProgressGrade.NO),
                         new TaskGradeDto(ProgressTask.PHYSICAL_3, ProgressGrade.YES),
                         new TaskGradeDto(ProgressTask.PHYSICAL_5, ProgressGrade.YES),
                         new TaskGradeDto(ProgressTask.PHYSICAL_4, ProgressGrade.SOMETIMES)

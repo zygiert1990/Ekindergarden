@@ -1,6 +1,5 @@
 package ekindergarten.service;
 
-import com.google.common.collect.Lists;
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Remark;
 import ekindergarten.domain.User;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
@@ -54,6 +52,12 @@ public class RemarkService {
                 .orElseThrow(
                         () -> new RuntimeException("To dziecko nie posiada żadnej uwagi")
                 );
+    }
+
+    public void setAsRead(long id) {
+        Remark remark = remarkRepository.findById(id);
+        remark.setRead(true);
+        remarkRepository.flush();
     }
 
 }
