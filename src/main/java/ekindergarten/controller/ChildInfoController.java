@@ -1,6 +1,7 @@
 package ekindergarten.controller;
 
 import ekindergarten.model.*;
+import ekindergarten.service.RemarkService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,6 +15,12 @@ public class ChildInfoController {
     private List<AbsenceRecordDto> absenceRecords = new ArrayList<>();
     private List<RemarkDto> childRemakrs = new ArrayList<>();
     private int lastId = 3;
+
+    private final RemarkService remarkService;
+
+    public ChildInfoController(RemarkService remarkService) {
+        this.remarkService = remarkService;
+    }
 
     @GetMapping("/getAbsenceRecords/{childId}")
     public List<AbsenceRecordDto> getAbsenceREcords(@PathVariable String childId) {
@@ -41,12 +48,16 @@ public class ChildInfoController {
 
     @GetMapping("/getChildRemarks/{childId}")
     public List<RemarkDto> getChildRemarks(@PathVariable long childId) {
-        if(childRemakrs.size() == 0 ) {
-            childRemakrs.add(new RemarkDto(1L, true, "Pani Zosia", "Był spoko", false, LocalDate.now()));
-            childRemakrs.add(new RemarkDto(2L, false, "Pani Zosia", "Zbił Jasia", true, LocalDate.now()));
-            childRemakrs.add(new RemarkDto(3L, false, "Pani Zosia", "Zbił Jasia", false, LocalDate.now()));
+        List<RemarkDto> childRemarks = remarkService.getChildRemarks(childId);
+        if (childRemarks == null) {
+            if (childRemakrs.size() == 0) {
+                childRemakrs.add(new RemarkDto(1L, true, "Pani Zosia", "Był spoko", false, LocalDate.now()));
+                childRemakrs.add(new RemarkDto(2L, false, "Pani Zosia", "Zbił Jasia", true, LocalDate.now()));
+                childRemakrs.add(new RemarkDto(3L, false, "Pani Zosia", "Zbił Jasia", false, LocalDate.now()));
+            }
+            return childRemakrs;
         }
-        return childRemakrs;
+        return childRemarks;
     }
 
     @GetMapping("/setAsRead/{remarkId}")

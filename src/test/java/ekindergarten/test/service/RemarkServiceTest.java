@@ -2,6 +2,7 @@ package ekindergarten.test.service;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Remark;
+import ekindergarten.model.RemarkDto;
 import ekindergarten.repositories.ChildRepository;
 import ekindergarten.repositories.RemarkRepository;
 import ekindergarten.repositories.RoleRepository;
@@ -59,6 +60,27 @@ public class RemarkServiceTest extends BaseJpaTestConfig {
         List<Remark> result = remarkRepository.findAll();
         // then
         assertEquals(result.size(), 1);
+    }
+
+    @Test
+    public void shouldGetAllChildRemarks() {
+        // given
+        Child child = childService.addChild(createChildDto());
+        userService.registerTeacher(createTeacherDto());
+        remarkService.addRemark(createRemarkDto(), EMAIL, child.getId());
+        // when
+        List<RemarkDto> result = remarkService.getChildRemarks(child.getId());
+        // then
+        assertEquals(result.size(), 1);
+        assertEquals(result.get(0).getAuthor(), "Jan Nowak");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldThrowExceptionWhenNoRemarksAreAvailable() {
+        // given
+        Child child = childService.addChild(createChildDto());
+        // when
+        remarkService.getChildRemarks(child.getId());
     }
 
 }

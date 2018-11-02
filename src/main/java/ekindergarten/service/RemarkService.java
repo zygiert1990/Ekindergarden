@@ -1,5 +1,6 @@
 package ekindergarten.service;
 
+import com.google.common.collect.Lists;
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Remark;
 import ekindergarten.domain.User;
@@ -10,6 +11,11 @@ import ekindergarten.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class RemarkService {
@@ -36,6 +42,18 @@ public class RemarkService {
                         .user(user)
                         .build()
         );
+    }
+
+    public List<RemarkDto> getChildRemarks(long id) {
+        return ofNullable(childRepository.findById(id).getRemarks())
+                .map(
+                        list -> list.stream()
+                                .map(Remark::mapToRemarkDto)
+                                .collect(Collectors.toList())
+                )
+                .orElseThrow(
+                        () -> new RuntimeException("To dziecko nie posiada żadnej uwagi")
+                );
     }
 
 }

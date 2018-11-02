@@ -1,5 +1,6 @@
 package ekindergarten.domain;
 
+import ekindergarten.model.RemarkDto;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -60,4 +61,14 @@ public class Remark {
         return eb.isEquals();
     }
 
+    public static RemarkDto mapToRemarkDto(Remark remark) {
+        return RemarkDto.builder()
+                .id(remark.getId())
+                .isPositive(remark.isPositive())
+                .isRead(remark.isRead())
+                .date(remark.getDate())
+                .comment(remark.getComment())
+                .author(remark.getUser().getName() + " " + remark.getUser().getSurname())
+                .build();
+    }
 }
