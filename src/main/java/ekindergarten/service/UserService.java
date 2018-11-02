@@ -27,13 +27,13 @@ public class UserService {
     public User registerParent(UserDto userDto) throws RuntimeException {
         User user = userRepository.findByCivilId(userDto.getCivilId());
         if (user == null)
-            throw new RuntimeException("There is no child related to this civil id, please contact with admin");
+            throw new RuntimeException("Nie ma dziecka powiązanego z tym numerem dowodu, prosimy o kontakt z administratorem");
         if (user.getName() != null)
-            throw new RuntimeException("Account with this civil id already exists");
+            throw new RuntimeException("Konto z tym numerem dowodu już istnieje!");
         if (!userValidationService.isPhoneNumberUnique(userDto.getPhoneNumber()))
-            throw new RuntimeException("Account with this phone number already exists");
+            throw new RuntimeException("Konto z tym numerem telefonu już istnieje!");
         if (!userValidationService.isEmailUnique(userDto.getEmail()))
-            throw new RuntimeException("Account with this e-mail already exists");
+            throw new RuntimeException("Konto z tym adresem e-mail już istnieje!");
 
         Role role = roleRepository.findByRoleName(UserAuthorities.PARENT);
         user.setName(userDto.getName());
@@ -45,5 +45,26 @@ public class UserService {
 
         userRepository.flush();
         return user;
+    }
+
+    public User registerTeacher(UserDto userDto) throws RuntimeException {
+        if (!userValidationService.isCivilIdUnique(userDto.getCivilId()))
+            throw new RuntimeException("Konto z tym numerem dowodu już istnieje!!");
+        if (!userValidationService.isPhoneNumberUnique(userDto.getPhoneNumber()))
+            throw new RuntimeException("Konto z tym numerem telefonu już istnieje!");
+        if (!userValidationService.isEmailUnique(userDto.getEmail()))
+            throw new RuntimeException("Konto z tym adresem e-mail już istnieje!");
+
+        Role role = roleRepository.findByRoleName(UserAuthorities.TEACHER);
+        return userRepository.save(User.builder()
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .civilId(userDto.getCivilId())
+                .email(userDto.getEmail())
+                .phoneNumber(userDto.getPhoneNumber())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .role(role)
+                .build()
+        );
     }
 }

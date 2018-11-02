@@ -18,6 +18,11 @@ public class UserValidationService {
         return user == null;
     }
 
+    public boolean isCivilIdUnique(String civilId) {
+        User user = userRepository.findByCivilId(civilId);
+        return user == null;
+    }
+
     public boolean isPhoneNumberUnique(String phoneNumber) {
         User user = userRepository.findByPhoneNumber(phoneNumber);
         return user == null;
