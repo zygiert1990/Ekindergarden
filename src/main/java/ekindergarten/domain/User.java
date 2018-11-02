@@ -46,6 +46,10 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Remark> remarks;
+
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();

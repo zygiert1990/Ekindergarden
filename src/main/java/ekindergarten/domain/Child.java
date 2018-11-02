@@ -49,6 +49,10 @@ public class Child {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Remark> remarks;
+
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();

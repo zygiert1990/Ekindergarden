@@ -10,6 +10,7 @@ import ekindergarten.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public class ChildService {
                     .surname(childDto.getSurname())
                     .pesel(childDto.getPesel())
                     .isActive(true)
-                    .payment(Payment.builder().balance(300.00).build())
+                    .payment(Payment.builder().balance(new BigDecimal(300.00)).build())
                     .build();
             checkIfParentAlreadyExist(childDto.getFirstParentCivilId(), childToPersist);
             if (childDto.getSecondParentCivilId() == null) {
@@ -50,7 +51,7 @@ public class ChildService {
         return childRepository.findById(id).getTrustedPeople();
     }
 
-    public double getSpecificChildBalance(long id) {
+    public BigDecimal getSpecificChildBalance(long id) {
         return childRepository.findById(id).getPayment().getBalance();
     }
 
