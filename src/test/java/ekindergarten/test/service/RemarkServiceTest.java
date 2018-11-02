@@ -11,19 +11,17 @@ import ekindergarten.service.ChildService;
 import ekindergarten.service.RemarkService;
 import ekindergarten.service.UserService;
 import ekindergarten.test.repositories.BaseJpaTestConfig;
-import ekindergarten.testingUtils.TestUtil;
 import ekindergarten.utils.UserValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 import static ekindergarten.testingUtils.Constans.EMAIL;
-import static ekindergarten.testingUtils.TestUtil.createChildDto;
-import static ekindergarten.testingUtils.TestUtil.createRemarkDto;
-import static ekindergarten.testingUtils.TestUtil.createTeacherDto;
+import static ekindergarten.testingUtils.TestUtil.*;
 import static org.junit.Assert.assertEquals;
 
 public class RemarkServiceTest extends BaseJpaTestConfig {
@@ -38,6 +36,8 @@ public class RemarkServiceTest extends BaseJpaTestConfig {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private TestEntityManager entityManager;
 
     private ChildService childService;
     private RemarkService remarkService;
@@ -69,6 +69,7 @@ public class RemarkServiceTest extends BaseJpaTestConfig {
         userService.registerTeacher(createTeacherDto());
         remarkService.addRemark(createRemarkDto(), EMAIL, child.getId());
         // when
+        entityManager.clear();
         List<RemarkDto> result = remarkService.getChildRemarks(child.getId());
         // then
         assertEquals(result.size(), 1);
