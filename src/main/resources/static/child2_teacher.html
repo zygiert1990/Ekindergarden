@@ -12,8 +12,9 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 </head>
-<body id="top">
+<body id="top" onload="getTrustedPeople()">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -30,17 +31,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
                 <ul class="clear">
-                    <li><a href="#">O nas</a></li>
-                    <li><a class="drop" href="#">Strefa Nauczyciela</a>
-                        <ul>
-                            <li><a href="child_teacher.html">Dzieci</a></li>
-                            <li><a href="child2_teacher.html">Osoby upoważnione</a></li>
-                            <li><a href="child_teacher.html">Z życia przedszkola</a></li>
-                            <li><a href="remarks_teacher.html">Dziennik</a></li>
-                            <li><a href="child_teacher.html">Kalendarz wydarzeń</a></li>
-                            <li><a href="child_teacher.html">Konsultacje</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="index.html">Strona główna</a></li>
                     <li><a href="index.html" onclick="logout()">Wyloguj się</a></li>
 
                 </ul>
@@ -63,74 +54,157 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
+
 <div class="wrapper row3">
+
     <main class="hoc container clear">
+
         <!-- main body -->
         <!-- ################################################################################################ -->
-        <div class="btmspace-30 center">
-            <h1 class="nospace">STREFA NAUCZYCIELA</h1>
+        <div class="sidebar one_quarter first">
+            <!-- ################################################################################################ -->
+            <h6>Menu</h6>
+            <nav class="sdb_holder">
+                <ul>
+                    <li><a href="child_teacher.html">Dane Dziecka</a></li>
+                    <li><a href="child2_teacher.html">Osoby upoważnione do odbioru</a></li>
+                    <li><a href="#">Pozostałe informacje o dziecku</a></li>
+                </ul>
+            </nav>
+
+            <!-- ################################################################################################ -->
         </div>
-        <ul class="nospace group services">
-            <li class="one_third first active">
-                <article class="bgded" style="background-color:red">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-child"></i>
-                        <h6 class="heading">Dzieci</h6>
-                        <p>Istotne informacje o Twoich wychowankach&hellip;</p>
-                    </div>
-                    <footer><a href="child_teacher.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:orange">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-user"></i>
-                        <h6 class="heading">Osoby upoważnione</h6>
-                        <p>Zobacz wiadomości, napisz nową wiadomość&hellip;</p>
-                    </div>
-                    <footer><a href="child2_teacher.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:yellow">
-                    <div class="txtwrap"><i class="block fa fa-4x  fa-university"></i>
-                        <h6 class="heading">Z życia przedszkola</h6>
-                        <p>Uwagi i ocena postępów dziecka&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third first active">
-                <article class="bgded" style="background-color:#814099">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-book"></i>
-                        <h6 class="heading">Dziennik</h6>
-                        <p>Lista osób upoważnionych do odbioru dziecka&hellip;</p>
-                    </div>
-                    <footer><a href="remarks_teacher.html">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:blue">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-calendar"></i>
-                        <h6 class="heading">KALENDARZ WYDARZEŃ</h6>
-                        <p>Dodaj i Sprawdź wydarzenia w przedszkolu&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-            <li class="one_third active">
-                <article class="bgded" style="background-color:green">
-                    <div class="txtwrap"><i class="block fa fa-4x fa-coffee"></i>
-                        <h6 class="heading">Konsultacje</h6>
-                        <p>Sprawdź godziny swoich konsultacji&hellip;</p>
-                    </div>
-                    <footer><a href="#">Zobacz &raquo;</a></footer>
-                </article>
-            </li>
-        </ul>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="content three_quarter">
+	
+
+            <div class="btmspace-30 center">
+                <h1 class="nospace">Osoby upoważnione do odbioru dziecka</h1>
+            </div>	
+		<h6>Wybierz dziecko</h6>
+
+
+			
+<div id="mainselection">
+
+
+
+ <select name="grant_type_id" id="grant_type_id" class="form-select required">
+    <option value="">- wybierz dziecko -</option>
+    <option value="2">Jasio Kowalski</option>
+    <option value="1">Kacper Nowak</option>
+	<option value="2">Bartek Król</option>
+	<option value="1">Alicja Wójcik</option>
+	<option value="2">Szymon Wisniewski</option>
+	<option value="1">Liliana Socha</option>
+	<option value="2">Mateusz Lewandowski</option>
+	<option value="1">Pola Szczęsna</option>
+	<option value="2">Antonina Nowakowska</option>
+	<option value="1">Piotrek Berda</option>
+	<option value="2">Antoni Piechniczek</option>
+	<option value="1">Julia Pietrucha</option>
+	<option value="2">Nikola Borkowska</option>
+  </select>
+</br>
+<div id="number1" class="number">	<h2>Lista Osób</h2>
+<table>
+                    <thead>
+                    <tr>
+
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Nr Dowodu</th>
+                        <th>Telefon</th>
+                    </tr>
+                    </thead>
+                    <tbody id="trustedPeopleResult">
+					<tr>
+
+              <td>Jan</td>
+              <td>Kowalski</td>
+              <td>AXU12345</td>
+			  <td>789456123</td>
+                  </tr>
+            <tr>
+
+              <td>Anna</td>
+              <td>Nowak</td>
+              <td>ACC23456</td>
+			  <td>987654321</td>
+           
+            </tr>
+
+	
+  
+                    </tbody>
+                </table>
+</div>
+
+
+
+<div id="number2" class="number">	<h2>Lista Osób</h2>
+<table>
+                    <thead>
+                    <tr>
+
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Nr Dowodu</th>
+                        <th>Telefon</th>
+                    </tr>
+                    </thead>
+                    <tbody id="trustedPeopleResult">
+
+            <tr>
+
+              <td>Magda</td>
+              <td>Wiśniewska</td>
+			  <td>ABC34567</td>
+			  <td>123456789</td>
+             
+            </tr>
+			            <tr>
+
+              <td>Jarosław</td>
+              <td>Kaczyński</td>
+              <td>AXU12345</td>
+			  <td>789456123</td>
+            
+            </tr>
+            <tr>
+
+              <td>Anna</td>
+              <td>Nowak</td>
+              <td>ACC23456</td>
+			  <td>987654321</td>
+            
+            </tr>
+  
+                    </tbody>
+                </table>
+</div>
+<div id="number3" class="number">Option 3</div>	
+
+
+  </br>
+  
+
+            <!-- ################################################################################################ -->
+
+            </br>
+
+			
+
+</div>
+            <!-- ################################################################################################ -->
+        </div>
         <!-- ################################################################################################ -->
         <!-- / main body -->
         <div class="clear"></div>
     </main>
 </div>
+
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -170,6 +244,35 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+		
+	<script type="text/javascript">
+$(function() {
+      $('#grant_type_id').change(function() {
+            $('div.number').hide();
+            $('#number' + $(this).val()).show();
+      }).change(); // Invoke it now
+});
+</script>
+
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
