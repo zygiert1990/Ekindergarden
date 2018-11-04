@@ -43,15 +43,17 @@ public class RemarkService {
     }
 
     public List<RemarkDto> getChildRemarks(long id) {
-        return ofNullable(childRepository.findById(id).getRemarks())
-                .map(
-                        list -> list.stream()
-                                .map(Remark::mapToRemarkDto)
-                                .collect(Collectors.toList())
-                )
-                .orElseThrow(
-                        () -> new RuntimeException("To dziecko nie posiada żadnej uwagi")
-                );
+        return remarkRepository
+                .findByChildId(id)
+                .stream()
+                .map(remark -> new RemarkDto(
+                        remark.getId(),
+                        remark.isPositive(),
+                        remark.getUser().getName(),
+                        remark.getComment(),
+                        remark.isRead(),
+                        remark.getDate()))
+                .collect(Collectors.toList());
     }
 
     public void setAsRead(long id) {
