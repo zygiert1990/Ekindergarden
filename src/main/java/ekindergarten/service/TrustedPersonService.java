@@ -37,6 +37,13 @@ public class TrustedPersonService {
         return trustedPersonFromDB;
     }
 
+    public void deleteTrustedPerson(long childId, long trustedPersonId) {
+        Child child = childRepository.findById(childId);
+        TrustedPerson trustedPerson = trustedPersonRepository.findById(trustedPersonId);
+        child.getTrustedPeople().remove(trustedPerson);
+        childRepository.flush();
+    }
+
     private void checkIfChildHasAlreadyAnyTrustedPerson(
             TrustedPerson trustedPerson, Child child, Set<TrustedPerson> trustedPeople) {
         if (trustedPeople == null) {

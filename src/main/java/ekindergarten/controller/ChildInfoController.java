@@ -63,9 +63,9 @@ public class ChildInfoController {
         // after database will be filled with data this should be removed
         if (childRemarks == null) {
             if (childRemakrs.size() == 0) {
-                childRemakrs.add(new RemarkDto(1L, true, "Pani Zosia", "Był spoko", false, LocalDate.now()));
-                childRemakrs.add(new RemarkDto(2L, false, "Pani Zosia", "Zbił Jasia", true, LocalDate.now()));
-                childRemakrs.add(new RemarkDto(3L, false, "Pani Zosia", "Zbił Jasia", false, LocalDate.now()));
+                childRemakrs.add(new RemarkDto(1L, true, "Pani Zosia", "Był spoko", "some subject", false, LocalDate.now()));
+                childRemakrs.add(new RemarkDto(2L, false, "Pani Zosia", "Zbił Jasia", "some subject", true, LocalDate.now()));
+                childRemakrs.add(new RemarkDto(3L, false, "Pani Zosia", "Zbił Jasia", "some subject", false, LocalDate.now()));
             }
             return childRemakrs;
         }

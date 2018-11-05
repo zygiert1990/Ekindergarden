@@ -48,6 +48,11 @@ public class ParentController {
         return childService.getTrustedPeopleForSpecificChild(childId);
     }
 
+    @GetMapping(value = "/deleteTrustedPerson/{childId}/{trustedPersonId}")
+    public void deleteTrustedPerson(@PathVariable long childId, @PathVariable long trustedPersonId) {
+        trustedPersonService.deleteTrustedPerson(childId, trustedPersonId);
+    }
+
     private String getUserEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }

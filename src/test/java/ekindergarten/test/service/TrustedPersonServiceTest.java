@@ -80,4 +80,21 @@ public class TrustedPersonServiceTest extends BaseJpaTestConfig {
         assertEquals(result.size(), 1);
     }
 
+    @Test
+    public void shouldRemoveTrustedPersonFromSpecificChild() {
+        // given
+        Child firstChild = childService.addChild(createChildDto());
+        Child secondChild = childService.addChild(createChildDtoWithTwoCivilIds());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), firstChild.getId());
+        trustedPersonService.addTrustedPerson(createTrustedPerson(), secondChild.getId());
+        long id = trustedPersonRepository.findAll().get(0).getId();
+        trustedPersonService.deleteTrustedPerson(firstChild.getId(), id);
+        // when
+        Set<TrustedPerson> resultForFirstChild = childService.getTrustedPeopleForSpecificChild(firstChild.getId());
+        Set<TrustedPerson> resultForSecondChild = childService.getTrustedPeopleForSpecificChild(secondChild.getId());
+        // then
+        assertEquals(resultForFirstChild.size(), 0);
+        assertEquals(resultForSecondChild.size(), 1);
+    }
+
 }
