@@ -102,14 +102,18 @@ Licence URI: http://www.os-templates.com/template-terms
   
 	          <h6>Dodaj Uwagę</h6>
         <form action="#" method="post">
+            <div class="one_third first">
+                <label for="sell">Rodzaj uwagi<span>*</span></label>
+                <select  id="sel1" name="sell" value="">
+                    <option>pozytywna</option>
+                    <option>negatywna</option>
+                </select>
+            </div>
           <div class="one_third first">
             <label for="name">Temat <span>*</span></label>
             <input type="text" name="subject" id="subject" value="" size="40" required>
           </div>
-          <div class="one_third">
-                    <label for="name">Data<span>*</span></label>
-                    <input type="date" class="btn inverse" name="date" id="date" value="" size="22" required>
-          </div>
+
           <div class="block clear">
             <label for="comment">Treść Uwagi</label>
             <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
