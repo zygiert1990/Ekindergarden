@@ -29,6 +29,8 @@ public class Remark {
 
     private String comment;
 
+    private String subject;
+
     @ManyToOne
     @JoinColumn(name = "child_id")
     private Child child;
@@ -42,6 +44,8 @@ public class Remark {
         HashCodeBuilder hcb = new HashCodeBuilder();
         hcb.append(user);
         hcb.append(child);
+        hcb.append(date);
+        hcb.append(comment);
         return hcb.toHashCode();
     }
 
@@ -57,6 +61,8 @@ public class Remark {
         EqualsBuilder eb = new EqualsBuilder();
         eb.append(child, that.child);
         eb.append(user, that.user);
+        eb.append(date, that.date);
+        eb.append(comment, that.comment);
         return eb.isEquals();
     }
 

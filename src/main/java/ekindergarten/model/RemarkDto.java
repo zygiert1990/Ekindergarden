@@ -15,6 +15,7 @@ public class RemarkDto {
     private final boolean isPositive;
     private final String author;
     private final String comment;
+    private final String subject;
     @Wither
     private final boolean isRead;
     private final LocalDate date;

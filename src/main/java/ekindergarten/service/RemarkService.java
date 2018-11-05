@@ -34,6 +34,7 @@ public class RemarkService {
         return remarkRepository.save(
                 Remark.builder()
                         .isPositive(remarkDto.isPositive())
+                        .subject(remarkDto.getSubject())
                         .comment(remarkDto.getComment())
                         .date(LocalDate.now())
                         .child(child)
@@ -51,6 +52,7 @@ public class RemarkService {
                         remark.isPositive(),
                         remark.getUser().getName(),
                         remark.getComment(),
+                        remark.getSubject(),
                         remark.isRead(),
                         remark.getDate()))
                 .collect(Collectors.toList());
