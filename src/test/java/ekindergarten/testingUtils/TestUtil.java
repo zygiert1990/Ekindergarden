@@ -6,6 +6,7 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
+import ekindergarten.model.AbsenceRecordDto;
 import ekindergarten.model.ChildDto;
 import ekindergarten.model.RemarkDto;
 import ekindergarten.model.UserDto;
@@ -103,14 +104,43 @@ public class TestUtil {
                 .build();
     }
 
-    public static UserDto createUserDtoWithParameters(String email, String civilId, String phoneNumber) {
-        return UserDto.builder()
-                .name(NAME)
-                .surname(SURNAME)
-                .email(email)
-                .civilId(civilId)
-                .phoneNumber(phoneNumber)
-                .password(Constans.PASSWORD)
+    public static AbsenceRecordDto createAbsenceDtoOneDayLong() {
+        return AbsenceRecordDto.builder()
+                .startAbsence(LocalDate.of(2018, 11, 2))
+                .endAbsence(LocalDate.of(2018, 11, 2))
+                .reason("some reason")
+                .build();
+    }
+
+    public static AbsenceRecordDto createAbsenceDtoOneDayLongAtWeekend() {
+        return AbsenceRecordDto.builder()
+                .startAbsence(LocalDate.of(2018, 11, 3))
+                .endAbsence(LocalDate.of(2018, 11, 3))
+                .reason("some reason")
+                .build();
+    }
+
+    public static AbsenceRecordDto createAbsenceDtoTwoDaysLongAtWeekend() {
+        return AbsenceRecordDto.builder()
+                .startAbsence(LocalDate.of(2018, 11, 3))
+                .endAbsence(LocalDate.of(2018, 11, 4))
+                .reason("some reason")
+                .build();
+    }
+
+    public static AbsenceRecordDto createAbsenceDtoThreeDaysLongWithWeekend() {
+        return AbsenceRecordDto.builder()
+                .startAbsence(LocalDate.of(2018, 11, 3))
+                .endAbsence(LocalDate.of(2018, 11, 5))
+                .reason("some reason")
+                .build();
+    }
+
+    public static AbsenceRecordDto createAbsenceDtoThreeDaysLong() {
+        return AbsenceRecordDto.builder()
+                .startAbsence(LocalDate.of(2018, 11, 5))
+                .endAbsence(LocalDate.of(2018, 11, 7))
+                .reason("some reason")
                 .build();
     }
 }

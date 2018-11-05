@@ -1,6 +1,8 @@
 package ekindergarten.controller;
 
+import ekindergarten.domain.Absence;
 import ekindergarten.model.*;
+import ekindergarten.service.AbsenceService;
 import ekindergarten.service.RemarkService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,38 +14,47 @@ import java.util.List;
 @RestController
 @RequestMapping("/rest/childinfo")
 public class ChildInfoController {
-    private List<AbsenceRecordDto> absenceRecords = new ArrayList<>();
+    private List<Absence> absenceRecords = new ArrayList<>();
     private List<RemarkDto> childRemakrs = new ArrayList<>();
     private int lastId = 3;
 
     private final RemarkService remarkService;
+    private final AbsenceService absenceService;
 
-    public ChildInfoController(RemarkService remarkService) {
+    public ChildInfoController(RemarkService remarkService, AbsenceService absenceService) {
         this.remarkService = remarkService;
+        this.absenceService = absenceService;
     }
 
     @GetMapping("/getAbsenceRecords/{childId}")
-    public List<AbsenceRecordDto> getAbsenceREcords(@PathVariable String childId) {
-        if (absenceRecords.size() == 0) {
-            absenceRecords.add(new AbsenceRecordDto(1L, LocalDate.now().plusDays(1), "Ból dupy"));
-            absenceRecords.add(new AbsenceRecordDto(2L, LocalDate.now(), "Ból"));
-            absenceRecords.add(new AbsenceRecordDto(3L, LocalDate.now().plusDays(2), "Choroba"));
+    public List<Absence> getAbsenceREcords(@PathVariable long childId) {
+        List<Absence> childAbsences = absenceService.getChildAbsences(childId);
+        // after database will be filled with data this should be removed
+        if (childAbsences == null) {
+            if (absenceRecords.size() == 0) {
+                absenceRecords.add(Absence.builder().id(1L).absenceDate(LocalDate.now().plusDays(1)).reason("Ból dupy").build());
+                absenceRecords.add(Absence.builder().id(2L).absenceDate(LocalDate.now()).reason("Ból").build());
+                absenceRecords.add(Absence.builder().id(3L).absenceDate(LocalDate.now().plusDays(2)).reason("Choroba").build());
+            }
+
+            return absenceRecords;
         }
-
-        return absenceRecords;
+        return childAbsences;
     }
 
-    @PostMapping("/addAbsenceRecord")
-    public void saveOrUpdate(@RequestBody AbsenceRecordDto absenceRecordDto) {
-        absenceRecords
-                .removeIf(absenceRecord -> absenceRecord.getId() == absenceRecordDto.getId());
-        absenceRecords.add(absenceRecordDto.withId(lastId++));
+    @PostMapping(value = "/addAbsenceRecord/{childId}")
+    public List<Absence> addAbsence(@RequestBody AbsenceRecordDto absenceRecordDto, @PathVariable long childId) {
+        return absenceService.addAbsence(absenceRecordDto, childId);
     }
 
-    @GetMapping("/deleteAbsenceRecord/{absenceId}")
-    public void deleteAbsence(@PathVariable long absenceId) {
-        absenceRecords
-                .removeIf(absenceRecord -> absenceRecord.getId() == absenceId);
+    @PostMapping("/updateAbsenceRecord/{absenceIds}")
+    public void updateAbsence(@RequestBody AbsenceRecordDto absenceRecordDto, @PathVariable long[] absenceIds) {
+        absenceService.updateAbsence(absenceIds, absenceRecordDto.getReason());
+    }
+
+    @GetMapping("/deleteAbsenceRecord/{absenceIds}")
+    public void deleteAbsence(@PathVariable long[] absenceIds) {
+        absenceService.deleteAbsence(absenceIds);
     }
 
     @GetMapping("/getChildRemarks/{childId}")

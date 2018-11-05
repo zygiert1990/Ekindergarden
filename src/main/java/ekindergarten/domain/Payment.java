@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "child")
 public class Payment {
 
     @Id

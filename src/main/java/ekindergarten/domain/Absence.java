@@ -1,6 +1,5 @@
 package ekindergarten.domain;
 
-import ekindergarten.model.RemarkDto;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,34 +13,26 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"child", "user"})
-public class Remark {
+@ToString(exclude = {"child"})
+public class Absence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private boolean isRead;
+    private LocalDate absenceDate;
 
-    private boolean isPositive;
-
-    private LocalDate date;
-
-    private String comment;
+    private String reason;
 
     @ManyToOne
     @JoinColumn(name = "child_id")
     private Child child;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Override
     public int hashCode() {
         HashCodeBuilder hcb = new HashCodeBuilder();
-        hcb.append(user);
         hcb.append(child);
+        hcb.append(absenceDate);
         return hcb.toHashCode();
     }
 
@@ -50,24 +41,14 @@ public class Remark {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Remark)) {
+        if (!(obj instanceof Absence)) {
             return false;
         }
-        Remark that = (Remark) obj;
+        Absence that = (Absence) obj;
         EqualsBuilder eb = new EqualsBuilder();
         eb.append(child, that.child);
-        eb.append(user, that.user);
+        eb.append(absenceDate, that.absenceDate);
         return eb.isEquals();
     }
 
-    public static RemarkDto mapToRemarkDto(Remark remark) {
-        return RemarkDto.builder()
-                .id(remark.getId())
-                .isPositive(remark.isPositive())
-                .isRead(remark.isRead())
-                .date(remark.getDate())
-                .comment(remark.getComment())
-                .author(remark.getUser().getName() + " " + remark.getUser().getSurname())
-                .build();
-    }
 }

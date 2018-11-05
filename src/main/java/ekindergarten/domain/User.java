@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"children", "role"})
+@ToString(exclude = {"children", "role", "remarks"})
 public class User {
 
     @Id
