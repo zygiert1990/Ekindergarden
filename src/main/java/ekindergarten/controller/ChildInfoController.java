@@ -43,18 +43,13 @@ public class ChildInfoController {
     }
 
     @PostMapping(value = "/addAbsenceRecord/{childId}")
-    public List<Absence> addAbsence(@RequestBody AbsenceRecordDto absenceRecordDto, @PathVariable long childId) {
-        return absenceService.addAbsence(absenceRecordDto, childId);
+    public void addOrUpdateAbsence(@RequestBody List<AbsenceRecordDto> absenceRecordDto, @PathVariable long childId) {
+        absenceService.addOrUpdateAbsence(absenceRecordDto, childId);
     }
 
-    @PostMapping("/updateAbsenceRecord/{absenceIds}")
-    public void updateAbsence(@RequestBody AbsenceRecordDto absenceRecordDto, @PathVariable long[] absenceIds) {
-        absenceService.updateAbsence(absenceIds, absenceRecordDto.getReason());
-    }
-
-    @GetMapping("/deleteAbsenceRecord/{absenceIds}")
-    public void deleteAbsence(@PathVariable long[] absenceIds) {
-        absenceService.deleteAbsence(absenceIds);
+    @GetMapping("/deleteAbsenceRecord/{absenceIds}/{childId}")
+    public void deleteAbsence(@PathVariable Long[] absenceIds, @PathVariable long childId) {
+        absenceService.deleteAbsence(absenceIds, childId);
     }
 
     @GetMapping("/getChildRemarks/{childId}")

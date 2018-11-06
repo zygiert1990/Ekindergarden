@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -21,6 +22,13 @@ public class Payment {
     private BigDecimal balance;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "child_id")
     private Child child;
+
+    private LocalDate paymentMonth;
+
+    @Column (columnDefinition = "decimal(15,2) default 0")
+    private BigDecimal currentMonthPayment;
+
 }

@@ -3,6 +3,7 @@ package ekindergarten.controller;
 import ekindergarten.domain.Child;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.service.ChildService;
+import ekindergarten.service.PaymentService;
 import ekindergarten.service.TrustedPersonService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ import java.util.Set;
 public class ParentController {
     private final ChildService childService;
     private final TrustedPersonService trustedPersonService;
+    private final PaymentService paymentService;
 
-    public ParentController(ChildService childService, TrustedPersonService trustedPersonService) {
+    public ParentController(ChildService childService, TrustedPersonService trustedPersonService, PaymentService paymentService) {
         this.childService = childService;
         this.trustedPersonService = trustedPersonService;
+        this.paymentService = paymentService;
     }
 
     @GetMapping(value = "/getAll")
@@ -40,7 +43,7 @@ public class ParentController {
 
     @GetMapping("/getBalance/{childId}")
     public BigDecimal getUserBalanceStatusForSpecificChild(@PathVariable long childId) {
-        return childService.getSpecificChildBalance(childId);
+        return paymentService.getPaymentByChildIdAndCurrentMonth(childId);
     }
 
     @GetMapping("/getTrustedPerson/{childId}")

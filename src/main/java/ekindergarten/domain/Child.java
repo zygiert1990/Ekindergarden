@@ -45,8 +45,7 @@ public class Child {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<TrustedPerson> trustedPeople;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "child")
     private Payment payment;
 
     @JsonIgnore
