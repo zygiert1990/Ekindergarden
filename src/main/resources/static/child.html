@@ -13,7 +13,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
-<body id="top" onload="getChildren()">
+<body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -77,6 +77,46 @@ Licence URI: http://www.os-templates.com/template-terms
         <!-- ################################################################################################ -->
         <div class="content three_quarter" id="childResult">
             <!-- ################################################################################################ -->
+            <div class="btmspace-30 center">
+                <h1 class="nospace">Dane Dziecka</h1>
+            </div>
+
+
+            <div class="scrollable">
+
+                <select v-on:change="getChildInfo(child)" v-model="child">
+                    <option v-for="child in children" :value="child">
+                            {{child.name}} {{child.surname}}
+                    </option>
+                </select>
+
+                </br>
+                <h2>Dane osobowe</h2>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Imię</th>
+                        <td>{{name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nazwisko</th>
+                        <td>{{surname}}</td>
+                    </tr>
+                    <tr>
+                        <th>PESEL</th>
+                        <td>{{pesel}}</td>
+                    </tr>
+                    <tr>
+                        <th>Data urodzenia</th>
+                        <td>{{birthday}}</td>
+                    </tr>
+                    <tr>
+                        <th>Płeć</th>
+                        <td>{{sex}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <!-- ################################################################################################ -->
         </div>
@@ -113,7 +153,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper row5" style="background-color:grey";>
+<div class="wrapper row5" style="background-color:grey" ;>
     <div id="copyright" class="hoc clear">
         <!-- ################################################################################################ -->
         <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Tęcza</a></p>
@@ -126,23 +166,23 @@ Licence URI: http://www.os-templates.com/template-terms
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script>
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+    function myFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
-  }
-}
 </script>
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
@@ -150,5 +190,8 @@ function myFunction() {
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/app.js"></script>
 </body>
 </html>
