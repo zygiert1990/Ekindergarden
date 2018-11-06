@@ -682,7 +682,7 @@ td {
 --------------------------------------------------------------------------------------------------------------- */
 body {
     color: white;
-    background-color: #26272B;
+    background-color: #4c4ebe;
 }
 
 a {
@@ -869,7 +869,7 @@ table, th, td, #comments .avatar, #comments input, #comments textarea {
 
 th {
     color: #FFFFFF;
-    background-color: #373737;
+    background-color: #4c87be;
 }
 
 tr, #comments li, #comments input[type="submit"], #comments input[type="reset"] {
