@@ -48,6 +48,21 @@ File: Layout CSS
     text-transform: uppercase;
 }
 
+
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
 /* Page Intro
 --------------------------------------------------------------------------------------------------------------- */
 #pageintro {
@@ -323,6 +338,8 @@ nav ul, nav ol {
 
 /* Top Navigation */
 #mainav {
+	font-size: 15px;
+
 }
 
 #mainav ul.clear {
