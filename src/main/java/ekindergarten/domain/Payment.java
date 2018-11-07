@@ -28,7 +28,5 @@ public class Payment {
 
     private LocalDate paymentMonth;
 
-    @Column (columnDefinition = "decimal(15,2) default 0")
-    private BigDecimal currentMonthPayment;
 
 }
