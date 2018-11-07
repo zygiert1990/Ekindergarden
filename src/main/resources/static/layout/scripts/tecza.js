@@ -145,18 +145,8 @@ $(document).ready(function () {
     }
 });
 
-function getBalance() {
-    $.ajax({
-        type: "GET",
-        url: window.origin + "/tecza/rest/parent/getAll",
-        headers: {'Authorization': $.cookie('token')},
-        success: function (result) {
-            $("#month").empty();
-            $("#balance").empty();
-            var month = new Date().getMonth() + 1;
-            var balance = result[0].payment.balance;
-            $("#month").append(month);
-            $("#balance").append(balance);
-        }
+function getSpecificChildById(childList, childId) {
+    return childList.find(function (child) {
+        return child.id === childId;
     });
 }

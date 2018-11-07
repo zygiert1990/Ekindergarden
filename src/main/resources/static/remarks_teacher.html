@@ -8,10 +8,10 @@ Licence URI: http://www.os-templates.com/template-terms
 -->
 <html>
 <head>
-<title>Tęcza - dla Przedszkoli</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+    <title>Tęcza - dla Przedszkoli</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 
 </head>
 <body id="top">
@@ -19,36 +19,36 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="bgded" style="background-image:url('images/pensil5.jpg');">
-  <!-- ################################################################################################ -->
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
-      <!-- ################################################################################################ -->
-          <div id="logo" class="fl_left">
-		  
-	                    <h3><a href="index.html">Tęcza- dla przedszkoli</a></h3>
-      </div>
-      <nav id="mainav" class="fl_right">
-	  
-	  
-        <ul class="clear">
-          <li><a href="index.html">Strona główna</a></li>
-          <li><a href="index.html">Wyloguj się</a></li>
-		  
-        </ul>
-      </nav>
-      <!-- ################################################################################################ -->
-
-	</header>
-  </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div id="pageintro" class="hoc clear"> 
-      <!-- ################################################################################################ -->
-   
     <!-- ################################################################################################ -->
-  </div>
-  <!-- ################################################################################################ -->
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <div id="logo" class="fl_left">
+
+                <h3><a href="index.html">Tęcza- dla przedszkoli</a></h3>
+            </div>
+            <nav id="mainav" class="fl_right">
+
+
+                <ul class="clear">
+                    <li><a href="teacher.html">Strona główna</a></li>
+                    <li><a href="index.html" onclick="logout()">Wyloguj się</a></li>
+
+                </ul>
+            </nav>
+            <!-- ################################################################################################ -->
+
+        </header>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div id="pageintro" class="hoc clear">
+        <!-- ################################################################################################ -->
+
+        <!-- ################################################################################################ -->
+    </div>
+    <!-- ################################################################################################ -->
 </div>
 <!-- End Top Background Image Wrapper -->
 <!-- ################################################################################################ -->
@@ -57,10 +57,10 @@ Licence URI: http://www.os-templates.com/template-terms
 
 <div class="wrapper row3">
 
-  <main class="hoc container clear"> 
+    <main class="hoc container clear">
 
-    <!-- main body -->
-    <!-- ################################################################################################ -->
+        <!-- main body -->
+        <!-- ################################################################################################ -->
         <div class="sidebar one_quarter first">
             <!-- ################################################################################################ -->
             <h6>Menu</h6>
@@ -73,68 +73,55 @@ Licence URI: http://www.os-templates.com/template-terms
 
             <!-- ################################################################################################ -->
         </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <div class="content three_quarter" id="comments"> 
-      <!-- ################################################################################################ -->
-          <div class="btmspace-30 center">
-      <h1 class="nospace">Dziennik Uwag</h1>
-    </div>
-<h6>Wybierz dziecko</h6>
-	<div id="mainselection">
-  <select>
-    <option>Wybierz dziecko</option>
-    <option>Jasio Kowalski</option>
-    <option>Kacper Nowak</option>
-	<option>Bartek Król</option>
-	<option>Alicja Wójcik</option>
-	<option>Szymon Wisniewski</option>
-	<option>Liliana Socha</option>
-	<option>Mateusz Lewandowski</option>
-	<option>Pola Szczęsna</option>
-	<option>Antonina Nowakowska</option>
-	<option>Piotrek Berda</option>
-	<option>Antoni Piechniczek</option>
-	<option>Julia Pietrucha</option>
-	<option>Nikola Borkowska</option>
-  </select>
-</div>
-  
-	          <h6>Dodaj Uwagę</h6>
-        <form action="#" method="post">
-            <div class="one_third first">
-                <label for="sell">Rodzaj uwagi<span>*</span></label>
-                <select  id="sel1" name="sell" value="">
-                    <option>pozytywna</option>
-                    <option>negatywna</option>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="content three_quarter" id="comments">
+            <!-- ################################################################################################ -->
+            <div class="btmspace-30 center">
+                <h1 class="nospace">Dziennik Uwag</h1>
+            </div>
+            <h6>Wybierz dziecko</h6>
+            <div id="mainselection">
+                <select v-on:change="getSpecificChild(child)" v-model="child">
+                    <option v-for="child in children" :value="child">
+                        {{child.name}} {{child.surname}}
+                    </option>
                 </select>
             </div>
-          <div class="one_third first">
-            <label for="name">Temat <span>*</span></label>
-            <input type="text" name="subject" id="subject" value="" size="40" required>
-          </div>
 
-          <div class="block clear">
-            <label for="comment">Treść Uwagi</label>
-            <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-          </div>
-          <div>
-            <input type="submit" name="submit" value="Wyślij">
-            &nbsp;
-            <input type="reset" name="reset" value="Wyczyść">
-          </div>
-        </form>
-	 
-	        
-	
-	  </div>
-    <div class="clear"></div>
-  </main>
-      <!-- ################################################################################################ -->
-    </div>
+            <h6>Dodaj Uwagę</h6>
+            <form action="#" method="post">
+                <div class="one_third first">
+                    <label>Rodzaj uwagi<span>*</span></label>
+                    <select id="sel1">
+                        <option>pozytywna</option>
+                        <option>negatywna</option>
+                    </select>
+                </div>
+                <div class="one_third first">
+                    <label>Temat <span>*</span></label>
+                    <input type="text" name="subject" id="subject" value="" size="40" required>
+                </div>
+
+                <div class="block clear">
+                    <label>Treść Uwagi</label>
+                    <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
+                </div>
+                <div>
+                    <input type="submit" v-on:click.stop.prevent="addRemark()" value="Wyślij">
+                    &nbsp;
+                    <input type="reset" name="reset" value="Wyczyść">
+                </div>
+            </form>
+
+
+        </div>
+        <div class="clear"></div>
+    </main>
     <!-- ################################################################################################ -->
-    <!-- / main body -->
-
+</div>
+<!-- ################################################################################################ -->
+<!-- / main body -->
 
 
 <!-- ################################################################################################ -->
@@ -149,17 +136,17 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row4 bgded" style="background-image:url('images/pensil2.jpg');">
-  <footer id="footer" class="hoc clear"> 
-    <!-- ################################################################################################ -->
-    <div class="one_third first">
-	         <li class="btmspace-15"><i class="fa fa-phone"></i> +00 (81) 456 7890</li>
-		 <li><i class="fa fa-envelope-o"></i> info@tecza.com</li>
-	  	</div>                                  
-    <div class="one_third">
+    <footer id="footer" class="hoc clear">
+        <!-- ################################################################################################ -->
+        <div class="one_third first">
+            <li class="btmspace-15"><i class="fa fa-phone"></i> +00 (81) 456 7890</li>
+            <li><i class="fa fa-envelope-o"></i> info@tecza.com</li>
+        </div>
+        <div class="one_third">
 
-    </div>
-    <!-- ################################################################################################ -->
-  </footer>
+        </div>
+        <!-- ################################################################################################ -->
+    </footer>
 </div>
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -180,5 +167,10 @@ Licence URI: http://www.os-templates.com/template-terms
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
+<script src="layout/scripts/tecza.js"></script>
+<script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/remarks_teacher.js"></script>
 </body>
 </html>

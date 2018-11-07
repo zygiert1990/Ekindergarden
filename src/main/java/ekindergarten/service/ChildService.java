@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -54,6 +55,10 @@ public class ChildService {
 
     public Set<TrustedPerson> getTrustedPeopleForSpecificChild(long id) {
         return childRepository.findById(id).getTrustedPeople();
+    }
+
+    public List<Child> findAllChildren() {
+        return childRepository.findAll();
     }
 
     public Child getSpecificChildById(long id) {

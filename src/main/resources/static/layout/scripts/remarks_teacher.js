@@ -1,42 +1,38 @@
 new Vue({
-    el: '#getTrustedPeople',
+    el: '#comments',
     data: {
         children: [],
-        trustedPeople: [],
         child: {},
-        childId: ''
+        childId: {}
     },
     created: function () {
-        this.$http.get(window.origin + "/tecza/rest/parent/getAll",
+        this.$http.get(window.origin + "/tecza/rest/teacher/getAll",
             {
                 headers: {'Authorization': $.cookie('token')}
             }).then(function (response) {
                 this.children = response.body;
-                this.child = this.children[0];
-                this.trustedPeople = this.children[0].trustedPeople;
             },
             function (error) {
                 console.log(error);
             })
     },
     methods: {
-        getChild: function (child) {
+        getSpecificChild: function (child) {
             this.childId = child.id;
             this.child = getSpecificChildById(this.children, this.childId);
-            this.trustedPeople = this.child.trustedPeople;
         },
-        addPerson: function () {
+        addRemark: function () {
             var data = {
-                name: $("#name").val(),
-                surname: $("#surname").val(),
-                civilId: $("#civilid").val(),
-                phoneNumber: $("#phone").val()
+                isPositive: !!$("#sel1").val().localeCompare("negatywna"),
+                comment: $("#comment").val(),
+                subject: $("#subject").val()
             };
-            this.$http.post(window.origin + "/tecza/rest/parent/addTrustedPerson/" + this.childId, data,
+            this.$http.post(window.origin + "/tecza/rest/teacher/addRemark/" + this.childId, data,
                 {
                     headers: {'Authorization': $.cookie('token')}
                 }).then(function () {
-                    alert("Dodano osobę upoważnioną");
+                    alert("Dodano uwagę");
+                    window.location.href = window.origin + "/tecza/remarks_teacher";
                 },
                 function (error) {
                     console.log(error);

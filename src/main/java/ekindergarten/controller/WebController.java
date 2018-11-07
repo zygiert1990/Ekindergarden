@@ -60,4 +60,9 @@ public class WebController {
     public String fees() {
         return "redirect:fees.html";
     }
+
+    @GetMapping(value = "/remarks_teacher")
+    public String remarksTeacher() {
+        return "redirect:remarks_teacher.html";
+    }
 }

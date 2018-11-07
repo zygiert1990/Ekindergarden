@@ -1,5 +1,6 @@
 package ekindergarten.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ekindergarten.model.RemarkDto;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -32,10 +33,12 @@ public class Remark {
     private String subject;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "child_id")
     private Child child;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
