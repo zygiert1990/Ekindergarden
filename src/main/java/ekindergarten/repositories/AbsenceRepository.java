@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface AbsenceRepository extends JpaRepository<Absence, Long> {
 
-    @Transactional
     @Modifying
+    @Transactional
     @Query("DELETE FROM Absence a WHERE a.id in (?1) and a.absenceDate >= ?2")
-    Long deleteById(List<Long> id, LocalDate currentDate);
+    int deleteById(List<Long> id, LocalDate currentDate);
 
     List<Absence> findByChildId(long child_id);
 }

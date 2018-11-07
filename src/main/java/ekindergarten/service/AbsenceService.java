@@ -23,8 +23,8 @@ public class AbsenceService {
     }
 
     public void deleteAbsence(Long[] ids, long childId) {
-        Long deletedRows = absenceRepository.deleteById(Arrays.nonNullElementsIn(ids), LocalDate.now());
-        paymentService.updateChildBalance(childId, deletedRows.intValue());
+        Integer deletedRows = absenceRepository.deleteById(Arrays.nonNullElementsIn(ids), LocalDate.now());
+        paymentService.updateChildBalance(childId, deletedRows);
     }
 
     public List<Absence> getChildAbsences(long id) { return absenceRepository.findByChildId(id); }
