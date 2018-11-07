@@ -27,7 +27,7 @@ new Vue({
             })
     },
     methods: {
-        getChildInfo: function(child) {
+        getChildInfo: function (child) {
             this.name = child.name;
             this.surname = child.surname;
             this.pesel = child.pesel;
@@ -48,4 +48,3 @@ function getSexFromPesel(pesel) {
     var sex = parseInt(pesel.substring(9, 10), 10);
     return sex % 2 === 1 ? "chłopiec" : "dziewczynka";
 }
-

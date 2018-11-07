@@ -13,7 +13,7 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
-<body id="top" onload="getTrustedPeople()">
+<body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -75,13 +75,22 @@ Licence URI: http://www.os-templates.com/template-terms
         </div>
         <!-- ################################################################################################ -->
         <!-- ################################################################################################ -->
-        <div class="content three_quarter">
+        <div class="content three_quarter" id="getTrustedPeople">
             <!-- ################################################################################################ -->
             <div class="btmspace-30 center">
                 <h1 class="nospace">Osoby upoważnione do odbioru dziecka</h1>
             </div>
             </br>
             <div class="scrollable">
+
+                <select v-on:change="getChild(child)" v-model="child">
+                    <option v-for="child in children" :value="child">
+                        {{child.name}} {{child.surname}}
+                    </option>
+                </select>
+
+                </br>
+
                 <h2>Lista Osób</h2>
                 <table>
                     <thead>
@@ -93,7 +102,14 @@ Licence URI: http://www.os-templates.com/template-terms
                         <th>Telefon</th>
                     </tr>
                     </thead>
-                    <tbody id="trustedPeopleResult">
+                    <tbody>
+                    <tr v-for="trustedPerson in trustedPeople">
+                        <td><input type="checkbox" name="record"></td>
+                        <td>{{trustedPerson.name}}</td>
+                        <td>{{trustedPerson.surname}}</td>
+                        <td>{{trustedPerson.civilId}}</td>
+                        <td>{{trustedPerson.phoneNumber}}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <button type="button" class="delete-row" style="visibility: hidden">Usuń zaznaczone osoby</button>
@@ -115,7 +131,7 @@ Licence URI: http://www.os-templates.com/template-terms
                             <td><input type="text" id="phone" placeholder="Wpisz telefon" size="15"></td>
                         </tr>
                     </table>
-                    <input type="button" id="addTrustedPerson" value="Dodaj osobę">
+                    <input type="button" v-on:click="addPerson()" value="Dodaj osobę">
                 </form>
 
             </div>
@@ -167,31 +183,14 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
-<script>
-    function myFunction() {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/child2.js"></script>
 </body>
 </html>

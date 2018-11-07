@@ -145,45 +145,6 @@ $(document).ready(function () {
     }
 });
 
-$(document).ready(function () {
-    $("#addTrustedPerson").click(function (event) {
-        event.preventDefault();
-        addTrustedPerson();
-    });
-
-    function addTrustedPerson() {
-        var formData = {
-            name: $("#name").val(),
-            surname: $("#surname").val(),
-            civilId: $("#civilid").val(),
-            phoneNumber: $("#phone").val()
-        };
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            headers: {'Authorization': $.cookie('token')},
-            url: window.origin + "/tecza/rest/parent/addTrustedPerson/" + localStorage.getItem('id'),
-            data: JSON.stringify(formData),
-            dataType: 'json',
-            success: function (result) {
-                alert("Dodano osobę upoważnioną do odbioru dziecka");
-            },
-            error: function (e) {
-                showErrors(e);
-            }
-        });
-        resetData();
-    }
-
-    function resetData() {
-        $("#name").val("");
-        $("#surname").val("");
-        $("#civilid").val("");
-        $("#phone").val("");
-    }
-});
-
 function getBalance() {
     $.ajax({
         type: "GET",
