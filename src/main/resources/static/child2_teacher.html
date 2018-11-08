@@ -12,9 +12,9 @@ Licence URI: http://www.os-templates.com/template-terms
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 </head>
-<body id="top" onload="getTrustedPeople()">
+<body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -31,7 +31,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
                 <ul class="clear">
-                    <li><a href="index.html">Strona główna</a></li>
+                    <li><a href="teacher.html">Strona główna</a></li>
                     <li><a href="index.html" onclick="logout()">Wyloguj się</a></li>
 
                 </ul>
@@ -76,127 +76,56 @@ Licence URI: http://www.os-templates.com/template-terms
         </div>
         <!-- ################################################################################################ -->
         <!-- ################################################################################################ -->
-        <div class="content three_quarter">
-	
+        <div class="content three_quarter" id="getTrustedPeople">
+
 
             <div class="btmspace-30 center">
                 <h1 class="nospace">Osoby upoważnione do odbioru dziecka</h1>
-            </div>	
-		<h6>Wybierz dziecko</h6>
+            </div>
+            <h6>Wybierz dziecko</h6>
 
 
-			
-<div id="mainselection">
+            <div id="mainselection">
 
 
+                <select v-on:change="getChild(child)" v-model="child">
+                    <option v-for="child in children" :value="child">
+                        {{child.name}} {{child.surname}}
+                    </option>
+                </select>
 
- <select name="grant_type_id" id="grant_type_id" class="form-select required">
-    <option value="">- wybierz dziecko -</option>
-    <option value="2">Jasio Kowalski</option>
-    <option value="1">Kacper Nowak</option>
-	<option value="2">Bartek Król</option>
-	<option value="1">Alicja Wójcik</option>
-	<option value="2">Szymon Wisniewski</option>
-	<option value="1">Liliana Socha</option>
-	<option value="2">Mateusz Lewandowski</option>
-	<option value="1">Pola Szczęsna</option>
-	<option value="2">Antonina Nowakowska</option>
-	<option value="1">Piotrek Berda</option>
-	<option value="2">Antoni Piechniczek</option>
-	<option value="1">Julia Pietrucha</option>
-	<option value="2">Nikola Borkowska</option>
-  </select>
-</br>
-<div id="number1" class="number">	<h2>Lista Osób</h2>
-<table>
-                    <thead>
-                    <tr>
-
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Nr Dowodu</th>
-                        <th>Telefon</th>
-                    </tr>
-                    </thead>
-                    <tbody id="trustedPeopleResult">
-					<tr>
-
-              <td>Jan</td>
-              <td>Kowalski</td>
-              <td>AXU12345</td>
-			  <td>789456123</td>
-                  </tr>
-            <tr>
-
-              <td>Anna</td>
-              <td>Nowak</td>
-              <td>ACC23456</td>
-			  <td>987654321</td>
-           
-            </tr>
-
-	
-  
-                    </tbody>
-                </table>
-</div>
+                </br>
+                <div id="number1" class="number"><h2>Lista Osób</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Nr Dowodu</th>
+                            <th>Telefon</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="trustedPerson in trustedPeople">
+                            <td>{{trustedPerson.name}}</td>
+                            <td>{{trustedPerson.surname}}</td>
+                            <td>{{trustedPerson.civilId}}</td>
+                            <td>{{trustedPerson.phoneNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
-
-<div id="number2" class="number">	<h2>Lista Osób</h2>
-<table>
-                    <thead>
-                    <tr>
-
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Nr Dowodu</th>
-                        <th>Telefon</th>
-                    </tr>
-                    </thead>
-                    <tbody id="trustedPeopleResult">
-
-            <tr>
-
-              <td>Magda</td>
-              <td>Wiśniewska</td>
-			  <td>ABC34567</td>
-			  <td>123456789</td>
-             
-            </tr>
-			            <tr>
-
-              <td>Jarosław</td>
-              <td>Kaczyński</td>
-              <td>AXU12345</td>
-			  <td>789456123</td>
-            
-            </tr>
-            <tr>
-
-              <td>Anna</td>
-              <td>Nowak</td>
-              <td>ACC23456</td>
-			  <td>987654321</td>
-            
-            </tr>
-  
-                    </tbody>
-                </table>
-</div>
-<div id="number3" class="number">Option 3</div>	
+                </br>
 
 
-  </br>
-  
+                <!-- ################################################################################################ -->
 
-            <!-- ################################################################################################ -->
+                </br>
 
-            </br>
 
-			
-
-</div>
+            </div>
             <!-- ################################################################################################ -->
         </div>
         <!-- ################################################################################################ -->
@@ -244,40 +173,14 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
-<script>
-    function myFunction() {
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-		
-	<script type="text/javascript">
-$(function() {
-      $('#grant_type_id').change(function() {
-            $('div.number').hide();
-            $('#number' + $(this).val()).show();
-      }).change(); // Invoke it now
-});
-</script>
-
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/child2_teacher.js"></script>
 </body>
 </html>
