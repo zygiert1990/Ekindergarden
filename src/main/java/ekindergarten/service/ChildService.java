@@ -69,6 +69,16 @@ public class ChildService {
         return userRepository.findByEmail(email).getChildren();
     }
 
+    public String getChildAdditionalInfo(long childId) {
+        return childRepository.findById(childId).getAdditionalInfo();
+    }
+
+    public void setChildAdditionalInfo(long childId, String additionalInfo) {
+        Child child = childRepository.findById(childId);
+        child.setAdditionalInfo(additionalInfo);
+        childRepository.flush();
+    }
+
     private void addUserToChild(Child child, User user) {
         if (child.getUsers() != null) {
             child.getUsers().add(user);
@@ -90,4 +100,5 @@ public class ChildService {
             childRepository.save(child);
         }
     }
+
 }

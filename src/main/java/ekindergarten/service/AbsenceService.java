@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +47,14 @@ public class AbsenceService {
                 ))
                 .collect(Collectors.toList()));
 
-        paymentService.updateChildBalance(childId , -absences.size());
+        paymentService.updateChildBalance(childId , -(absences.size() - getAbsencesNumberToUpdate(absenceRecordDto)));
+    }
+
+    private int getAbsencesNumberToUpdate(List<AbsenceRecordDto> absenceRecordDto) {
+        AtomicInteger atomicInteger = new AtomicInteger();
+        absenceRecordDto
+                .forEach(i -> {if (i.getId() != 0) atomicInteger.incrementAndGet();});
+
+        return atomicInteger.get();
     }
 }
