@@ -1,17 +1,13 @@
 package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
+import ekindergarten.domain.IncomingEvents;
 import ekindergarten.domain.TrustedPerson;
-import ekindergarten.model.consultation.dto.ConsultationsDto;
-import ekindergarten.model.consultation.dto.request.BookConsultationDto;
-import ekindergarten.model.consultation.dto.request.CreateConsultationDto;
-import ekindergarten.service.ChildService;
-import ekindergarten.service.ConsultationService;
-import ekindergarten.service.PaymentService;
-import ekindergarten.service.TrustedPersonService;
+import ekindergarten.domain.consultation.ConsultationHours;
+import ekindergarten.model.consultation.ConsultationsDto;
+import ekindergarten.model.consultation.request.BookConsultationDto;
+import ekindergarten.service.*;
 import ekindergarten.utils.CurrentUserProvider;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,12 +22,14 @@ public class ParentController {
     private final TrustedPersonService trustedPersonService;
     private final PaymentService paymentService;
     private final ConsultationService consultationService;
+    private final IncomingEventService incomingEventService;
 
-    public ParentController(ChildService childService, TrustedPersonService trustedPersonService, PaymentService paymentService, ConsultationService consultationService) {
+    public ParentController(ChildService childService, TrustedPersonService trustedPersonService, PaymentService paymentService, ConsultationService consultationService, IncomingEventService incomingEventService) {
         this.childService = childService;
         this.trustedPersonService = trustedPersonService;
         this.paymentService = paymentService;
         this.consultationService = consultationService;
+        this.incomingEventService = incomingEventService;
     }
 
     @GetMapping(value = "/getAll")
@@ -81,7 +79,7 @@ public class ParentController {
     }
 
     @GetMapping (value = "/getChildConsultations/{childId}")
-    public List<ConsultationsDto> getChildConsultations(@PathVariable long childId) {
+    public List<ConsultationHours> getChildConsultations(@PathVariable long childId) {
         return consultationService.getChildConsultations(childId);
     }
 
@@ -93,6 +91,11 @@ public class ParentController {
     @PostMapping(value = "/deleteConsultation")
     public void deleteConsultation(@RequestBody @Valid BookConsultationDto consultationDto) {
         consultationService.deleteConsultation(consultationDto);
+    }
+
+    @GetMapping (value = "/getIncomingEvents/{childId}")
+    public List<IncomingEvents> getIncomingEvents(@PathVariable long childId) {
+        return incomingEventService.getIncomingEvents(childId);
     }
 
 }

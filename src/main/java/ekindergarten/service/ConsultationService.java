@@ -4,12 +4,12 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.User;
 import ekindergarten.domain.consultation.Consultation;
 import ekindergarten.domain.consultation.ConsultationHours;
-import ekindergarten.model.consultation.dto.ConsultationDayDto;
-import ekindergarten.model.consultation.dto.ConsultationHoursDto;
-import ekindergarten.model.consultation.dto.ConsultationsDto;
+import ekindergarten.model.consultation.ConsultationDayDto;
+import ekindergarten.model.consultation.ConsultationHoursDto;
+import ekindergarten.model.consultation.ConsultationsDto;
 import ekindergarten.model.UserDto;
-import ekindergarten.model.consultation.dto.request.BookConsultationDto;
-import ekindergarten.model.consultation.dto.request.CreateConsultationDto;
+import ekindergarten.model.consultation.request.BookConsultationDto;
+import ekindergarten.model.consultation.request.CreateConsultationDto;
 import ekindergarten.repositories.ConsultationHoursRepository;
 import ekindergarten.repositories.ConsultationRepository;
 import ekindergarten.utils.CurrentUserProvider;
@@ -26,8 +26,9 @@ public class ConsultationService {
     private final ConsultationRepository consultationRepository;
     private final ConsultationHoursRepository consultationHoursRepository;
 
-    public ConsultationService(ConsultationRepository consultationRepository,
-                               ConsultationHoursRepository consultationHoursRepository) {
+    public ConsultationService(
+            ConsultationRepository consultationRepository,
+            ConsultationHoursRepository consultationHoursRepository) {
         this.consultationRepository = consultationRepository;
         this.consultationHoursRepository = consultationHoursRepository;
     }
@@ -93,6 +94,22 @@ public class ConsultationService {
         consultationRepository.save(consultation);
     }
 
+    public void bookConsultation(BookConsultationDto consultationDto) {
+        consultationHoursRepository
+                .bookConsultation(consultationDto.getChildId(), consultationDto.getConsultationId(),
+                        consultationDto.getHour(), consultationDto.getMin());
+    }
+
+    public void deleteConsultation(BookConsultationDto consultationDto) {
+        consultationHoursRepository
+                .bookConsultation(null, consultationDto.getConsultationId(),
+                        consultationDto.getHour(), consultationDto.getMin());
+    }
+
+    public List<ConsultationHours> getChildConsultations(long childId) {
+        return consultationHoursRepository.findByChild(Child.builder().id(childId).build());
+    }
+
     private List<ConsultationHours> produceConsultationHours(LocalDateTime start, LocalDateTime end, Consultation consultation) {
         List<ConsultationHours> consultationHours = new ArrayList<>();
 
@@ -109,19 +126,5 @@ public class ConsultationService {
         return consultationHours;
     }
 
-    public void bookConsultation(BookConsultationDto consultationDto) {
-        consultationHoursRepository
-                .bookConsultation(consultationDto.getChildId(), consultationDto.getConsultationId(),
-                        consultationDto.getHour(), consultationDto.getMin());
-    }
 
-    public void deleteConsultation(BookConsultationDto consultationDto) {
-        consultationHoursRepository
-                .bookConsultation(null, consultationDto.getConsultationId(),
-                        consultationDto.getHour(), consultationDto.getMin());
-    }
-
-    public List<ConsultationsDto> getChildConsultations(long childId) {
-        return consultationHoursRepository.findByChildId(childId);
-    }
 }

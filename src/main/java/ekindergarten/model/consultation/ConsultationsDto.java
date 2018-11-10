@@ -1,4 +1,4 @@
-package ekindergarten.model.consultation.dto;
+package ekindergarten.model.consultation;
 
 import ekindergarten.model.UserDto;
 import lombok.AllArgsConstructor;

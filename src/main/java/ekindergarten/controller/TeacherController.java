@@ -5,7 +5,7 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.Remark;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.model.RemarkDto;
-import ekindergarten.model.consultation.dto.request.CreateConsultationDto;
+import ekindergarten.model.consultation.request.CreateConsultationDto;
 import ekindergarten.service.ChildService;
 import ekindergarten.service.ConsultationService;
 import ekindergarten.service.RemarkService;

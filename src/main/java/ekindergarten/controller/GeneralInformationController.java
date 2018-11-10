@@ -1,11 +1,11 @@
 package ekindergarten.controller;
 
 import ekindergarten.model.MessageDto;
+import ekindergarten.model.forum.request.CreateTopicRequest;
+import ekindergarten.model.forum.response.TopicDto;
+import ekindergarten.service.TopicService;
 import org.apache.commons.io.IOUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/news")
-public class NewsController {
+public class GeneralInformationController {
+
+    private final TopicService topicService;
+
+    public GeneralInformationController(TopicService topicService) {
+        this.topicService = topicService;
+    }
+
     private static List<MessageDto> privMassages = new ArrayList<>();
     private static List<MessageDto> announcement = new ArrayList<>();
     static {
@@ -96,5 +103,20 @@ public class NewsController {
     public MessageDto deleteMessage(@PathVariable int id) {
         //TODO
         return privMassages.remove(id);
+    }
+
+    @GetMapping("/getTopics")
+    public List<TopicDto> getTopics() {
+        return topicService.getAll();
+    }
+
+    @PostMapping("/addTopic")
+    public void addOrUpdate(@RequestBody CreateTopicRequest createTopicRequest) {
+        topicService.addOrUpdate(createTopicRequest);
+    }
+
+    @PostMapping("/deleteTopic/{topicId}")
+    public void deleteTopic(@PathVariable long topicId) {
+        topicService.deleteTopic(topicId);
     }
 }
