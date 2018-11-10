@@ -10,7 +10,6 @@ import ekindergarten.service.ChildService;
 import ekindergarten.service.ConsultationService;
 import ekindergarten.service.RemarkService;
 import ekindergarten.utils.CurrentUserProvider;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,10 +47,6 @@ public class TeacherController {
     @GetMapping("/getTrustedPerson/{childId}")
     public Set<TrustedPerson> getTrustedPersonForSpecificChild(@PathVariable long childId) {
         return childService.getTrustedPeopleForSpecificChild(childId);
-    }
-
-    private String getUserEmail() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @PostMapping(value = "/addConsultation")
