@@ -120,4 +120,8 @@ public class ConsultationService {
                 .bookConsultation(null, consultationDto.getConsultationId(),
                         consultationDto.getHour(), consultationDto.getMin());
     }
+
+    public List<ConsultationsDto> getChildConsultations(long childId) {
+        return consultationHoursRepository.findByChildId(childId);
+    }
 }

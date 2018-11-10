@@ -80,6 +80,11 @@ public class ParentController {
         return consultationService.getAvailableConsultations();
     }
 
+    @GetMapping (value = "/getChildConsultations/{childId}")
+    public List<ConsultationsDto> getChildConsultations(@PathVariable long childId) {
+        return consultationService.getChildConsultations(childId);
+    }
+
     @PostMapping("/bookConsultation")
     public void bookConsultation(@RequestBody @Valid BookConsultationDto consultationDto) {
         consultationService.bookConsultation(consultationDto);
