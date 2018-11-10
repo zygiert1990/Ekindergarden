@@ -3,15 +3,18 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.Remark;
+import ekindergarten.domain.TrustedPerson;
 import ekindergarten.model.RemarkDto;
 import ekindergarten.model.consultation.dto.request.CreateConsultationDto;
 import ekindergarten.service.ChildService;
 import ekindergarten.service.ConsultationService;
 import ekindergarten.service.RemarkService;
 import ekindergarten.utils.CurrentUserProvider;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/rest/teacher")
@@ -42,11 +45,17 @@ public class TeacherController {
         consultationService.deleteById(consId);
     }
 
+    @GetMapping("/getTrustedPerson/{childId}")
+    public Set<TrustedPerson> getTrustedPersonForSpecificChild(@PathVariable long childId) {
+        return childService.getTrustedPeopleForSpecificChild(childId);
+    }
+
+    private String getUserEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @PostMapping(value = "/addConsultation")
     public void addConsultation(@RequestBody CreateConsultationDto consultationDto) {
         consultationService.addConsultation(consultationDto);
     }
-
-
-
 }

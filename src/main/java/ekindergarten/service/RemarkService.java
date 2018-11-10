@@ -58,6 +58,14 @@ public class RemarkService {
                 .collect(Collectors.toList());
     }
 
+    public List<RemarkDto> getChildRemarksWithAuthorNameAndSurname(long id) {
+        return remarkRepository
+                .findByChildId(id)
+                .stream()
+                .map(Remark::mapToRemarkDto)
+                .collect(Collectors.toList());
+    }
+
     public void setAsRead(long id) {
         Remark remark = remarkRepository.findById(id);
         remark.setRead(true);

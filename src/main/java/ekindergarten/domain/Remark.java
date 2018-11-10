@@ -76,6 +76,7 @@ public class Remark {
                 .isRead(remark.isRead())
                 .date(remark.getDate())
                 .comment(remark.getComment())
+                .subject(remark.getSubject())
                 .author(remark.getUser().getName() + " " + remark.getUser().getSurname())
                 .build();
     }

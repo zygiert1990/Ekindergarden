@@ -67,6 +67,11 @@ public class ChildInfoController {
         return childRemarks;
     }
 
+    @GetMapping(value = "/getChildRemarksWithAuthorNameAndSurname/{childId}")
+    public List<RemarkDto> getRemarks(@PathVariable long childId) {
+        return remarkService.getChildRemarksWithAuthorNameAndSurname(childId);
+    }
+
     @GetMapping("/setAsRead/{remarkId}")
     public void setAsRead(@PathVariable long remarkId) {
         remarkService.setAsRead(remarkId);

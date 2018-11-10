@@ -1,10 +1,10 @@
 new Vue({
-    el: '#getTrustedPeople',
+    el: '#getRemarks',
     data: {
         children: [],
-        trustedPeople: [],
         child: {},
-        childId: ''
+        childId: '',
+        remarks: []
     },
     created: function () {
         this.$http.get(window.origin + "/tecza/rest/parent/getAll",
@@ -14,11 +14,11 @@ new Vue({
                 this.children = response.body;
                 this.child = this.children[0];
                 this.childId = this.child.id;
-                this.$http.get(window.origin + "/tecza/rest/parent/getTrustedPerson/" + this.childId,
+                this.$http.get(window.origin + "/tecza/rest/childinfo/getChildRemarksWithAuthorNameAndSurname/" + this.childId,
                     {
                         headers: {'Authorization': $.cookie('token')}
                     }).then(function (response) {
-                        this.trustedPeople = response.body;
+                        this.remarks = response.body.map(mapRemark);
                     },
                     function (error) {
                         console.log(error);
@@ -32,33 +32,26 @@ new Vue({
         getChild: function (child) {
             this.childId = child.id;
             this.child = getSpecificChildById(this.children, this.childId);
-            this.$http.get(window.origin + "/tecza/rest/parent/getTrustedPerson/" + this.childId,
+            this.$http.get(window.origin + "/tecza/rest/childinfo/getChildRemarksWithAuthorNameAndSurname/" + this.childId,
                 {
                     headers: {'Authorization': $.cookie('token')}
                 }).then(function (response) {
-                    this.trustedPeople = response.body;
+                    this.remarks = response.body.map(mapRemark);
                 },
                 function (error) {
                     console.log(error);
                 })
-        },
-        addPerson: function () {
-            var data = {
-                name: $("#name").val(),
-                surname: $("#surname").val(),
-                civilId: $("#civilid").val(),
-                phoneNumber: $("#phone").val()
-            };
-            this.$http.post(window.origin + "/tecza/rest/parent/addTrustedPerson/" + this.childId, data,
-                {
-                    headers: {'Authorization': $.cookie('token')}
-                }).then(function () {
-                    alert("Dodano osobę upoważnioną");
-                    window.location.href = window.origin + "/tecza/child2";
-                },
-                function (error) {
-                    console.log(error);
-                });
         }
     }
 });
+
+function mapRemark(value) {
+    return {
+        author: value.author,
+        comment: value.comment,
+        date: value.date,
+        id: value.id,
+        positive: value.positive === true ? 'pozytywna' : 'negatywna',
+        subject: value.subject
+    }
+}

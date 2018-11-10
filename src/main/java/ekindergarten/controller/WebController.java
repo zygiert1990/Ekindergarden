@@ -65,4 +65,9 @@ public class WebController {
     public String remarksTeacher() {
         return "redirect:remarks_teacher.html";
     }
+
+    @GetMapping(value = "/child2")
+    public String childTrustedPeople() {
+        return "redirect:child2.html";
+    }
 }

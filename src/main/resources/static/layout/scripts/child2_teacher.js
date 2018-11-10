@@ -13,7 +13,16 @@ new Vue({
             }).then(function (response) {
                 this.children = response.body;
                 this.child = this.children[0];
-                this.trustedPeople = this.children[0].trustedPeople;
+                this.childId = this.child.id;
+                this.$http.get(window.origin + "/tecza/rest/teacher/getTrustedPerson/" + this.childId,
+                    {
+                        headers: {'Authorization': $.cookie('token')}
+                    }).then(function (response) {
+                        this.trustedPeople = response.body;
+                    },
+                    function (error) {
+                        console.log(error);
+                    })
             },
             function (error) {
                 console.log(error);
@@ -23,7 +32,15 @@ new Vue({
         getChild: function (child) {
             this.childId = child.id;
             this.child = getSpecificChildById(this.children, this.childId);
-            this.trustedPeople = this.child.trustedPeople;
+            this.$http.get(window.origin + "/tecza/rest/teacher/getTrustedPerson/" + this.childId,
+                {
+                    headers: {'Authorization': $.cookie('token')}
+                }).then(function (response) {
+                    this.trustedPeople = response.body;
+                },
+                function (error) {
+                    console.log(error);
+                })
         }
     }
 });
