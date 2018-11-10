@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @PasswordMatches
 public class UserDto {
 
+    private long id;
+
     @NotNull
     @Size(max = 45)
     @ValidName

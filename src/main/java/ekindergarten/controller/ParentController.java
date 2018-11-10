@@ -2,14 +2,21 @@ package ekindergarten.controller;
 
 import ekindergarten.domain.Child;
 import ekindergarten.domain.TrustedPerson;
+import ekindergarten.model.consultation.dto.ConsultationsDto;
+import ekindergarten.model.consultation.dto.request.BookConsultationDto;
+import ekindergarten.model.consultation.dto.request.CreateConsultationDto;
 import ekindergarten.service.ChildService;
+import ekindergarten.service.ConsultationService;
 import ekindergarten.service.PaymentService;
 import ekindergarten.service.TrustedPersonService;
+import ekindergarten.utils.CurrentUserProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -18,16 +25,18 @@ public class ParentController {
     private final ChildService childService;
     private final TrustedPersonService trustedPersonService;
     private final PaymentService paymentService;
+    private final ConsultationService consultationService;
 
-    public ParentController(ChildService childService, TrustedPersonService trustedPersonService, PaymentService paymentService) {
+    public ParentController(ChildService childService, TrustedPersonService trustedPersonService, PaymentService paymentService, ConsultationService consultationService) {
         this.childService = childService;
         this.trustedPersonService = trustedPersonService;
         this.paymentService = paymentService;
+        this.consultationService = consultationService;
     }
 
     @GetMapping(value = "/getAll")
     public Set<Child> findAllParentChildren() {
-        return childService.findAllParentChildren(getUserEmail());
+        return childService.findAllParentChildren(CurrentUserProvider.provideUserEmail());
     }
 
     @GetMapping(value = "/getChild/{childId}")
@@ -66,8 +75,19 @@ public class ParentController {
         childService.setChildAdditionalInfo(childId, childInfo);
     }
 
-    private String getUserEmail() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    @GetMapping (value = "/getAvailableConsultations")
+    public List<ConsultationsDto> getAvailableConsultations() {
+        return consultationService.getAvailableConsultations();
+    }
+
+    @PostMapping("/bookConsultation")
+    public void bookConsultation(@RequestBody @Valid BookConsultationDto consultationDto) {
+        consultationService.bookConsultation(consultationDto);
+    }
+
+    @PostMapping(value = "/deleteConsultation")
+    public void deleteConsultation(@RequestBody @Valid BookConsultationDto consultationDto) {
+        consultationService.deleteConsultation(consultationDto);
     }
 
 }
