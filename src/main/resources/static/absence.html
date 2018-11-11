@@ -14,8 +14,11 @@ Licence URI: http://www.os-templates.com/template-terms
     <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+            crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="layout/styles/jquery-datepicker.css" rel="stylesheet" type="text/css" media="all">
 
 
@@ -37,8 +40,8 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
                 <ul class="clear">
-                    <li><a href="index.html">Strona główna</a></li>
-                    <li><a href="index.html">Wyloguj się</a></li>
+                    <li><a href="parent.html">Strona główna</a></li>
+                    <li><a href="index.html" onclick="logout()">Wyloguj się</a></li>
 
                 </ul>
             </nav>
@@ -87,13 +90,31 @@ Licence URI: http://www.os-templates.com/template-terms
                 <h1 class="nospace">Nieobecności</h1>
             </div>
 
-            </br>
+            <div id="absence">
+                <select v-on:change="getChildInfo(child)" v-model="child">
+                    <option v-for="child in children" :value="child">
+                        {{child.name}} {{child.surname}}
+                    </option>
+                </select>
+                <br>
+                <button type="button" v-on:click="addAbsence()">Wyślij</button>
+            </div>
 
+            </br>
 
             <div class="scrollable">
 
                 <h2>Zgłoś nieobecność dziecka</h2>
+                <br>
                 <form>
+
+                    <div class="block clear">
+                        <label>Powód nieobecności:</label>
+                        <textarea name="reason" id="reason" cols="25" rows="4"></textarea>
+                    </div>
+
+                    <br>
+
                     <table>
                         <thead>
                         <tr>
@@ -101,7 +122,7 @@ Licence URI: http://www.os-templates.com/template-terms
                             <th>Od:</th>
                             <td>
                                 <div class="jquery-datepicker">
-                                    <input type="text" class="jquery-datepicker__input">
+                                    <input type="text" class="jquery-datepicker__input" id="startAbsence">
                                 </div>
                             </td>
                         </tr>
@@ -109,30 +130,20 @@ Licence URI: http://www.os-templates.com/template-terms
                             <th>Do:</th>
                             <td>
                                 <div class="jquery-datepicker">
-                                    <input type="text" class="jquery-datepicker__input">
+                                    <input type="text" class="jquery-datepicker__input" id="endAbsence">
                                 </div>
                             </td>
                         </tr>
                     </table>
-                    <input type="button" value="Wyślij">
                 </form>
-
 
 
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+            <script type="text/javascript" src="layout/scripts/jquery-datepicker.js"></script>
+            <script type="text/javascript">
+                $('.jquery-datepicker').datepicker();
+            </script>
 
             <!-- ################################################################################################ -->
         </div>
@@ -140,32 +151,6 @@ Licence URI: http://www.os-templates.com/template-terms
         <!-- / main body -->
 
         <div class="clear"></div>
-
-
-
-        <script type="text/javascript" src="layout/scripts/jquery-datepicker.js"></script>
-        <script type="text/javascript">
-    $('.jquery-datepicker').datepicker();
-  </script>
-        <script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
-
-
-
 
 
     </main>
@@ -210,55 +195,16 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- JAVASCRIPTS -->
-
-
-
-
-
-
-
-
-
-
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-</script>
-
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
+<script src="layout/scripts/tecza.js"></script>
+<script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/moment-with-locales.js"></script>
+<script src="layout/scripts/absence.js"></script>
 </body>
 </html>
