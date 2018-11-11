@@ -95,7 +95,8 @@ Licence URI: http://www.os-templates.com/template-terms
                 </select>
 
                 </br>
-                <div id="number1" class="number"><h2>Lista Osób</h2>
+                <h2 v-if="!hasTrustedPeople" style="text-align: center">Brak osób upoważnionych</h2>
+                <div id="number1" class="number" v-if="hasTrustedPeople"><h2>Lista Osób</h2>
                     <table>
                         <thead>
                         <tr>

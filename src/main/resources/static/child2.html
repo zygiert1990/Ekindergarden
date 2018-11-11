@@ -91,8 +91,9 @@ Licence URI: http://www.os-templates.com/template-terms
 
                 </br>
 
-                <h2>Lista Osób</h2>
-                <table>
+                <h2 v-if="!hasTrustedPeople" style="text-align: center">Brak osób upoważnionych</h2>
+                <h2 v-if="hasTrustedPeople">Lista Osób</h2>
+                <table v-if="hasTrustedPeople">
                     <thead>
                     <tr>
                         <th>Zaznacz</th>
@@ -104,7 +105,7 @@ Licence URI: http://www.os-templates.com/template-terms
                     </thead>
                     <tbody>
                     <tr v-for="trustedPerson in trustedPeople">
-                        <td><input type="radio" name="record"></td>
+                        <td><input type="radio" id="record"></td>
                         <td>{{trustedPerson.name}}</td>
                         <td>{{trustedPerson.surname}}</td>
                         <td>{{trustedPerson.civilId}}</td>
@@ -112,7 +113,7 @@ Licence URI: http://www.os-templates.com/template-terms
                     </tr>
                     </tbody>
                 </table>
-                <button type="button" class="delete-row" style="visibility: hidden">Usuń zaznaczone osoby</button>
+                <button type="button" v-if="hasTrustedPeople">Usuń zaznaczone osoby</button>
                 </br>
                 <h2>Dodaj Osobę</h2>
                 <form>

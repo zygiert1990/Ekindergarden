@@ -4,7 +4,8 @@ new Vue({
         children: [],
         trustedPeople: [],
         child: {},
-        childId: ''
+        childId: '',
+        hasTrustedPeople: false
     },
     created: function () {
         this.$http.get(window.origin + "/tecza/rest/parent/getAll",
@@ -19,6 +20,7 @@ new Vue({
                         headers: {'Authorization': $.cookie('token')}
                     }).then(function (response) {
                         this.trustedPeople = response.body;
+                        this.hasTrustedPeople = this.trustedPeople.length !== 0;
                     },
                     function (error) {
                         console.log(error);
@@ -37,6 +39,7 @@ new Vue({
                     headers: {'Authorization': $.cookie('token')}
                 }).then(function (response) {
                     this.trustedPeople = response.body;
+                    this.hasTrustedPeople = this.trustedPeople.length !== 0;
                 },
                 function (error) {
                     console.log(error);
@@ -59,6 +62,18 @@ new Vue({
                 function (error) {
                     console.log(error);
                 });
-        }
+        }/*,
+        deletePerson: function (trustedPersonId) {
+            this.$http.get(window.origin + "/tecza/rest/parent/deleteTrustedPerson/" + this.childId + "/" + trustedPersonId,
+                {
+                    headers: {'Authorization': $.cookie('token')}
+                }).then(function () {
+                    alert("Usunięto osobę upoważnioną");
+                    window.location.href = window.origin + "/tecza/child2";
+                },
+                function (error) {
+                    console.log(error);
+                });
+        }*/
     }
 });

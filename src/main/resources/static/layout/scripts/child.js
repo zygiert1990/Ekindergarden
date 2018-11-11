@@ -36,15 +36,3 @@ new Vue({
         }
     }
 });
-
-function getBirthDateFromPesel(pesel) {
-    var year = parseInt(pesel.substring(0, 2), 10);
-    var month = parseInt(pesel.substring(2, 4), 10) - 20;
-    var day = parseInt(pesel.substring(4, 6), 10);
-    return new Date("20" + year + "-" + month + "-" + day).toLocaleDateString("pl-PL");
-}
-
-function getSexFromPesel(pesel) {
-    var sex = parseInt(pesel.substring(9, 10), 10);
-    return sex % 2 === 1 ? "chłopiec" : "dziewczynka";
-}
