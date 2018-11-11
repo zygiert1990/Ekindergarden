@@ -1,11 +1,11 @@
 new Vue({
-    el: '#getRemarks',
+    el: '#getBalance',
     data: {
         children: [],
         child: {},
         childId: '',
-        remarks: [],
-        hasRemarks: false
+        balance: '',
+        month: ''
     },
     created: function () {
         this.$http.get(window.origin + "/tecza/rest/parent/getAll",
@@ -15,12 +15,12 @@ new Vue({
                 this.children = response.body;
                 this.child = this.children[0];
                 this.childId = this.child.id;
-                this.$http.get(window.origin + "/tecza/rest/childinfo/getChildRemarksWithAuthorNameAndSurname/" + this.childId,
+                this.$http.get(window.origin + "/tecza/rest/parent/getBalance/" + this.childId,
                     {
                         headers: {'Authorization': $.cookie('token')}
                     }).then(function (response) {
-                        this.remarks = response.body.map(mapRemark);
-                        this.hasRemarks = this.remarks.length !== 0;
+                        this.balance = response.body;
+                        this.month = getMonthFromNumber(new Date().getMonth());
                     },
                     function (error) {
                         console.log(error);
@@ -34,12 +34,12 @@ new Vue({
         getChild: function (child) {
             this.childId = child.id;
             this.child = getSpecificChildById(this.children, this.childId);
-            this.$http.get(window.origin + "/tecza/rest/childinfo/getChildRemarksWithAuthorNameAndSurname/" + this.childId,
+            this.$http.get(window.origin + "/tecza/rest/parent/getBalance/" + this.childId,
                 {
                     headers: {'Authorization': $.cookie('token')}
                 }).then(function (response) {
-                    this.remarks = response.body.map(mapRemark);
-                    this.hasRemarks = this.remarks.length !== 0;
+                    this.balance = response.body;
+                    this.month = getMonthFromNumber(new Date().getMonth());
                 },
                 function (error) {
                     console.log(error);
@@ -48,13 +48,31 @@ new Vue({
     }
 });
 
-function mapRemark(value) {
-    return {
-        author: value.author,
-        comment: value.comment,
-        date: value.date,
-        id: value.id,
-        positive: value.positive === true ? 'pozytywna' : 'negatywna',
-        subject: value.subject
+function getMonthFromNumber(number) {
+    switch (number) {
+        case 0:
+            return 'styczeń';
+        case 1:
+            return 'luty';
+        case 2:
+            return 'marzec';
+        case 3:
+            return 'kwiecień';
+        case 4:
+            return 'maj';
+        case 5:
+            return 'czerwiec';
+        case 6:
+            return 'lipiec';
+        case 7:
+            return 'sierpień';
+        case 8:
+            return 'wrzesień';
+        case 9:
+            return 'październik';
+        case 10:
+            return 'listopad';
+        default:
+            return 'grudzień';
     }
 }

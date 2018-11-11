@@ -27,6 +27,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (result) {
                 alert("Rejestracja przebiegła pomyślnie");
+                window.location.href = window.origin + "/tecza/login";
             },
             error: function (e) {
                 showErrors(e);

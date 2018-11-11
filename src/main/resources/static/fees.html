@@ -16,11 +16,10 @@ Licence URI: http://www.os-templates.com/template-terms
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="jquery-datepicker.css">
 
 
 </head>
-<body id="top" onload="getBalance()">
+<body id="top">
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -37,8 +36,8 @@ Licence URI: http://www.os-templates.com/template-terms
 
 
                 <ul class="clear">
-                    <li><a href="index.html">Strona główna</a></li>
-                    <li><a href="index.html">Wyloguj się</a></li>
+                    <li><a href="parent.html">Strona główna</a></li>
+                    <li><a href="index.html" onclick="logout()">Wyloguj się</a></li>
 
                 </ul>
             </nav>
@@ -81,12 +80,19 @@ Licence URI: http://www.os-templates.com/template-terms
         </div>
         <!-- ################################################################################################ -->
         <!-- ################################################################################################ -->
-        <div class="content three_quarter">
+        <div class="content three_quarter" id="getBalance">
             <!-- ################################################################################################ -->
             <div class="btmspace-30 center">
                 <h1 class="nospace">OPŁATY</h1>
             </div>
 
+            <select v-on:change="getChild(child)" v-model="child">
+                <option v-for="child in children" :value="child">
+                    {{child.name}} {{child.surname}}
+                </option>
+            </select>
+
+            <br>
 
             <div class="scrollable">
                 <h1>Opłata za bieżący miesiąc</h1>
@@ -94,11 +100,11 @@ Licence URI: http://www.os-templates.com/template-terms
                 <table>
                     <tr>
                         <th>Obecnie mamy:</th>
-                        <td id="month"></td>
+                        <td>{{month}}</td>
                     </tr>
                     <tr>
                         <th>Opłata za ten miesiąc wynosi:</th>
-                        <td id="balance"></td>
+                        <td>{{balance}}</td>
                     </tr>
                 </table>
 
@@ -106,25 +112,12 @@ Licence URI: http://www.os-templates.com/template-terms
 
             </div>
 
-
-
-
-
-
-
-
             <!-- ################################################################################################ -->
         </div>
         <!-- ################################################################################################ -->
         <!-- / main body -->
 
         <div class="clear"></div>
-        <script type="text/javascript" src="layout/scripts/jquery-datepicker.js"></script>
-        <script type="text/javascript">
-    $('.jquery-datepicker').datepicker();
-  </script>
-
-
 
     </main>
 </div>
@@ -169,56 +162,15 @@ Licence URI: http://www.os-templates.com/template-terms
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- JAVASCRIPTS -->
-
-
-
-
-
-
-
-
-
-
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-</script>
-
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/fees.js"></script>
 </body>
 </html>

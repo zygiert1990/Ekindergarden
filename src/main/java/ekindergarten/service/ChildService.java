@@ -30,7 +30,7 @@ public class ChildService {
     @Transactional
     public Child addChild(final ChildDto childDto) throws RuntimeException {
         if (childRepository.findByPesel(childDto.getPesel()) != null)
-            throw new RuntimeException("Child with this pesel has already added");
+            throw new RuntimeException("Dziecko z tym numerem pesel zostało już dodane");
         else {
             Child childToPersist = Child.builder()
                     .name(childDto.getName())

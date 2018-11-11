@@ -33,7 +33,7 @@ new Vue({
             }
 
             if (startDate.isAfter(endDate)) {
-                alert('Data początku nieobecności nie może późniejsza niż data końca');
+                alert('Data początku nieobecności nie może być późniejsza niż data końca');
             } else {
                 data = [{absenceDate: startDate.format("YYYY-MM-DD"), reason: reason}];
 
