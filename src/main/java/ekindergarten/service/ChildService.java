@@ -32,17 +32,19 @@ public class ChildService {
         if (childRepository.findByPesel(childDto.getPesel()) != null)
             throw new RuntimeException("Dziecko z tym numerem pesel zostało już dodane");
         else {
+            Payment payment = Payment
+                    .builder()
+                    .balance(new BigDecimal(-300.00))
+                    .paymentMonth(LocalDate.now().withDayOfMonth(1))
+                    .build();
             Child childToPersist = Child.builder()
                     .name(childDto.getName())
                     .surname(childDto.getSurname())
                     .pesel(childDto.getPesel())
                     .isActive(true)
-                    .payment(Payment
-                            .builder()
-                            .balance(new BigDecimal(-300.00))
-                            .paymentMonth(LocalDate.now().withDayOfMonth(1))
-                            .build())
+                    .payment(payment)
                     .build();
+            payment.setChild(childToPersist);
             checkIfParentAlreadyExist(childDto.getFirstParentCivilId(), childToPersist);
             if (childDto.getSecondParentCivilId() == null) {
                 return childToPersist;
