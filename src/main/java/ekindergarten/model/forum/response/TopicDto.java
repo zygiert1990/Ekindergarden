@@ -1,6 +1,5 @@
 package ekindergarten.model.forum.response;
 
-import ekindergarten.domain.User;
 import ekindergarten.model.UserDto;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +14,5 @@ public class TopicDto {
     private String content;
     private LocalDate creationDate;
     private UserDto author;
+    private int recentlyAddedComments;
 }

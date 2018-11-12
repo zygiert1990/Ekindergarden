@@ -1,7 +1,9 @@
 package ekindergarten.controller;
 
 import ekindergarten.model.MessageDto;
+import ekindergarten.model.forum.request.CreateCommentRequest;
 import ekindergarten.model.forum.request.CreateTopicRequest;
+import ekindergarten.model.forum.response.GetCommentsResonse;
 import ekindergarten.model.forum.response.TopicDto;
 import ekindergarten.service.TopicService;
 import org.apache.commons.io.IOUtils;
@@ -115,8 +117,18 @@ public class GeneralInformationController {
         topicService.addOrUpdate(createTopicRequest);
     }
 
-    @PostMapping("/deleteTopic/{topicId}")
+    @GetMapping("/deleteTopic/{topicId}")
     public void deleteTopic(@PathVariable long topicId) {
         topicService.deleteTopic(topicId);
+    }
+
+    @GetMapping ("/getComments/{topicId}")
+    public GetCommentsResonse getComments(@PathVariable long topicId) {
+        return topicService.getTopicWithComments(topicId);
+    }
+
+    @PostMapping ("/addComment")
+    public void addComment(@RequestBody CreateCommentRequest request) {
+        topicService.addComment(request);
     }
 }
