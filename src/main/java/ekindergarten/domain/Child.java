@@ -1,6 +1,7 @@
 package ekindergarten.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ekindergarten.domain.childProgress.Progress;
 import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"users", "trustedPeople", "remarks", "payment", "absences"})
+@ToString(exclude = {"users", "trustedPeople", "remarks", "payment", "absences", "progress"})
 public class Child {
 
     @Id
@@ -56,6 +57,10 @@ public class Child {
     @JsonIgnore
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Absence> absences;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "child", orphanRemoval = true)
+    private Set<Progress> progress;
 
     @Override
     public int hashCode() {

@@ -11,4 +11,9 @@ public class TaskGradeDto {
         this.task = task.toString();
         this.grade = grade.toString();
     }
+
+    public TaskGradeDto(String task, String grade) {
+        this.task = task;
+        this.grade = grade;
+    }
 }

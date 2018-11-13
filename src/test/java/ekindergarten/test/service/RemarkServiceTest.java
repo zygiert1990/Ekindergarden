@@ -70,18 +70,20 @@ public class RemarkServiceTest extends BaseJpaTestConfig {
         remarkService.addRemark(createRemarkDto(), EMAIL, child.getId());
         // when
         entityManager.clear();
-        List<RemarkDto> result = remarkService.getChildRemarks(child.getId());
+        List<RemarkDto> result = remarkService.getChildRemarksWithAuthorNameAndSurname(child.getId());
         // then
         assertEquals(result.size(), 1);
         assertEquals(result.get(0).getAuthor(), "Jan Nowak");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void shouldThrowExceptionWhenNoRemarksAreAvailable() {
         // given
         Child child = childService.addChild(createChildDto());
         // when
-        remarkService.getChildRemarks(child.getId());
+        List<RemarkDto> result = remarkService.getChildRemarks(child.getId());
+        // then
+        assertEquals(result.size(), 0);
     }
 
 }

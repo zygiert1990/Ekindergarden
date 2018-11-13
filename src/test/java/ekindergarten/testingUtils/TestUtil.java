@@ -6,14 +6,13 @@ import ekindergarten.domain.Child;
 import ekindergarten.domain.Role;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.User;
-import ekindergarten.model.AbsenceRecordDto;
-import ekindergarten.model.ChildDto;
-import ekindergarten.model.RemarkDto;
-import ekindergarten.model.UserDto;
+import ekindergarten.domain.childProgress.Progress;
+import ekindergarten.model.*;
 import ekindergarten.utils.UserAuthorities;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import static ekindergarten.testingUtils.Constans.*;
 
@@ -104,43 +103,64 @@ public class TestUtil {
                 .build();
     }
 
-//    public static AbsenceRecordDto createAbsenceDtoOneDayLong() {
-//        return AbsenceRecordDto.builder()
-//                .startAbsence(LocalDate.of(2018, 11, 2))
-//                .endAbsence(LocalDate.of(2018, 11, 2))
-//                .reason("some reason")
-//                .build();
-//    }
-//
-//    public static AbsenceRecordDto createAbsenceDtoOneDayLongAtWeekend() {
-//        return AbsenceRecordDto.builder()
-//                .startAbsence(LocalDate.of(2018, 11, 3))
-//                .endAbsence(LocalDate.of(2018, 11, 3))
-//                .reason("some reason")
-//                .build();
-//    }
-//
-//    public static AbsenceRecordDto createAbsenceDtoTwoDaysLongAtWeekend() {
-//        return AbsenceRecordDto.builder()
-//                .startAbsence(LocalDate.of(2018, 11, 3))
-//                .endAbsence(LocalDate.of(2018, 11, 4))
-//                .reason("some reason")
-//                .build();
-//    }
-//
-//    public static AbsenceRecordDto createAbsenceDtoThreeDaysLongWithWeekend() {
-//        return AbsenceRecordDto.builder()
-//                .startAbsence(LocalDate.of(2018, 11, 3))
-//                .endAbsence(LocalDate.of(2018, 11, 5))
-//                .reason("some reason")
-//                .build();
-//    }
-//
-//    public static AbsenceRecordDto createAbsenceDtoThreeDaysLong() {
-//        return AbsenceRecordDto.builder()
-//                .startAbsence(LocalDate.of(2018, 11, 5))
-//                .endAbsence(LocalDate.of(2018, 11, 7))
-//                .reason("some reason")
-//                .build();
-//    }
+    public static List<ekindergarten.domain.childProgress.ProgressCategory> createProgressCategories() {
+        return Arrays.asList(
+                ekindergarten.domain.childProgress.ProgressCategory.builder().progressCategory(ProgressCategory.PHYSICAL.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressCategory.builder().progressCategory(ProgressCategory.MENTAL.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressCategory.builder().progressCategory(ProgressCategory.SOCIAL_AND_MORAL.toString()).build()
+        );
+    }
+
+    public static List<ChildProgressDto> createChildProgressDtos() {
+        return Arrays.asList(
+                new ChildProgressDto(ProgressCategory.PHYSICAL, Arrays.asList(
+                        new TaskGradeDto(ProgressTask.PHYSICAL_1, ProgressGrade.SOMETIMES),
+                        new TaskGradeDto(ProgressTask.PHYSICAL_2, ProgressGrade.NO),
+                        new TaskGradeDto(ProgressTask.PHYSICAL_3, ProgressGrade.YES),
+                        new TaskGradeDto(ProgressTask.PHYSICAL_5, ProgressGrade.YES),
+                        new TaskGradeDto(ProgressTask.PHYSICAL_4, ProgressGrade.SOMETIMES)
+                )),
+                new ChildProgressDto(ProgressCategory.MENTAL, Arrays.asList(
+                        new TaskGradeDto(ProgressTask.MENTAL_1, ProgressGrade.SOMETIMES),
+                        new TaskGradeDto(ProgressTask.MENTAL_2, ProgressGrade.YES),
+                        new TaskGradeDto(ProgressTask.MENTAL_3, ProgressGrade.NO),
+                        new TaskGradeDto(ProgressTask.MENTAL_5, ProgressGrade.NO),
+                        new TaskGradeDto(ProgressTask.MENTAL_4, ProgressGrade.SOMETIMES)
+                )),
+                new ChildProgressDto(ProgressCategory.SOCIAL_AND_MORAL, Arrays.asList(
+                        new TaskGradeDto(ProgressTask.MORAL_1, ProgressGrade.SOMETIMES),
+                        new TaskGradeDto(ProgressTask.MORAL_2, ProgressGrade.YES),
+                        new TaskGradeDto(ProgressTask.MORAL_5, ProgressGrade.YES),
+                        new TaskGradeDto(ProgressTask.MORAL_3, ProgressGrade.NO),
+                        new TaskGradeDto(ProgressTask.MORAL_4, ProgressGrade.NO))));
+    }
+
+    public static List<ekindergarten.domain.childProgress.ProgressGrade> createProgressGrades() {
+        return Arrays.asList(
+                ekindergarten.domain.childProgress.ProgressGrade.builder().progressGrade(ProgressGrade.SOMETIMES.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressGrade.builder().progressGrade(ProgressGrade.YES.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressGrade.builder().progressGrade(ProgressGrade.NO.toString()).build()
+        );
+    }
+
+    public static List<ekindergarten.domain.childProgress.ProgressTask> createProgressTasks() {
+        return Arrays.asList(
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MENTAL_1.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MENTAL_2.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MENTAL_3.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MENTAL_4.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MENTAL_5.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MORAL_1.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MORAL_2.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MORAL_3.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MORAL_4.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.MORAL_5.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.PHYSICAL_1.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.PHYSICAL_2.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.PHYSICAL_3.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.PHYSICAL_4.toString()).build(),
+                ekindergarten.domain.childProgress.ProgressTask.builder().progressTask(ProgressTask.PHYSICAL_5.toString()).build()
+        );
+    }
+
 }

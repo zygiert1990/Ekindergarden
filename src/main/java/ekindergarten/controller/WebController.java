@@ -70,4 +70,9 @@ public class WebController {
     public String childTrustedPeople() {
         return "redirect:child2.html";
     }
+
+    @GetMapping(value = "/observations_teacher")
+    public String observationsTeacher() {
+        return "redirect:observations_teacher.html";
+    }
 }

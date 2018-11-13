@@ -1,9 +1,9 @@
 package ekindergarten.model;
 
 public enum ProgressTask {
-    PHYSICAL_1("Dziecko przejawia następujące działania i umiejętności"),
-    PHYSICAL_2("Wykonuje czynności związane z samoobsługą"),
-    PHYSICAL_3("Samodzielnie ubiera się "),
+    PHYSICAL_1("Wykonuje czynności związane z samoobsługą"),
+    PHYSICAL_2("Samodzielnie ubiera się"),
+    PHYSICAL_3("Prawidłowo trzyma narzędzie do rysowania"),
     PHYSICAL_4("Wycina nożyczkami po linii prostej"),
     PHYSICAL_5("Wykonuje prace plastyczne"),
     MENTAL_1("Opowiada co się dzieje na obrazku"),

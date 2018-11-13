@@ -3,7 +3,8 @@ new Vue({
     data: {
         children: [],
         child: {},
-        childId: {}
+        childId: {},
+        isChildrenChosen: false
     },
     created: function () {
         this.$http.get(window.origin + "/tecza/rest/teacher/getAll",
@@ -20,6 +21,7 @@ new Vue({
         getSpecificChild: function (child) {
             this.childId = child.id;
             this.child = getSpecificChildById(this.children, this.childId);
+            this.isChildrenChosen = true;
         },
         addRemark: function () {
             var data = {
