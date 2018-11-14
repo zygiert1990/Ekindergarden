@@ -25,12 +25,15 @@ public class ConsultationService {
 
     private final ConsultationRepository consultationRepository;
     private final ConsultationHoursRepository consultationHoursRepository;
+    private final IncomingEventService incomingEventService;
 
     public ConsultationService(
             ConsultationRepository consultationRepository,
-            ConsultationHoursRepository consultationHoursRepository) {
+            ConsultationHoursRepository consultationHoursRepository,
+            IncomingEventService incomingEventService) {
         this.consultationRepository = consultationRepository;
         this.consultationHoursRepository = consultationHoursRepository;
+        this.incomingEventService = incomingEventService;
     }
 
     public List<ConsultationsDto> getAvailableConsultations() {
@@ -98,6 +101,8 @@ public class ConsultationService {
         consultationHoursRepository
                 .bookConsultation(consultationDto.getChildId(), consultationDto.getConsultationId(),
                         consultationDto.getHour(), consultationDto.getMin());
+        String comment = "Konsultacje, godz " + String.valueOf(consultationDto.getHour()) + ":" + String.valueOf(consultationDto.getMin());
+        incomingEventService.save(comment, consultationDto.getChildId());
     }
 
     public void deleteConsultation(BookConsultationDto consultationDto) {
