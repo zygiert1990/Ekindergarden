@@ -24,6 +24,8 @@ new Vue({
                     };
 
                     reader.readAsArrayBuffer(imageFromHtml);
+                } else {
+                    data.image = null;
                 }
 
                 this.$http.post(window.origin + "/tecza/rest/teacher/addNews/" + childGroupIds, data,

@@ -74,6 +74,6 @@ function mapNews(value) {
         date: new Date(value.date).toLocaleDateString("pl-PL"),
         content: value.content,
         image: 'data:image/jpeg;base64,' + value.image,
-        hasImage: value.image !== ''
+        hasImage: value.image !== null
     }
 }
