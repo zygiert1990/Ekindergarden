@@ -75,4 +75,9 @@ public class WebController {
     public String observationsTeacher() {
         return "redirect:observations_teacher.html";
     }
+
+    @GetMapping(value = "/news_teacher")
+    public String newsTeacher() {
+        return "redirect:news_teacher.html";
+    }
 }

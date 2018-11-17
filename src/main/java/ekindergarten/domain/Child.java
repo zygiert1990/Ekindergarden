@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"users", "trustedPeople", "remarks", "payment", "absences", "progress"})
+@ToString(exclude = {"childGroup", "users", "trustedPeople", "remarks", "payment", "absences", "progress"})
 public class Child {
 
     @Id
@@ -61,6 +61,10 @@ public class Child {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "child", orphanRemoval = true)
     private Set<Progress> progress;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private ChildGroup childGroup;
 
     @Override
     public int hashCode() {

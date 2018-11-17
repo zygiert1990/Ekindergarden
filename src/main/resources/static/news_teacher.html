@@ -106,44 +106,43 @@ Licence URI: http://www.os-templates.com/template-terms
             <div class="btmspace-30 center">
                 <h1 class="nospace">Aktualności</h1>
             </div>
-			</br>
-			<h6>Wybierz grupę docelową</h6>
-	<div id="mainselection">
-  <select>
-    <option>Wszyscy</option>
-    <option>Maluchy</option>
-    <option>Średniaki</option>
-	<option>Starszaki</option>
+            </br>
+            <h6>Wybierz grupę docelową</h6>
+            <div id="mainselection">
+                <select id="childGroupList">
+                    <option value="1,2,3">Wszyscy</option>
+                    <option value="1">Maluchy</option>
+                    <option value="2">Średniaki</option>
+                    <option value="3">Starszaki</option>
 
-  </select>
-</div>
- <h6>Dodaj wydarzenie</h6>
-        <form action="#" method="post">
-          <div class="one_third first">
-            <label for="name">Temat <span>*</span></label>
-            <input type="text" name="subject" id="subject" value="" size="40" required>
-          </div>
-          <div class="one_third">
+                </select>
+            </div>
+            <h6>Dodaj wydarzenie</h6>
+            <form action="#" method="post" enctype="multipart/form-data">
+                <div class="one_third first">
+                    <label for="name">Temat <span>*</span></label>
+                    <input type="text" name="subject" id="subject" value="" size="40" required>
+                </div>
+                <div class="one_third">
                     <label for="name">Data<span>*</span></label>
                     <input type="date" class="btn inverse" name="date" id="date" value="" size="22" required>
-          </div>
-          <div class="block clear">
-            <label for="comment">Treść Aktualności</label>
-            <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-          </div>
-          <div class="block clear">
+                </div>
+                <div class="block clear">
+                    <label for="comment">Treść Aktualności</label>
+                    <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
+                </div>
+                <div class="block clear">
                     <label for="file">Dodaj zdjęcie</label>
                     <input type="file" name="date" id="myFile" value="" size="22">
-          </div>
+                </div>
 
-          <div>
-            <input type="submit" name="submit" value="Wyślij">
-            &nbsp;
-            <input type="reset" name="reset" value="Wyczyść">
-          </div>
-        </form>
+                <div>
+                    <input type="submit" name="submit" v-on:click.stop.prevent="addNews()" value="Wyślij">
+                    &nbsp;
+                    <input type="reset" name="reset" value="Wyczyść">
+                </div>
+            </form>
             </br>
-
 
 
             <!-- ################################################################################################ -->
@@ -198,5 +197,8 @@ Licence URI: http://www.os-templates.com/template-terms
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/news_teacher.js"></script>
 </body>
 </html>

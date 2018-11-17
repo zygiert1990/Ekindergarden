@@ -2,16 +2,14 @@ package ekindergarten.controller;
 
 
 import ekindergarten.domain.Child;
+import ekindergarten.domain.News;
 import ekindergarten.domain.Remark;
 import ekindergarten.domain.TrustedPerson;
 import ekindergarten.domain.childProgress.Progress;
 import ekindergarten.model.ChildProgressDto;
 import ekindergarten.model.RemarkDto;
 import ekindergarten.model.consultation.request.CreateConsultationDto;
-import ekindergarten.service.ChildService;
-import ekindergarten.service.ConsultationService;
-import ekindergarten.service.ProgressService;
-import ekindergarten.service.RemarkService;
+import ekindergarten.service.*;
 import ekindergarten.utils.CurrentUserProvider;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +24,15 @@ public class TeacherController {
     private final ChildService childService;
     private final ConsultationService consultationService;
     private final ProgressService progressService;
+    private final NewsService newsService;
 
     public TeacherController(RemarkService remarkService, ChildService childService,
-                             ConsultationService consultationService, ProgressService progressService) {
+                             ConsultationService consultationService, ProgressService progressService, NewsService newsService) {
         this.remarkService = remarkService;
         this.childService = childService;
         this.consultationService = consultationService;
         this.progressService = progressService;
+        this.newsService = newsService;
     }
 
     @PostMapping(value = "/addRemark/{childId}")
@@ -63,5 +63,10 @@ public class TeacherController {
     @PostMapping(value = "/addEvaluation/{childId}")
     public List<Progress> addChildProgressRecords(@RequestBody List<ChildProgressDto> childProgressDtos, @PathVariable long childId) {
         return progressService.addChildProgressRecords(childProgressDtos, childId);
+    }
+
+    @PostMapping(value = "/addNews/{groupIds}")
+    public News addNews(@RequestBody News news, @PathVariable Long[] groupIds) {
+        return newsService.addNews(news, CurrentUserProvider.provideUserId(), groupIds);
     }
 }

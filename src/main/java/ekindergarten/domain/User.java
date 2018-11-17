@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"children", "role", "remarks"})
+@ToString(exclude = {"children", "role", "remarks", "news"})
 public class User {
 
     @Id
@@ -49,6 +49,10 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Remark> remarks;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<News> news;
 
     @Override
     public int hashCode() {
