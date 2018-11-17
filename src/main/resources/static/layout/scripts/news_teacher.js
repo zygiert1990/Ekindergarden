@@ -12,7 +12,7 @@ new Vue({
             };
 
             if (data.title === '' || data.date === '' || data.content === '') {
-                alert('Prosimy o uzupełnienie tematu, daty i treści')
+                alert('Prosimy o uzupełnienie pól oznaczonych gwiazdka')
             } else {
                 var imageFromHtml = $("#myFile").get(0).files[0];
 

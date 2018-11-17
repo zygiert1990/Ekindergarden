@@ -29,16 +29,21 @@ new Vue({
                 comment: $("#comment").val(),
                 subject: $("#subject").val()
             };
-            this.$http.post(window.origin + "/tecza/rest/teacher/addRemark/" + this.childId, data,
-                {
-                    headers: {'Authorization': $.cookie('token')}
-                }).then(function () {
-                    alert("Dodano uwagę");
-                    window.location.href = window.origin + "/tecza/remarks_teacher";
-                },
-                function (error) {
-                    console.log(error);
-                });
+
+            if (data.comment === '' || data.subject === '') {
+                alert('Prosze uzupełnić pola oznaczone gwiazdką')
+            } else {
+                this.$http.post(window.origin + "/tecza/rest/teacher/addRemark/" + this.childId, data,
+                    {
+                        headers: {'Authorization': $.cookie('token')}
+                    }).then(function () {
+                        alert("Dodano uwagę");
+                        window.location.href = window.origin + "/tecza/remarks_teacher";
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+            }
         }
     }
 });
