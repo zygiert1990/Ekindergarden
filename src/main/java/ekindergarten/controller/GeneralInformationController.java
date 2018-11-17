@@ -5,6 +5,7 @@ import ekindergarten.model.forum.request.CreateCommentRequest;
 import ekindergarten.model.forum.request.CreateTopicRequest;
 import ekindergarten.model.forum.response.GetCommentsResonse;
 import ekindergarten.model.forum.response.TopicDto;
+import ekindergarten.service.NewsService;
 import ekindergarten.service.TopicService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,11 @@ import java.util.List;
 public class GeneralInformationController {
 
     private final TopicService topicService;
+    private final NewsService newsService;
 
-    public GeneralInformationController(TopicService topicService) {
+    public GeneralInformationController(TopicService topicService, NewsService newsService) {
         this.topicService = topicService;
+        this.newsService = newsService;
     }
 
     private static List<MessageDto> privMassages = new ArrayList<>();
@@ -130,5 +133,15 @@ public class GeneralInformationController {
     @PostMapping ("/addComment")
     public void addComment(@RequestBody CreateCommentRequest request) {
         topicService.addComment(request);
+    }
+
+    @GetMapping(value = "/getAllAnnouncement")
+    public List<MessageDto> getAllAnnouncement() {
+        return newsService.getAllAnnouncement();
+    }
+
+    @GetMapping(value = "/getAllAnnouncementForSpecificGroup/{groupId}")
+    public List<MessageDto> getAllAnnouncementForSpecificGroup(@PathVariable long groupId) {
+        return newsService.getAllAnnouncementForSpecificGroup(groupId);
     }
 }

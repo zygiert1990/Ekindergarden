@@ -1,11 +1,11 @@
 package ekindergarten.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
+@Builder
 @AllArgsConstructor
 public class MessageDto implements Comparable<MessageDto> {
     private final long id;

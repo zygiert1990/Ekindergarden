@@ -29,7 +29,7 @@ Licence URI: http://www.os-templates.com/template-terms
             <nav id="mainav" class="fl_right">
 
                 <ul class="clear">
-                    <li><a href="index.html">Strona główna</a></li>
+                    <li><a href="parent.html">Strona główna</a></li>
                     <li><a class="drop" href="#">Strefa Rodzica</a>
                         <ul>
                             <li><a href="child.html">Moje dziecko</a></li>
@@ -63,7 +63,7 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 
-<div class="wrapper row3">
+<div class="wrapper row3" id="getNews">
 
     <main class="hoc container clear">
 
@@ -74,26 +74,12 @@ Licence URI: http://www.os-templates.com/template-terms
             <h6>Menu</h6>
             <nav class="sdb_holder">
                 <ul>
-                    <li><a href="#">Aktualności</a></li>
+                    <li><a href="#" v-on:click="getAllAnnouncement()">Aktualności</a></li>
                     <ul>
-                        <li><a href="#">Maluchy</a></li>
-                        <li><a href="#">Średniaki</a></li>
-                        <li><a href="#">Starszaki</a></li>
+                        <li><a href="#" v-on:click="getAllAnnouncementForMaluchy()">Maluchy</a></li>
+                        <li><a href="#" v-on:click="getAllAnnouncementForSredniaki()">Średniaki</a></li>
+                        <li><a href="#" v-on:click="getAllAnnouncementForStarszaki()">Starszaki</a></li>
                     </ul>
-                    <li><a href="#">Galeria wydarzeń</a>
-                        <ul>
-                            <li><a href="#">Maluchy</a></li>
-                            <li><a href="#">Średniaki</a></li>
-                            <li><a href="#">Starszaki</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Ogłoszenia</a>
-                        <ul>
-                            <li><a href="#">Maluchy</a></li>
-                            <li><a href="#">Średniaki</a></li>
-                            <li><a href="#">Starszaki</a></li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
 
@@ -108,48 +94,20 @@ Licence URI: http://www.os-templates.com/template-terms
             </div>
 
             </br>
-            <div id="comments">
+            <h1 v-if="!isNewsPresent" style="text-align: center">Brak aktualności do wyświetlenia</h1>
+            <div id="comments" v-if="isNewsPresent">
                 <ul>
-                    <li>
+                    <li v-for="newItem in news">
                         <article>
                             <header>
-                                <figure class="avatar" class="imgl borderedbox inspace-5"><img src="images/library.jpg" alt=""></figure>
+                                <figure v-if="newItem.hasImage" class="avatar" class="imgl borderedbox inspace-5"><img :src="newItem.image" alt=""></figure>
                                 <address>
-                                    <a href="#">Wizyta w Bibliotece</a>
+                                    <a href="#">{{newItem.title}}</a>
                                 </address>
-                                <time datetime="2018-10-18T08:15+00:00">Piątek, 18 Październik 2018</time>
+                                <time datetime="2018-10-18T08:15+00:00">{{newItem.date}}</time>
                             </header>
                             <div class="comcont">
-                                <p>Wycieczki  do  biblioteki  zawsze  są  dla  dzieci  ogromną  frajdą.  Nie  ma  chyba  lepszej  okazji  ku  temu,  aby ,,zaprzyjaźnić''  się  z  książką  i  rozwinąć  ich  zainteresowania  czytelnicze.  Dlatego  w  środę  17 października  MISIAKI odwiedziły  Miejską  Bibliotekę  Publiczną.  Dla  wielu  z  nich  była  to  pierwsza  wizyta  w  miejscu,  gdzie  ,,mieszka  książka''.
-                                    Dzieci  z  ogromnym  zainteresowaniem  zwiedziły  bibliotekę. Poruszając  się  między  regałami  zarówno  w  dziale  dla  dorosłych,  jaki  i  dla  dzieci,  nie  mogły  się  nadziwić,  ile może  na  nich  zmieścić  się  książek.  Dowiedziały  się  również,  co należy  zrobić, aby  stać  się  czytelnikiem  działu  dla dzieci. Dzieciom  bardzo spodobała  się  przygoda  z  książką  w  bibliotece, w  której  można  się  świetnie  bawić  i  sympatycznie  spędzić  czas.</p>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <figure class="avatar"><img src="images/teachersday.jpg" alt=""></figure>
-                                <address>
-                                    <a href="#">Dzień Nauczyciela</a>
-                                </address>
-                                <time datetime="2018-10-12T08:15+00:00">Piątek, 12 Październik 2018</time>
-                            </header>
-                            <div class="comcont">
-                                <p>W piątek 12 października  obchodziliśmy  w  naszym  przedszkolu  DZIEŃ  EDUKACJI  NARODOWEJ,  popularnie  zwanym  DNIEM  NAUCZYCIELA.  Uroczystość  rozpoczęła  zastępca  Pani  Dyrektor, która  przywitała przybyłych  gości,  a  następnie  złożyła najserdeczniejsze  życzenia  wszystkim  byłym  pracownikom  przedszkola  oraz  pracownikom  czynnym  zawodowo.  Następnie  rozpoczął  się  KONCERT  ŻYCZEŃ  dla  wszystkich  zebranych  gości.  W  koncercie  wzięły  udział  dzieci  z  wszystkich  grup  przedszkolnych.  Dzieci  zaprezentowały  swoje  umiejętności  śpiewając,  recytując,  grając  na  instrumentach  muzycznych  i  tańcząc.  Były  piękne  życzenia  oraz  wspaniałe  upominki .</p>
-                            </div>
-                        </article>
-                    </li>
-                    <li>
-                        <article>
-                            <header>
-                                <figure class="avatar"><img src="images/policeman.jpg" alt=""></figure>
-                                <address>
-                                    <a href="#">SPOTKANIE   PRZEDSZKOLAKÓW  Z   POLICJANTAMI </a>
-                                </address>
-                                <time datetime="2018-10-07T08:15+00:00">Środa, 7 Październik 2018</time>
-                            </header>
-                            <div class="comcont">
-                                <p>W  środę  17 października  w  ramach  działań  profilaktycznych  na  rzecz  bezpieczeństwa  najmłodszych,  jedynkowych  przedszkolaków  odwiedzili Policjanci  z  Komendy  Powiatowej  Policji  w  Lęborku  z  Wydziału  Ruchu  Drogowego -  asp. sztab. Magdalena  Zielke  i  mł. asp. Bartłomiej  Świtka. Rozmawiali  z  dziećmi  o  bezpiecznych  zachowaniach  na  drogach,  przypominali, jak  prawidłowo  przechodzić  przez  jezdnię,  jak  korzystać  z  sygnalizacji  świetlnej  oraz  o  korzyści  noszenia  ubrań  i  obuwia  posiadającego  elementy  odblaskowe. Dzieci  z  dużym  zainteresowaniem  wsłuchiwały  się  w  rady  dotyczące  zasad  bezpiecznych  zachowań. Miały  również  możliwość  przećwiczenia  teoretycznej  wiedzy  w  terenie  przechodząc  w  prawidłowy  sposób  przez  przejścia  dla  pieszych  razem  ze  SŁONIKIEM  POPO - maskotką  pomorskich  policjantów. Dzieci  na  widok  słonia  od  razu  miały  uśmiech  na  twarzach  i  wszystkie  chciały  być  jak  najbliżej  niego. </p>
+                                <p>{{newItem.content}}</p>
                             </div>
                         </article>
                     </li>
@@ -211,5 +169,8 @@ Licence URI: http://www.os-templates.com/template-terms
 <script src="layout/scripts/jquery.flexslider-min.js"></script>
 <script src="layout/scripts/tecza.js"></script>
 <script src="layout/scripts/jquery.cookie.js"></script>
+<script src="layout/scripts/vue.js"></script>
+<script src="layout/scripts/vue-resources.js"></script>
+<script src="layout/scripts/news.js"></script>
 </body>
 </html>

@@ -27,6 +27,7 @@ public class News {
 
     private LocalDate date;
 
+    @Column(length = 1000)
     private String content;
 
     @Lob
