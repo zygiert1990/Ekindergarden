@@ -5,7 +5,7 @@ new Vue({
         isNewsPresent: false
     },
     created: function () {
-        this.$http.get(window.origin + "/tecza/rest/news/getAllAnnouncement",
+        this.$http.get(window.origin + "/tecza/rest/news/getAnnouncement",
             {
                 headers: {'Authorization': $.cookie('token')}
             }).then(function (response) {
@@ -18,7 +18,7 @@ new Vue({
     },
     methods: {
         getAllAnnouncement: function () {
-            this.$http.get(window.origin + "/tecza/rest/news/getAllAnnouncement",
+            this.$http.get(window.origin + "/tecza/rest/news/getAnnouncement",
                 {
                     headers: {'Authorization': $.cookie('token')}
                 }).then(function (response) {
