@@ -5,7 +5,8 @@ new Vue({
         trustedPeople: [],
         child: {},
         childId: '',
-        hasTrustedPeople: false
+        hasTrustedPeople: false,
+        trustedPersonId: ''
     },
     created: function () {
         this.$http.get(window.origin + "/tecza/rest/parent/getAll",
@@ -62,18 +63,31 @@ new Vue({
                 function (error) {
                     console.log(error);
                 });
-        }/*,
-        deletePerson: function (trustedPersonId) {
-            this.$http.get(window.origin + "/tecza/rest/parent/deleteTrustedPerson/" + this.childId + "/" + trustedPersonId,
-                {
-                    headers: {'Authorization': $.cookie('token')}
-                }).then(function () {
-                    alert("Usunięto osobę upoważnioną");
-                    window.location.href = window.origin + "/tecza/child2";
-                },
-                function (error) {
-                    console.log(error);
-                });
-        }*/
+        },
+        getId: function (id) {
+            var tmpId = '';
+            $('input[type="radio"]').each(function (element) {
+                if ($(this).is(':checked')) {
+                    tmpId = id;
+                }
+            });
+            this.trustedPersonId = tmpId;
+        },
+        deletePerson: function () {
+            if (this.trustedPersonId === '') {
+                alert('Nie wybrano żadnej osoby');
+            } else {
+                this.$http.get(window.origin + "/tecza/rest/parent/deleteTrustedPerson/" + this.childId + "/" + this.trustedPersonId,
+                    {
+                        headers: {'Authorization': $.cookie('token')}
+                    }).then(function () {
+                        alert("Usunięto osobę upoważnioną");
+                        window.location.href = window.origin + "/tecza/child2";
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
+            }
+        }
     }
 });

@@ -101,28 +101,30 @@ Licence URI: http://www.os-templates.com/template-terms
                 </br>
 
                 <h2 v-if="!hasTrustedPeople" style="text-align: center">Brak osób upoważnionych</h2>
-                <h2 v-if="hasTrustedPeople">Lista Osób</h2>
-                <table v-if="hasTrustedPeople">
-                    <thead>
-                    <tr>
-                        <th>Zaznacz</th>
-                        <th>Imię</th>
-                        <th>Nazwisko</th>
-                        <th>Nr Dowodu</th>
-                        <th>Telefon</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="trustedPerson in trustedPeople">
-                        <td><input type="radio" id="record"></td>
-                        <td>{{trustedPerson.name}}</td>
-                        <td>{{trustedPerson.surname}}</td>
-                        <td>{{trustedPerson.civilId}}</td>
-                        <td>{{trustedPerson.phoneNumber}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <button type="button" v-if="hasTrustedPeople">Usuń zaznaczone osoby</button>
+                <div v-if="hasTrustedPeople">
+                    <h2>Lista Osób</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Zaznacz</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Nr Dowodu</th>
+                            <th>Telefon</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="trustedPerson in trustedPeople">
+                            <td><input type="radio" v-on:click="getId(trustedPerson.id)" name="record"></td>
+                            <td>{{trustedPerson.name}}</td>
+                            <td>{{trustedPerson.surname}}</td>
+                            <td>{{trustedPerson.civilId}}</td>
+                            <td>{{trustedPerson.phoneNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" v-on:click="deletePerson()">Usuń zaznaczone osoby</button>
+                </div>
                 </br>
                 <h2>Dodaj Osobę</h2>
                 <form>
