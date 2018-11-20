@@ -31,8 +31,8 @@ public class ChildInfoController {
     }
 
     @PostMapping(value = "/addAbsenceRecord/{childId}")
-    public void addOrUpdateAbsence(@RequestBody List<AbsenceRecordDto> absenceRecordDto, @PathVariable long childId) {
-        absenceService.addOrUpdateAbsence(absenceRecordDto, childId);
+    public List<Absence> addOrUpdateAbsence(@RequestBody List<AbsenceRecordDto> absenceRecordDto, @PathVariable long childId) {
+        return absenceService.addOrUpdateAbsence(absenceRecordDto, childId);
     }
 
     @GetMapping("/deleteAbsenceRecord/{absenceIds}/{childId}")

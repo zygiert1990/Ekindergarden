@@ -30,7 +30,7 @@ public class AbsenceService {
 
     public List<Absence> getChildAbsences(long id) { return absenceRepository.findByChildId(id); }
 
-    public void addOrUpdateAbsence(List<AbsenceRecordDto> absenceRecordDto, long childId) {
+    public List<Absence> addOrUpdateAbsence(List<AbsenceRecordDto> absenceRecordDto, long childId) {
         List<Absence> absences = absenceRepository.saveAll(absenceRecordDto
                 .stream()
                 .filter(absence -> absence.getAbsenceDate().isAfter(LocalDate.now()))
@@ -48,6 +48,8 @@ public class AbsenceService {
                 .collect(Collectors.toList()));
 
         paymentService.updateChildBalance(childId , -(absences.size() - getAbsencesNumberToUpdate(absenceRecordDto)));
+
+        return absences;
     }
 
     private int getAbsencesNumberToUpdate(List<AbsenceRecordDto> absenceRecordDto) {

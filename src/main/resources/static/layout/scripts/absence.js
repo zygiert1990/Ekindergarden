@@ -45,10 +45,15 @@ new Vue({
                     {
                         headers: {'Authorization': $.cookie('token')}
                     }).then(function (result) {
-                        window.location.href = window.origin + "/tecza/absence";
+                        if (result.body.length > 0) {
+                            alert('Dodano nieobecność');
+                            window.location.href = window.origin + "/tecza/absence";
+                        } else {
+                            alert('Przepraszamy nie ma możliwości zgłaszania nieobecności ze wsteczną datą, bądź podali Państwo wyłącznie dni wolne od zajęć');
+                        }
                     },
-                    function (error) {
-                        console.log(error);
+                    function () {
+                        alert('Zgłoszono już nieobecność w tych dniach');
                     });
             }
 
